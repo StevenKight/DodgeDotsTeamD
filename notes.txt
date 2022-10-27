@@ -1,0 +1,9 @@
+﻿Minor problems:
+
+I made a public getter for the dots in the DotManger. I do not know if we want to keep this field private or not.
+
+I made two timers with the GameManager, just so it will be easier to tell the Survival Time, and new wave interval time.
+
+When setting the color for the East and West dots, I call the method in every tick. I did this because
+when I tried to set the color only when a new dot was created, it changes the color a late, and the first
+color was visible for a moment.

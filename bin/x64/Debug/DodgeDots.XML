@@ -1,0 +1,633 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DodgeDots</name>
+    </assembly>
+    <members>
+        <member name="T:DodgeDots.App">
+            <summary>
+                Provides application-specific behavior to supplement the default Application class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.App.#ctor">
+            <summary>
+                Initializes the singleton application object.  This is the first line of authored code
+                executed, and as such is the logical equivalent of main() or WinMain().
+            </summary>
+        </member>
+        <member name="M:DodgeDots.App.OnLaunched(Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)">
+            <summary>
+                Invoked when the application is launched normally by the end user.  Other entry points
+                will be used such as when the application is launched to open a specific file.
+            </summary>
+            <param name="e">Details about the launch request and process.</param>
+        </member>
+        <member name="M:DodgeDots.App.OnNavigationFailed(System.Object,Windows.UI.Xaml.Navigation.NavigationFailedEventArgs)">
+            <summary>
+                Invoked when Navigation to a certain page fails
+            </summary>
+            <param name="sender">The Frame which failed navigation</param>
+            <param name="e">Details about the navigation failure</param>
+        </member>
+        <member name="M:DodgeDots.App.OnSuspending(System.Object,Windows.ApplicationModel.SuspendingEventArgs)">
+            <summary>
+                Invoked when application execution is being suspended.  Application state is saved
+                without knowing whether the application will be terminated or resumed with the contents
+                of memory still intact.
+            </summary>
+            <param name="sender">The source of the suspend request.</param>
+            <param name="e">Details about the suspend request.</param>
+        </member>
+        <member name="M:DodgeDots.App.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.App.GetXamlType(System.Type)">
+            <summary>
+            GetXamlType(Type)
+            </summary>
+        </member>
+        <member name="M:DodgeDots.App.GetXamlType(System.String)">
+            <summary>
+            GetXamlType(String)
+            </summary>
+        </member>
+        <member name="M:DodgeDots.App.GetXmlnsDefinitions">
+            <summary>
+            GetXmlnsDefinitions()
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.Dot">
+            <summary>
+                Manages the dot
+            </summary>
+            <seealso cref="T:DodgeDots.Model.GameObject" />
+        </member>
+        <member name="M:DodgeDots.Model.Dot.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.Dot" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Dot.SetDotSpeedToFinalBlitzSpeed">
+            <summary>
+                Sets the dot speed to SpeedMultiplier times the original dot speed.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Dot.SetDotSpeedToOriginalSpeed">
+            <summary>
+                Sets the dot speed to the original dot speed.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.DotManager">
+            <summary>
+                Manages the dots in a game.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Direction)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.DotManager" /> class.
+                Precondition: None
+                Post-condition: dots list is created, and tick is setup
+            </summary>
+            <param name="background">The background.</param>
+            <param name="direction">The direction.</param>
+        </member>
+        <member name="M:DodgeDots.Model.DotManager.GetEnumerator">
+            <summary>
+                Ability to iterate through the collection of dots.
+            </summary>
+            <returns> an enumerator that iterates through the collection of dots </returns>
+        </member>
+        <member name="M:DodgeDots.Model.DotManager.StopDotManager">
+            <summary>
+                Stops the dots from running.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.DotManager.ToggleFinalBlitz">
+            <summary>
+                Toggles the final blitz settings.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager">
+            <summary>
+                Manages the entire game.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.GameLostHandler">
+            <summary>
+                A delegate for losing the game.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.GameTimeHandler">
+            <summary>
+                A delegate for the countdown
+            </summary>
+            <param name="countDownNumber">The count down number.</param>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.GameWonHandler">
+            <summary>
+                A delegate for winning the game.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.#ctor(DodgeDots.Model.Player)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
+                Precondition: backgroundHeight > 0 AND backgroundWidth > 0
+            </summary>
+            <param name="player">The player dot in the game</param>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.GameTimeUpdated">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.GameWon">
+            <summary>
+                Occurs when [game won].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.GameLost">
+            <summary>
+                Occurs when [game lost].
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.InitializeGame(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+                Initializes the game placing player in the game
+                Precondition: background != null
+                Post-condition: Game is initialized and ready for play.
+            </summary>
+            <param name="background">The background canvas.</param>
+        </member>
+        <member name="T:DodgeDots.Model.GameObject">
+            <summary>
+                Defines basics of every game object.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.X">
+            <summary>
+                Gets or sets the x location of the game object.
+            </summary>
+            <value>
+                The x.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.Y">
+            <summary>
+                Gets or sets the y location of the game object.
+            </summary>
+            <value>
+                The y.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.SpeedX">
+            <summary>
+                Gets the x speed of the game object.
+            </summary>
+            <value>
+                The speed x.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.SpeedY">
+            <summary>
+                Gets the y speed of the game object.
+            </summary>
+            <value>
+                The speed y.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.Width">
+            <summary>
+                Gets the width of the game object.
+            </summary>
+            <value>
+                The width.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.Height">
+            <summary>
+                Gets the height of the game object.
+            </summary>
+            <value>
+                The height.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameObject.Sprite">
+            <summary>
+                Gets or sets the sprite associated with the game object.
+            </summary>
+            <value>
+                The sprite.
+            </value>
+        </member>
+        <member name="M:DodgeDots.Model.GameObject.MoveRight">
+            <summary>
+                Moves the game object right.
+                Precondition: None
+                Post-condition: X == X@prev + SpeedX
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameObject.MoveLeft">
+            <summary>
+                Moves the game object left.
+                Precondition: None
+                Post-condition: X == X@prev + SpeedX
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameObject.MoveUp">
+            <summary>
+                Moves the game object up.
+                Precondition: None
+                Post-condition: Y == Y@prev - SpeedY
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameObject.MoveDown">
+            <summary>
+                Moves the game object down.
+                Precondition: None
+                Post-condition: Y == Y@prev + SpeedY
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameObject.SetSpeed(System.Int32,System.Int32)">
+            <summary>
+                Sets the speed of the game object.
+                Precondition: speedX >= 0 AND speedY >=0
+                Post-condition: SpeedX == speedX AND SpeedY == speedY
+            </summary>
+            <param name="speedX">The speed x.</param>
+            <param name="speedY">The speed y.</param>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings">
+            <summary>
+                Holds the settings used in the game
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings.Direction">
+            <summary>
+                Direction Enumeration used to determine movement direction
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Direction.Down">
+            <summary>
+                The Down Direction Enum
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Direction.Left">
+            <summary>
+                The Left Direction Enum
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Direction.Right">
+            <summary>
+                The Right Direction Enum
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Direction.Up">
+            <summary>
+                The Up direction Enum
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.GameSurvivalTime">
+            <summary>
+                The game survival time
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.GameSettings.PrimaryDotColor">
+            <summary>
+                Gets the primary dot color.
+            </summary>
+            <value>
+                The primary dot color.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameSettings.SecondaryDotColor">
+            <summary>
+                Gets the secondary dot color.
+            </summary>
+            <value>
+                The secondary dot color.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.GameSettings.FinalBlitzDotColor">
+            <summary>
+                Gets the final blitz dot color.
+            </summary>
+            <value>
+                The final blitz dot color.
+            </value>
+        </member>
+        <member name="T:DodgeDots.Model.Player">
+            <summary>
+                Manages the player.
+            </summary>
+            <seealso cref="T:DodgeDots.Model.GameObject" />
+        </member>
+        <member name="M:DodgeDots.Model.Player.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.Player" /> class.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.PlayerDotManager">
+            <summary>
+                Manages the Player Dot in the game.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.PlayerDotManager.PlayerDot">
+            <summary>
+                Gets the player dot.
+            </summary>
+            <value>
+                The player dot.
+            </value>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.PlayerDotManager" /> class.
+            </summary>
+            <param name="background">The background.</param>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerLeft">
+            <summary>
+                Moves the player to the left, if player is not a the left border.
+                Precondition: none
+                Post-condition: The player has moved left.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerRight">
+            <summary>
+                Moves the player to the right only if the player is not at the right-side border.
+                Precondition: none
+                Post-condition: The player has moved right.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerUp">
+            <summary>
+                Moves the player up, only if player is not at the top-side border.
+                Precondition: none
+                Post-condition: The player has moved up.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerDown">
+            <summary>
+                Moves the player down, only if player is not at the bottom-side border.
+                Precondition: none
+                Post-condition: The player has moved down.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.WaveManager">
+            <summary>
+                Manages all the waves of dots in the game
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.Player)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.WaveManager" /> class.
+            </summary>
+            <param name="background">The background.</param>
+            <param name="player">The player.</param>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StartWaveDownMoveDirection">
+            <summary>
+                Starts a new wave that moves newly populated dots
+                from the top of the screen to the bottom of the screen.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StartWaveRightMoveDirection">
+            <summary>
+                Starts a new wave that moves newly populated dots
+                from the left of the screen to the right of the screen.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StartWaveUpMoveDirection">
+            <summary>
+                Starts a new wave that moves newly populated dots
+                from the bottom of the screen to the top of the screen.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StartWaveLeftMoveDirection">
+            <summary>
+                Starts a new wave that moves newly populated dots
+                from the right of the screen to the left of the screen.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StartFinalBlitzWave">
+            <summary>
+                Starts the final blitz wave
+                with new dots attacking simultaneously from the top and bottom.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.HasPlayerHitADot">
+            <summary>
+                Checks if the player hits any dot in the game.
+            </summary>
+            <returns> true if player hits a dot, false otherwise </returns>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.StopAllActiveDotManagers">
+            <summary>
+                Stops all active dot managers.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.MainPage">
+            <summary>
+                The main page for the game.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.View.MainPage.ApplicationHeight">
+            <summary>
+                The application height
+            </summary>
+        </member>
+        <member name="F:DodgeDots.View.MainPage.ApplicationWidth">
+            <summary>
+                The application width
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.MainPage.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.MainPage" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.MainPage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.MainPage.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.MainPage.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.BaseSprite">
+            <summary>
+                Holds common functionality for all game sprites.
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+        </member>
+        <member name="M:DodgeDots.View.Sprites.BaseSprite.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.BaseSprite" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.BaseSprite.RenderAt(System.Double,System.Double)">
+            <summary>
+            Renders user control at the specified (x,y) location in relation
+            to the top, left part of the canvas.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.BaseSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.BaseSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.BaseSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.DotSprite">
+            <summary>
+                Draws a enemy Dot object
+            </summary>
+            <seealso cref="T:DodgeDots.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="P:DodgeDots.View.Sprites.DotSprite.DotColor">
+            <summary>
+                Gets the color of the dot sprite.
+            </summary>
+            <value>
+                The color of the dot sprite.
+            </value>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.DotSprite" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToPrimary">
+            <summary>
+                Changes the dot sprite color to primary color.
+                Precondition: none
+                Post-condition: DotSprite Fill set to the primary color
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToSecondary">
+            <summary>
+                Changes the dot sprite color to secondary.
+                Precondition: none
+                Post-condition: DotSprite Fill set to the secondary color
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToFinalBlitzColor">
+            <summary>
+                Changes the dot sprite color to final blitz color.
+                Precondition: none
+                Post-condition: DotSprite Fill set to the final blitz color
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.ISpriteRenderer">
+            <summary>
+                Interface to render a sprite. This interface is needed within every sprite
+                that is associated with a game object.
+                The interface is to be implemented in the sprite class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.ISpriteRenderer.RenderAt(System.Double,System.Double)">
+            <summary>
+                Renders the sprite at the specified location.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.PlayerSprite">
+            <summary>
+                Draws the play object.
+            </summary>
+            <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
+        </member>
+        <member name="P:DodgeDots.View.Sprites.PlayerSprite.OuterCircleColor">
+            <summary>
+                Gets the color of the outer circle of the player sprite.
+            </summary>
+            <value>
+                The color of the outer circle of the player sprite.
+            </value>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.PlayerSprite" /> class.
+                Precondition: none
+                Post-condition: Sprite created.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Program">
+            <summary>
+            Program class
+            </summary>
+        </member>
+        <member name="T:DodgeDots.DodgeDots_XamlTypeInfo.XamlMetaDataProvider">
+            <summary>
+            Main class for providing metadata for the app or library
+            </summary>
+        </member>
+        <member name="M:DodgeDots.DodgeDots_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.Type)">
+            <summary>
+            GetXamlType(Type)
+            </summary>
+        </member>
+        <member name="M:DodgeDots.DodgeDots_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.String)">
+            <summary>
+            GetXamlType(String)
+            </summary>
+        </member>
+        <member name="M:DodgeDots.DodgeDots_XamlTypeInfo.XamlMetaDataProvider.GetXmlnsDefinitions">
+            <summary>
+            GetXmlnsDefinitions()
+            </summary>
+        </member>
+    </members>
+</doc>
