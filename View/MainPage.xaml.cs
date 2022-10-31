@@ -19,12 +19,12 @@ namespace DodgeDots.View
         /// <summary>
         ///     The application height
         /// </summary>
-        public const double ApplicationHeight = 400;
+        public const double ApplicationHeight = 450;
 
         /// <summary>
         ///     The application width
         /// </summary>
-        public const double ApplicationWidth = 400;
+        public const double ApplicationWidth = 450;
 
         private readonly PlayerDotManager playerManager;
 
@@ -45,12 +45,17 @@ namespace DodgeDots.View
         {
             this.InitializeComponent();
 
+            this.canvas.Width = ApplicationWidth;
+            this.countdown.Width = ApplicationWidth - 5;
+            this.gameOverTextBlock.Width = ApplicationWidth;
+
             ApplicationView.PreferredLaunchViewSize = new Size { Width = ApplicationWidth, Height = ApplicationHeight };
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(ApplicationWidth, ApplicationHeight));
             this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
             this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
             this.gameOverTextBlock.Visibility = Visibility.Collapsed;
+            this.canvas.Height = ApplicationHeight;
 
             this.playerManager = new PlayerDotManager(this.canvas);
             this.Player.SetOuterColor(GameSettings.PrimaryDotColor);

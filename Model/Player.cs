@@ -1,7 +1,4 @@
-﻿using Windows.System;
-using Windows.UI;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
+﻿using Windows.UI;
 using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
@@ -48,7 +45,6 @@ namespace DodgeDots.Model
         {
             Sprite = new PlayerSprite();
             SetSpeed(SpeedXDirection, SpeedYDirection);
-            Window.Current.CoreWindow.KeyDown += this.coreWindowOnKeyDown;
         }
 
         #endregion
@@ -77,27 +73,40 @@ namespace DodgeDots.Model
             this.InnerColor = color;
         }
 
-        private void coreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
+        /// <summary>
+        ///     Moves the player left.
+        /// </summary>
+        public void MoveLeft()
         {
-            switch (args.VirtualKey)
-            {
-                case VirtualKey.Left:
-                    SetSpeed(-1 * SpeedXDirection, 0);
-                    Move();
-                    break;
-                case VirtualKey.Right:
-                    SetSpeed(SpeedXDirection, 0);
-                    Move();
-                    break;
-                case VirtualKey.Up:
-                    SetSpeed(0, -1 * SpeedYDirection);
-                    Move();
-                    break;
-                case VirtualKey.Down:
-                    SetSpeed(0, SpeedYDirection);
-                    Move();
-                    break;
-            }
+            SetSpeed(-1 * SpeedXDirection, 0);
+            Move();
+        }
+
+        /// <summary>
+        ///     Moves the player right.
+        /// </summary>
+        public void MoveRight()
+        {
+            SetSpeed(SpeedXDirection, 0);
+            Move();
+        }
+
+        /// <summary>
+        ///     Moves the player up.
+        /// </summary>
+        public void MoveUp()
+        {
+            SetSpeed(0, -1 * SpeedYDirection);
+            Move();
+        }
+
+        /// <summary>
+        ///     Moves the player down.
+        /// </summary>
+        public void MoveDown()
+        {
+            SetSpeed(0, SpeedYDirection);
+            Move();
         }
 
         #endregion

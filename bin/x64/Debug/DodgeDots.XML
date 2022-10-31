@@ -373,6 +373,26 @@
             </summary>
             <param name="color">The color.</param>
         </member>
+        <member name="M:DodgeDots.Model.Player.MoveLeft">
+            <summary>
+                Moves the player left.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Player.MoveRight">
+            <summary>
+                Moves the player right.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Player.MoveUp">
+            <summary>
+                Moves the player up.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Player.MoveDown">
+            <summary>
+                Moves the player down.
+            </summary>
+        </member>
         <member name="T:DodgeDots.Model.PlayerDotManager">
             <summary>
                 Manages the Player Dot in the game.

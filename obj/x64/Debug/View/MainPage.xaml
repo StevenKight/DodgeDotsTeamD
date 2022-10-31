@@ -8,8 +8,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Canvas x:ConnectionId='2' x:Name="canvas" Width="400" Height="400" Background ="Black">
-        <TextBlock x:ConnectionId='3' x:Name="gameOverTextBlock" Canvas.Left="33" TextWrapping="Wrap" Text="GAME OVER" Canvas.Top="160" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="335" Canvas.ZIndex="2"/>
-        <TextBlock x:ConnectionId='4' x:Name="countdown" Canvas.Left="361" TextWrapping="Wrap" Text="25" Canvas.Top="10" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="29" FontStyle="Normal" TextAlignment="Center" VerticalAlignment="Bottom" Canvas.ZIndex="3"/>
+        <TextBlock x:ConnectionId='3' x:Name="gameOverTextBlock" TextWrapping="Wrap" Text="GAME OVER" Canvas.Top="160" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
+        <TextBlock x:ConnectionId='4' x:Name="countdown" TextWrapping="Wrap" Text="25" Canvas.Top="10" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Right" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Left"/>
 
 
     </Canvas>

@@ -61,6 +61,7 @@ namespace DodgeDots.Model
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            this.playerKeyDownMovement(args);
             if (args.VirtualKey == VirtualKey.Space && this.ColorSwapLevel == 1)
             {
                 switch (this.outsideColorIndex)
@@ -76,6 +77,42 @@ namespace DodgeDots.Model
                         this.outsideColorIndex = 0;
                         break;
                 }
+            }
+        }
+
+        private void playerKeyDownMovement(KeyEventArgs args)
+        {
+            switch (args.VirtualKey)
+            {
+                case VirtualKey.Left:
+                    if (this.PlayerDot.X - this.PlayerDot.SpeedX >= 0)
+                    {
+                        this.PlayerDot.MoveLeft();
+                    }
+
+                    break;
+                case VirtualKey.Right:
+                    if (this.PlayerDot.X + this.PlayerDot.SpeedX <= this.backgroundCanvas.Width - this.PlayerDot.Width)
+                    {
+                        this.PlayerDot.MoveRight();
+                    }
+
+                    break;
+                case VirtualKey.Up:
+                    if (this.PlayerDot.Y - this.PlayerDot.SpeedY >= 0)
+                    {
+                        this.PlayerDot.MoveUp();
+                    }
+
+                    break;
+                case VirtualKey.Down:
+                    if (this.PlayerDot.Y + this.PlayerDot.SpeedY <=
+                        this.backgroundCanvas.Height - this.PlayerDot.Height)
+                    {
+                        this.PlayerDot.MoveDown();
+                    }
+
+                    break;
             }
         }
 
