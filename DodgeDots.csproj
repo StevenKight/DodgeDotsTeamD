@@ -121,6 +121,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Dot.cs" />
+    <Compile Include="Model\DotFactory.cs" />
     <Compile Include="Model\DotManager.cs" />
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameObject.cs" />

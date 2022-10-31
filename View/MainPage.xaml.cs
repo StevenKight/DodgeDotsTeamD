@@ -1,7 +1,5 @@
 ﻿using Windows.Foundation;
-using Windows.System;
 using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -54,9 +52,9 @@ namespace DodgeDots.View
             this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
             this.gameOverTextBlock.Visibility = Visibility.Collapsed;
 
-            Window.Current.CoreWindow.KeyDown += this.coreWindowOnKeyDown;
-
             this.playerManager = new PlayerDotManager(this.canvas);
+            this.Player.SetOuterColor(GameSettings.PrimaryDotColor);
+            this.Player.SetInnerColor(GameSettings.SecondaryDotColor);
             var gameManager = new GameManager(this.Player);
             gameManager.InitializeGame(this.canvas);
             gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
@@ -106,25 +104,6 @@ namespace DodgeDots.View
             else
             {
                 this.countdown.Foreground = new SolidColorBrush(Colors.Red);
-            }
-        }
-
-        private void coreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
-        {
-            switch (args.VirtualKey)
-            {
-                case VirtualKey.Left:
-                    this.playerManager.MovePlayerLeft();
-                    break;
-                case VirtualKey.Right:
-                    this.playerManager.MovePlayerRight();
-                    break;
-                case VirtualKey.Up:
-                    this.playerManager.MovePlayerUp();
-                    break;
-                case VirtualKey.Down:
-                    this.playerManager.MovePlayerDown();
-                    break;
             }
         }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\csuser\\Desktop\\DodgeDots\\DodgeDots.csproj": {}
+    "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj": {}
   },
   "projects": {
-    "C:\\Users\\csuser\\Desktop\\DodgeDots\\DodgeDots.csproj": {
+    "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\csuser\\Desktop\\DodgeDots\\DodgeDots.csproj",
+        "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj",
         "projectName": "DodgeDots",
-        "projectPath": "C:\\Users\\csuser\\Desktop\\DodgeDots\\DodgeDots.csproj",
-        "packagesPath": "C:\\Users\\csuser\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\csuser\\Desktop\\DodgeDots\\obj\\",
+        "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj",
+        "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,7 +19,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\csuser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\victo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

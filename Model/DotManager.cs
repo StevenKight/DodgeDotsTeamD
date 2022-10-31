@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
 {
@@ -18,7 +17,8 @@ namespace DodgeDots.Model
         private readonly IList<Dot> dots;
         private readonly Canvas canvas;
         private readonly GameSettings.Direction direction;
-        private bool isFinalBlitz;
+        private readonly GameSettings.DotType type;
+        private readonly DotFactory dotFactory;
 
         private readonly DispatcherTimer timer;
         private int tickCount;
@@ -35,12 +35,15 @@ namespace DodgeDots.Model
         /// </summary>
         /// <param name="background">The background.</param>
         /// <param name="direction">The direction.</param>
-        public DotManager(Canvas background, GameSettings.Direction direction)
+        /// <param name="type">The type of dot.</param>
+        public DotManager(Canvas background, GameSettings.Direction direction, GameSettings.DotType type)
         {
             this.dots = new List<Dot>();
+            this.dotFactory = new DotFactory();
             this.canvas = background;
             this.direction = direction;
-            this.isFinalBlitz = false;
+            this.type = type;
+
             this.tickCount = 0;
             this.randomSpawnTick = 0;
             this.timer = new DispatcherTimer();
@@ -96,41 +99,10 @@ namespace DodgeDots.Model
 
         private void createDot()
         {
-            var dot = new Dot();
-            var dotSprite = (DotSprite)dot.Sprite;
-            if (this.isFinalBlitz)
-            {
-                dot.SetDotSpeedToFinalBlitzSpeed();
-            }
-
-            this.setDotColor(dotSprite);
+            var dot = this.dotFactory.CreateDot(this.type, this.direction);
             this.dots.Add(dot);
             this.canvas.Children.Add(dot.Sprite);
             this.setDotInPosition(dot);
-        }
-
-        private void setDotColor(DotSprite dotSprite)
-        {
-            if (!this.isFinalBlitz)
-            {
-                switch (this.direction)
-                {
-                    case GameSettings.Direction.Left:
-                    case GameSettings.Direction.Right:
-                        dotSprite.ChangeDotColorToSecondary();
-                        break;
-                    case GameSettings.Direction.Up:
-                    case GameSettings.Direction.Down:
-                        dotSprite.ChangeDotColorToPrimary();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            else
-            {
-                dotSprite.ChangeDotColorToFinalBlitzColor();
-            }
         }
 
         private void setDotInPosition(Dot dot)
@@ -191,23 +163,7 @@ namespace DodgeDots.Model
         {
             foreach (var dot in this)
             {
-                switch (this.direction)
-                {
-                    case GameSettings.Direction.Up:
-                        dot.MoveUp();
-                        break;
-                    case GameSettings.Direction.Down:
-                        dot.MoveDown();
-                        break;
-                    case GameSettings.Direction.Left:
-                        dot.MoveLeft();
-                        break;
-                    case GameSettings.Direction.Right:
-                        dot.MoveRight();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                dot.Move();
             }
         }
 
@@ -224,33 +180,6 @@ namespace DodgeDots.Model
             }
 
             return null;
-        }
-
-        /// <summary>
-        ///     Toggles the final blitz settings.
-        /// </summary>
-        public void ToggleFinalBlitz()
-        {
-            if (!this.isFinalBlitz)
-            {
-                this.isFinalBlitz = true;
-                foreach (var dot in this)
-                {
-                    dot.SetDotSpeedToFinalBlitzSpeed();
-                    var dotSprite = (DotSprite)dot.Sprite;
-                    this.setDotColor(dotSprite);
-                }
-            }
-            else
-            {
-                this.isFinalBlitz = false;
-                foreach (var dot in this)
-                {
-                    dot.SetDotSpeedToOriginalSpeed();
-                    var dotSprite = (DotSprite)dot.Sprite;
-                    this.setDotColor(dotSprite);
-                }
-            }
         }
 
         private void removeDot(Dot dot)

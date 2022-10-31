@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
 {
@@ -52,7 +51,8 @@ namespace DodgeDots.Model
         /// </summary>
         public void StartWaveDownMoveDirection()
         {
-            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down);
+            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down,
+                GameSettings.DotType.NormalDot);
             this.waves.Add(waveMoveDown);
         }
 
@@ -62,7 +62,8 @@ namespace DodgeDots.Model
         /// </summary>
         public void StartWaveRightMoveDirection()
         {
-            var waveMoveRight = new DotManager(this.backgroundCanvas, GameSettings.Direction.Right);
+            var waveMoveRight = new DotManager(this.backgroundCanvas, GameSettings.Direction.Right,
+                GameSettings.DotType.NormalDot);
             this.waves.Add(waveMoveRight);
         }
 
@@ -72,7 +73,8 @@ namespace DodgeDots.Model
         /// </summary>
         public void StartWaveUpMoveDirection()
         {
-            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up);
+            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up,
+                GameSettings.DotType.NormalDot);
             this.waves.Add(waveMoveUp);
         }
 
@@ -82,7 +84,8 @@ namespace DodgeDots.Model
         /// </summary>
         public void StartWaveLeftMoveDirection()
         {
-            var waveMoveLeft = new DotManager(this.backgroundCanvas, GameSettings.Direction.Left);
+            var waveMoveLeft = new DotManager(this.backgroundCanvas, GameSettings.Direction.Left,
+                GameSettings.DotType.NormalDot);
             this.waves.Add(waveMoveLeft);
         }
 
@@ -92,10 +95,10 @@ namespace DodgeDots.Model
         /// </summary>
         public void StartFinalBlitzWave()
         {
-            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down);
-            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up);
-            waveMoveDown.ToggleFinalBlitz();
-            waveMoveUp.ToggleFinalBlitz();
+            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down,
+                GameSettings.DotType.FinalBlitzDot);
+            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up,
+                GameSettings.DotType.FinalBlitzDot);
             this.waves.Add(waveMoveDown);
             this.waves.Add(waveMoveUp);
         }
@@ -152,9 +155,7 @@ namespace DodgeDots.Model
 
         private bool isCollidingDotSameColorAsPlayerDot(Dot dot)
         {
-            var playerSprite = (PlayerSprite)this.player.Sprite;
-            var dotSprite = (DotSprite)dot.Sprite;
-            return playerSprite.OuterCircleColor != dotSprite.DotColor;
+            return this.player.OuterColor != dot.Color;
         }
 
         private bool isCircleCollisionForPlayerAndDot(Dot dot)

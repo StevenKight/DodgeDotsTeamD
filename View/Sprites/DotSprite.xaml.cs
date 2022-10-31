@@ -1,6 +1,5 @@
 ﻿using Windows.UI;
 using Windows.UI.Xaml.Media;
-using DodgeDots.Model;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -14,18 +13,6 @@ namespace DodgeDots.View.Sprites
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class DotSprite
     {
-        #region Properties
-
-        /// <summary>
-        ///     Gets the color of the dot sprite.
-        /// </summary>
-        /// <value>
-        ///     The color of the dot sprite.
-        /// </value>
-        public Color DotColor { get; private set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -41,35 +28,12 @@ namespace DodgeDots.View.Sprites
         #region Methods
 
         /// <summary>
-        ///     Changes the dot sprite color to primary color.
-        ///     Precondition: none
-        ///     Post-condition: DotSprite Fill set to the primary color
+        ///     Changes the color of the dot to the specified color.
         /// </summary>
-        public void ChangeDotColorToPrimary()
+        /// <param name="color">The color.</param>
+        public void ChangeDotColor(Color color)
         {
-            this.dotShape.Fill = new SolidColorBrush(GameSettings.PrimaryDotColor);
-            this.DotColor = GameSettings.PrimaryDotColor;
-        }
-
-        /// <summary>
-        ///     Changes the dot sprite color to secondary.
-        ///     Precondition: none
-        ///     Post-condition: DotSprite Fill set to the secondary color
-        /// </summary>
-        public void ChangeDotColorToSecondary()
-        {
-            this.dotShape.Fill = new SolidColorBrush(GameSettings.SecondaryDotColor);
-            this.DotColor = GameSettings.SecondaryDotColor;
-        }
-
-        /// <summary>
-        ///     Changes the dot sprite color to final blitz color.
-        ///     Precondition: none
-        ///     Post-condition: DotSprite Fill set to the final blitz color
-        /// </summary>
-        public void ChangeDotColorToFinalBlitzColor()
-        {
-            this.dotShape.Fill = new SolidColorBrush(GameSettings.FinalBlitzDotColor);
+            this.dotShape.Fill = new SolidColorBrush(color);
         }
 
         #endregion

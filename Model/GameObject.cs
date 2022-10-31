@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.Foundation;
+﻿using Windows.Foundation;
 using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
@@ -94,42 +93,13 @@ namespace DodgeDots.Model
         #region Methods
 
         /// <summary>
-        ///     Moves the game object right.
-        ///     Precondition: None
-        ///     Post-condition: X == X@prev + SpeedX
-        /// </summary>
-        public void MoveRight()
-        {
-            this.moveX(this.SpeedX);
-        }
-
-        /// <summary>
-        ///     Moves the game object left.
-        ///     Precondition: None
-        ///     Post-condition: X == X@prev + SpeedX
-        /// </summary>
-        public void MoveLeft()
-        {
-            this.moveX(-this.SpeedX);
-        }
-
-        /// <summary>
-        ///     Moves the game object up.
-        ///     Precondition: None
-        ///     Post-condition: Y == Y@prev - SpeedY
-        /// </summary>
-        public void MoveUp()
-        {
-            this.moveY(-this.SpeedY);
-        }
-
-        /// <summary>
         ///     Moves the game object down.
         ///     Precondition: None
         ///     Post-condition: Y == Y@prev + SpeedY
         /// </summary>
-        public void MoveDown()
+        public void Move()
         {
+            this.moveX(this.SpeedX);
             this.moveY(this.SpeedY);
         }
 
@@ -159,16 +129,6 @@ namespace DodgeDots.Model
         /// <param name="speedY">The speed y.</param>
         protected void SetSpeed(int speedX, int speedY)
         {
-            if (speedX < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(speedX));
-            }
-
-            if (speedY < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(speedY));
-            }
-
             this.SpeedX = speedX;
             this.SpeedY = speedY;
         }

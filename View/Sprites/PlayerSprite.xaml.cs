@@ -1,11 +1,7 @@
 ﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-using Windows.System;
 using Windows.UI;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using DodgeDots.Model;
 
 namespace DodgeDots.View.Sprites
 {
@@ -15,24 +11,6 @@ namespace DodgeDots.View.Sprites
     /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
     public sealed partial class PlayerSprite
     {
-        #region Data members
-
-        private bool isOuterCirclePrimaryColor;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets the color of the outer circle of the player sprite.
-        /// </summary>
-        /// <value>
-        ///     The color of the outer circle of the player sprite.
-        /// </value>
-        public Color OuterCircleColor { get; private set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -43,43 +21,28 @@ namespace DodgeDots.View.Sprites
         public PlayerSprite()
         {
             this.InitializeComponent();
-            this.swapOuterCircleToPrimaryColorAndInnerCircleToSecondaryColor();
-            Window.Current.CoreWindow.KeyDown += this.CoreWindow_KeyDown;
         }
 
         #endregion
 
         #region Methods
 
-        private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
+        /// <summary>
+        ///     Changes the color of the outer dot.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        public void ChangeDotOuterColor(Color color)
         {
-            if (args.VirtualKey == VirtualKey.Space)
-            {
-                if (this.isOuterCirclePrimaryColor)
-                {
-                    this.swapOuterCircleToSecondaryColorAndInnerCircleToPrimaryColor();
-                }
-                else
-                {
-                    this.swapOuterCircleToPrimaryColorAndInnerCircleToSecondaryColor();
-                }
-            }
+            this.outerCircle.Fill = new SolidColorBrush(color);
         }
 
-        private void swapOuterCircleToPrimaryColorAndInnerCircleToSecondaryColor()
+        /// <summary>
+        ///     Changes the color of the inner dot.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        public void ChangeDotInnerColor(Color color)
         {
-            this.outerCircle.Fill = new SolidColorBrush(GameSettings.PrimaryDotColor);
-            this.innerCircle.Fill = new SolidColorBrush(GameSettings.SecondaryDotColor);
-            this.isOuterCirclePrimaryColor = true;
-            this.OuterCircleColor = GameSettings.PrimaryDotColor;
-        }
-
-        private void swapOuterCircleToSecondaryColorAndInnerCircleToPrimaryColor()
-        {
-            this.outerCircle.Fill = new SolidColorBrush(GameSettings.SecondaryDotColor);
-            this.innerCircle.Fill = new SolidColorBrush(GameSettings.PrimaryDotColor);
-            this.isOuterCirclePrimaryColor = false;
-            this.OuterCircleColor = GameSettings.SecondaryDotColor;
+            this.innerCircle.Fill = new SolidColorBrush(color);
         }
 
         #endregion

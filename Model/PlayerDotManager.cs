@@ -1,4 +1,8 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.System;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace DodgeDots.Model
 {
@@ -9,7 +13,14 @@ namespace DodgeDots.Model
     {
         #region Data members
 
+        /// <summary>
+        ///     The player color swap ability level.
+        /// </summary>
+        public int ColorSwapLevel = 1;
+
         private readonly Canvas backgroundCanvas;
+        private readonly Color[] colors;
+        private int outsideColorIndex;
 
         #endregion
 
@@ -37,64 +48,42 @@ namespace DodgeDots.Model
             this.backgroundCanvas = background;
             background.Children.Add(this.PlayerDot.Sprite);
             this.placePlayerCenteredInGameArena();
+            Window.Current.CoreWindow.KeyDown += this.CoreWindow_KeyDown;
+            this.colors = new[]
+            {
+                GameSettings.PrimaryDotColor, GameSettings.SecondaryDotColor
+            };
         }
 
         #endregion
 
         #region Methods
 
+        private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.Space && this.ColorSwapLevel == 1)
+            {
+                switch (this.outsideColorIndex)
+                {
+                    case 0:
+                        this.PlayerDot.SetOuterColor(this.colors[1]);
+                        this.PlayerDot.SetInnerColor(this.colors[0]);
+                        this.outsideColorIndex++;
+                        break;
+                    case 1:
+                        this.PlayerDot.SetOuterColor(this.colors[0]);
+                        this.PlayerDot.SetInnerColor(this.colors[1]);
+                        this.outsideColorIndex = 0;
+                        break;
+                }
+            }
+        }
+
         /// <summary>
         ///     Moves the player to the left, if player is not a the left border.
         ///     Precondition: none
         ///     Post-condition: The player has moved left.
         /// </summary>
-        public void MovePlayerLeft()
-        {
-            if (this.PlayerDot.X - this.PlayerDot.SpeedX >= 0)
-            {
-                this.PlayerDot.MoveLeft();
-            }
-        }
-
-        /// <summary>
-        ///     Moves the player to the right only if the player is not at the right-side border.
-        ///     Precondition: none
-        ///     Post-condition: The player has moved right.
-        /// </summary>
-        public void MovePlayerRight()
-        {
-            if (this.PlayerDot.X + this.PlayerDot.SpeedX <= this.backgroundCanvas.Width - this.PlayerDot.Width)
-            {
-                this.PlayerDot.MoveRight();
-            }
-        }
-
-        /// <summary>
-        ///     Moves the player up, only if player is not at the top-side border.
-        ///     Precondition: none
-        ///     Post-condition: The player has moved up.
-        /// </summary>
-        public void MovePlayerUp()
-        {
-            if (this.PlayerDot.Y - this.PlayerDot.SpeedY >= 0)
-            {
-                this.PlayerDot.MoveUp();
-            }
-        }
-
-        /// <summary>
-        ///     Moves the player down, only if player is not at the bottom-side border.
-        ///     Precondition: none
-        ///     Post-condition: The player has moved down.
-        /// </summary>
-        public void MovePlayerDown()
-        {
-            if (this.PlayerDot.Y + this.PlayerDot.SpeedY <= this.backgroundCanvas.Height - this.PlayerDot.Height)
-            {
-                this.PlayerDot.MoveDown();
-            }
-        }
-
         private void placePlayerCenteredInGameArena()
         {
             this.PlayerDot.X = this.backgroundCanvas.Width / 2 - this.PlayerDot.Width / 2.0;

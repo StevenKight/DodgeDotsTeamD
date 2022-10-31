@@ -35,6 +35,22 @@ namespace DodgeDots.Model
             Up
         }
 
+        /// <summary>
+        ///     Dot Type Enumeration used to determine the type of dot
+        /// </summary>
+        public enum DotType
+        {
+            /// <summary>
+            ///     The Normal Dot Enum
+            /// </summary>
+            NormalDot,
+
+            /// <summary>
+            ///     The Final Blitz Dot Enum
+            /// </summary>
+            FinalBlitzDot
+        }
+
         #endregion
 
         #region Data members

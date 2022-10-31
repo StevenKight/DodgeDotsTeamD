@@ -64,27 +64,46 @@
             </summary>
             <seealso cref="T:DodgeDots.Model.GameObject" />
         </member>
+        <member name="P:DodgeDots.Model.Dot.Color">
+            <summary>
+                Gets the color of the dot.
+            </summary>
+            <value>
+                The color.
+            </value>
+        </member>
         <member name="M:DodgeDots.Model.Dot.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.Dot" /> class.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.Dot.SetDotSpeedToFinalBlitzSpeed">
+        <member name="M:DodgeDots.Model.Dot.SetColor(Windows.UI.Color)">
             <summary>
-                Sets the dot speed to SpeedMultiplier times the original dot speed.
+                Sets the color of the dot.
             </summary>
+            <param name="color">The color.</param>
         </member>
-        <member name="M:DodgeDots.Model.Dot.SetDotSpeedToOriginalSpeed">
+        <member name="T:DodgeDots.Model.DotFactory">
             <summary>
-                Sets the dot speed to the original dot speed.
+                Dot Factory class
             </summary>
+            <seealso cref="T:DodgeDots.Model.GameObject" />
+        </member>
+        <member name="M:DodgeDots.Model.DotFactory.CreateDot(DodgeDots.Model.GameSettings.DotType,DodgeDots.Model.GameSettings.Direction)">
+            <summary>
+                Creates the dot.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="direction">The direction.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">direction - null</exception>
         </member>
         <member name="T:DodgeDots.Model.DotManager">
             <summary>
                 Manages the dots in a game.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Direction)">
+        <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Direction,DodgeDots.Model.GameSettings.DotType)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.DotManager" /> class.
                 Precondition: None
@@ -92,6 +111,7 @@
             </summary>
             <param name="background">The background.</param>
             <param name="direction">The direction.</param>
+            <param name="type">The type of dot.</param>
         </member>
         <member name="M:DodgeDots.Model.DotManager.GetEnumerator">
             <summary>
@@ -102,11 +122,6 @@
         <member name="M:DodgeDots.Model.DotManager.StopDotManager">
             <summary>
                 Stops the dots from running.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.DotManager.ToggleFinalBlitz">
-            <summary>
-                Toggles the final blitz settings.
             </summary>
         </member>
         <member name="T:DodgeDots.Model.GameManager">
@@ -129,6 +144,14 @@
             <summary>
                 A delegate for winning the game.
             </summary>
+        </member>
+        <member name="P:DodgeDots.Model.GameManager.CurrentLevel">
+            <summary>
+                Gets or sets the current level.
+            </summary>
+            <value>
+                The current level.
+            </value>
         </member>
         <member name="M:DodgeDots.Model.GameManager.#ctor(DodgeDots.Model.Player)">
             <summary>
@@ -221,28 +244,7 @@
                 The sprite.
             </value>
         </member>
-        <member name="M:DodgeDots.Model.GameObject.MoveRight">
-            <summary>
-                Moves the game object right.
-                Precondition: None
-                Post-condition: X == X@prev + SpeedX
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.GameObject.MoveLeft">
-            <summary>
-                Moves the game object left.
-                Precondition: None
-                Post-condition: X == X@prev + SpeedX
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.GameObject.MoveUp">
-            <summary>
-                Moves the game object up.
-                Precondition: None
-                Post-condition: Y == Y@prev - SpeedY
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.GameObject.MoveDown">
+        <member name="M:DodgeDots.Model.GameObject.Move">
             <summary>
                 Moves the game object down.
                 Precondition: None
@@ -288,6 +290,21 @@
                 The Up direction Enum
             </summary>
         </member>
+        <member name="T:DodgeDots.Model.GameSettings.DotType">
+            <summary>
+                Dot Type Enumeration used to determine the type of dot
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.DotType.NormalDot">
+            <summary>
+                The Normal Dot Enum
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.DotType.FinalBlitzDot">
+            <summary>
+                The Final Blitz Dot Enum
+            </summary>
+        </member>
         <member name="F:DodgeDots.Model.GameSettings.GameSurvivalTime">
             <summary>
                 The game survival time
@@ -323,14 +340,47 @@
             </summary>
             <seealso cref="T:DodgeDots.Model.GameObject" />
         </member>
+        <member name="P:DodgeDots.Model.Player.OuterColor">
+            <summary>
+                Gets the color of the outer circle.
+            </summary>
+            <value>
+                The color of the outer.
+            </value>
+        </member>
+        <member name="P:DodgeDots.Model.Player.InnerColor">
+            <summary>
+                Gets the color of the inner circle.
+            </summary>
+            <value>
+                The color of the inner.
+            </value>
+        </member>
         <member name="M:DodgeDots.Model.Player.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.Player" /> class.
             </summary>
         </member>
+        <member name="M:DodgeDots.Model.Player.SetOuterColor(Windows.UI.Color)">
+            <summary>
+                Sets the color of the player.
+            </summary>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:DodgeDots.Model.Player.SetInnerColor(Windows.UI.Color)">
+            <summary>
+                Sets the color of the player.
+            </summary>
+            <param name="color">The color.</param>
+        </member>
         <member name="T:DodgeDots.Model.PlayerDotManager">
             <summary>
                 Manages the Player Dot in the game.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.PlayerDotManager.ColorSwapLevel">
+            <summary>
+                The player color swap ability level.
             </summary>
         </member>
         <member name="P:DodgeDots.Model.PlayerDotManager.PlayerDot">
@@ -347,32 +397,11 @@
             </summary>
             <param name="background">The background.</param>
         </member>
-        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerLeft">
+        <member name="M:DodgeDots.Model.PlayerDotManager.placePlayerCenteredInGameArena">
             <summary>
                 Moves the player to the left, if player is not a the left border.
                 Precondition: none
                 Post-condition: The player has moved left.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerRight">
-            <summary>
-                Moves the player to the right only if the player is not at the right-side border.
-                Precondition: none
-                Post-condition: The player has moved right.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerUp">
-            <summary>
-                Moves the player up, only if player is not at the top-side border.
-                Precondition: none
-                Post-condition: The player has moved up.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.PlayerDotManager.MovePlayerDown">
-            <summary>
-                Moves the player down, only if player is not at the bottom-side border.
-                Precondition: none
-                Post-condition: The player has moved down.
             </summary>
         </member>
         <member name="T:DodgeDots.Model.WaveManager">
@@ -505,39 +534,16 @@
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
         </member>
-        <member name="P:DodgeDots.View.Sprites.DotSprite.DotColor">
-            <summary>
-                Gets the color of the dot sprite.
-            </summary>
-            <value>
-                The color of the dot sprite.
-            </value>
-        </member>
         <member name="M:DodgeDots.View.Sprites.DotSprite.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.DotSprite" /> class.
             </summary>
         </member>
-        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToPrimary">
+        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColor(Windows.UI.Color)">
             <summary>
-                Changes the dot sprite color to primary color.
-                Precondition: none
-                Post-condition: DotSprite Fill set to the primary color
+                Changes the color of the dot to the specified color.
             </summary>
-        </member>
-        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToSecondary">
-            <summary>
-                Changes the dot sprite color to secondary.
-                Precondition: none
-                Post-condition: DotSprite Fill set to the secondary color
-            </summary>
-        </member>
-        <member name="M:DodgeDots.View.Sprites.DotSprite.ChangeDotColorToFinalBlitzColor">
-            <summary>
-                Changes the dot sprite color to final blitz color.
-                Precondition: none
-                Post-condition: DotSprite Fill set to the final blitz color
-            </summary>
+            <param name="color">The color.</param>
         </member>
         <member name="M:DodgeDots.View.Sprites.DotSprite.InitializeComponent">
             <summary>
@@ -574,20 +580,24 @@
             </summary>
             <seealso cref="T:Windows.UI.Xaml.Controls.UserControl" />
         </member>
-        <member name="P:DodgeDots.View.Sprites.PlayerSprite.OuterCircleColor">
-            <summary>
-                Gets the color of the outer circle of the player sprite.
-            </summary>
-            <value>
-                The color of the outer circle of the player sprite.
-            </value>
-        </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.PlayerSprite" /> class.
                 Precondition: none
                 Post-condition: Sprite created.
             </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.ChangeDotOuterColor(Windows.UI.Color)">
+            <summary>
+                Changes the color of the outer dot.
+            </summary>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.ChangeDotInnerColor(Windows.UI.Color)">
+            <summary>
+                Changes the color of the inner dot.
+            </summary>
+            <param name="color">The color.</param>
         </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.InitializeComponent">
             <summary>

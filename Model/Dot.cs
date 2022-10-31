@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI;
 using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
@@ -13,8 +14,18 @@ namespace DodgeDots.Model
 
         private const int MinimumSpeed = 1;
         private const int MaximumSpeed = 5;
-        private const int FinalBlitzSpeedMultiplier = 2;
-        private int originalSpeed;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets the color of the dot.
+        /// </summary>
+        /// <value>
+        ///     The color.
+        /// </value>
+        public Color Color { get; private set; }
 
         #endregion
 
@@ -34,19 +45,14 @@ namespace DodgeDots.Model
         #region Methods
 
         /// <summary>
-        ///     Sets the dot speed to SpeedMultiplier times the original dot speed.
+        ///     Sets the color of the dot.
         /// </summary>
-        public void SetDotSpeedToFinalBlitzSpeed()
+        /// <param name="color">The color.</param>
+        public void SetColor(Color color)
         {
-            SetSpeed(this.originalSpeed * FinalBlitzSpeedMultiplier, this.originalSpeed * FinalBlitzSpeedMultiplier);
-        }
-
-        /// <summary>
-        ///     Sets the dot speed to the original dot speed.
-        /// </summary>
-        public void SetDotSpeedToOriginalSpeed()
-        {
-            SetSpeed(this.originalSpeed, this.originalSpeed);
+            var dot = (DotSprite)Sprite;
+            dot.ChangeDotColor(color);
+            this.Color = color;
         }
 
         private void setDotSpeed()
@@ -54,7 +60,6 @@ namespace DodgeDots.Model
             var rnd = new Random();
             var randomSpeed = rnd.Next(MinimumSpeed, MaximumSpeed + 1);
             SetSpeed(randomSpeed, randomSpeed);
-            this.originalSpeed = randomSpeed;
         }
 
         #endregion

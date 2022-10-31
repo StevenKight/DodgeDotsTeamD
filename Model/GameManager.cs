@@ -31,7 +31,6 @@ namespace DodgeDots.Model
 
         #region Data members
 
-        private const int MaxWaves = 5;
         private const int WaveInterval = 5;
         private const int SurvivalTime = GameSettings.GameSurvivalTime;
 
@@ -47,6 +46,18 @@ namespace DodgeDots.Model
         private DispatcherTimer waveTimer;
         private int waveTimerCount;
         private int countdownCount;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets or sets the current level.
+        /// </summary>
+        /// <value>
+        ///     The current level.
+        /// </value>
+        public int CurrentLevel { get; set; } = 1;
 
         #endregion
 
@@ -127,7 +138,6 @@ namespace DodgeDots.Model
         private void WaveTimer_Tick(object sender, object e)
         {
             if (this.waveTimerCount % WaveInterval == 0 && this.waveTimerCount != 0 &&
-                this.currentWave < MaxWaves &&
                 !this.waveManager.HasPlayerHitADot())
             {
                 this.startNextWave();

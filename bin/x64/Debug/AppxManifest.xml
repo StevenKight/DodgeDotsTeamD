@@ -24,7 +24,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="DodgeDots.exe" EntryPoint="DodgeDots.App">
-      <uap:VisualElements DisplayName="Dodge Dots by Emekwue Iteration 2" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="DodgeDots" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Dodge Dots by Kight and Emekwue" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="DodgeDots" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
@@ -46,7 +46,7 @@
     <build:Item Name="VisualStudio" Version="17.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Enterprise 2022" />
     <build:Item Name="OperatingSystem" Version="10.0.19041.1 (WinBuild.160101.0800)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="17.2.32427.441" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="17.3.32728.75" />
     <build:Item Name="ProjectGUID" Value="{991F2167-AAFE-498D-B2DD-6C75CA7EC79D}" />
     <build:Item Name="OptimizingToolset" Value="None" />
     <build:Item Name="TargetRuntime" Value="Managed" />
