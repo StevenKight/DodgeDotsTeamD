@@ -8,9 +8,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black">
-        <TextBlock x:Name="gameOverTextBlock" TextWrapping="Wrap" Text="GAME OVER" Canvas.Top="160" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
-        <TextBlock x:Name="countdown" TextWrapping="Wrap" Text="25" Canvas.Top="10" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Right" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Left"/>
 
+        <TextBlock TextWrapping="Wrap" Text="Welcome to DodgeDots" FontSize="20" Foreground="Red" Canvas.Left="94" Canvas.Top="96" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Start" VerticalAlignment="Top" Canvas.Left="175" Canvas.Top="164" HorizontalAlignment="Center" Click="Start_Click"/>
+        <Button Content="High Scoreboard" VerticalAlignment="Top" Canvas.Left="137" Canvas.Top="229" HorizontalAlignment="Center" Click="High_Score_Click"/>
+        <Button Content="Reset Scoreboard" VerticalAlignment="Top" Canvas.Left="135" Canvas.Top="295" HorizontalAlignment="Center"/>
 
     </Canvas>
 </Page>

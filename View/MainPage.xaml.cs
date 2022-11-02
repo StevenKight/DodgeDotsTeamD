@@ -1,114 +1,93 @@
 ﻿using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using DodgeDots.Model;
+using System.Collections.ObjectModel;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace DodgeDots.View
 {
+
     /// <summary>
-    ///     The main page for the game.
+    ///     The main view that opens when running application.
     /// </summary>
     public sealed partial class MainPage
     {
         #region Data members
 
-        /// <summary>
-        ///     The application height
-        /// </summary>
-        public const double ApplicationHeight = 450;
-
-        /// <summary>
-        ///     The application width
-        /// </summary>
-        public const double ApplicationWidth = 450;
-
-        private readonly PlayerDotManager playerManager;
-
-        #endregion
-
-        #region Properties
-
-        private Player Player => this.playerManager.PlayerDot;
+        private readonly Collection<UIElement> mainPageElements;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="MainPage" /> class.
+        ///     The main view that opens when running application.
         /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
 
-            this.canvas.Width = ApplicationWidth;
-            this.countdown.Width = ApplicationWidth - 5;
-            this.gameOverTextBlock.Width = ApplicationWidth;
+            this.mainPageElements = this.getChildren();
 
-            ApplicationView.PreferredLaunchViewSize = new Size { Width = ApplicationWidth, Height = ApplicationHeight };
+            this.canvas.Width = GameSettings.ApplicationWidth;
+
+            ApplicationView.PreferredLaunchViewSize = new Size
+                { Width = GameSettings.ApplicationWidth, Height = GameSettings.ApplicationHeight };
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(ApplicationWidth, ApplicationHeight));
-            this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
-            this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
-            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
-            this.canvas.Height = ApplicationHeight;
+            ApplicationView.GetForCurrentView()
+                .SetPreferredMinSize(new Size(GameSettings.ApplicationWidth, GameSettings.ApplicationHeight));
 
-            this.playerManager = new PlayerDotManager(this.canvas);
-            this.Player.SetOuterColor(GameSettings.PrimaryDotColor);
-            this.Player.SetInnerColor(GameSettings.SecondaryDotColor);
-            var gameManager = new GameManager(this.Player);
-            gameManager.InitializeGame(this.canvas);
-            gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
-            gameManager.GameLost += this.GameManager_GameLost;
-            gameManager.GameWon += this.GameManager_GameWon;
+            this.displayStartView();
         }
 
         #endregion
 
-        #region Methods
-
-        private void GameManager_GameWon()
+        #region Method
+        private Collection<UIElement> getChildren()
         {
-            this.setGameOverResultText("YOU WIN");
-        }
+            var children = new Collection<UIElement>();
 
-        private void GameManager_GameLost()
-        {
-            this.setGameOverResultText("GAME OVER");
-        }
-
-        private void setGameOverResultText(string message)
-        {
-            this.gameOverTextBlock.Text = message;
-            this.gameOverTextBlock.Visibility = Visibility.Visible;
-        }
-
-        private void GameManager_GameTimeUpdated(int countDownNumber)
-        {
-            this.setCountdownColorByRemainingTime(countDownNumber);
-            this.countdown.Text = countDownNumber.ToString();
-        }
-
-        private void setCountdownColorByRemainingTime(int countDownNumber)
-        {
-            const int yellowColorTimeRemaining = 10;
-            const int redColorTimeRemaining = 5;
-
-            if (countDownNumber > yellowColorTimeRemaining)
+            foreach (var child in this.canvas.Children)
             {
-                this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
+                children.Add(child);
             }
-            else if (countDownNumber > redColorTimeRemaining)
+
+            this.canvas.Children.Clear();
+            return children;
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide_Views();
+            var gameView = new GamePage(this.canvas);
+            gameView.GameEnd += this.displayStartView;
+        }
+
+        private void High_Score_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide_Views();
+            var highScoreView = new HighScorePage(this.canvas);
+            highScoreView.BackButtonClick += this.displayStartView;
+        }
+
+        private void displayStartView()
+        {
+            this.canvas.Children.Clear();
+
+            foreach (var child in this.mainPageElements)
             {
-                this.countdown.Foreground = new SolidColorBrush(Colors.Yellow);
+                child.Visibility = Visibility.Visible;
+                this.canvas.Children.Add(child);
             }
-            else
+        }
+
+        private void Hide_Views()
+        {
+            foreach (var child in this.canvas.Children)
             {
-                this.countdown.Foreground = new SolidColorBrush(Colors.Red);
+                child.Visibility = Visibility.Collapsed;
             }
         }
 

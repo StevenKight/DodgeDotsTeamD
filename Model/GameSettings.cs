@@ -60,6 +60,16 @@ namespace DodgeDots.Model
         /// </summary>
         public const int GameSurvivalTime = 25;
 
+        /// <summary>
+        ///     The application height
+        /// </summary>
+        public const double ApplicationHeight = 450;
+
+        /// <summary>
+        ///     The application width
+        /// </summary>
+        public const double ApplicationWidth = 450;
+
         #endregion
 
         #region Properties
