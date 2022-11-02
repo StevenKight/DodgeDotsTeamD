@@ -371,6 +371,11 @@
                 The color of the inner.
             </value>
         </member>
+        <member name="P:DodgeDots.Model.Player.PlayerSprite">
+            <summary>
+                Gets the players sprite object.
+            </summary>
+        </member>
         <member name="M:DodgeDots.Model.Player.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.Player" /> class.
@@ -406,6 +411,11 @@
         <member name="M:DodgeDots.Model.Player.MoveDown">
             <summary>
                 Moves the player down.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Player.DyingAnimation">
+            <summary>
+                Starts the dying animation timer.
             </summary>
         </member>
         <member name="T:DodgeDots.Model.PlayerDotManager">
@@ -603,6 +613,23 @@
                 A delegate for losing the game.
             </summary>
         </member>
+        <member name="M:DodgeDots.View.GameOverView.#ctor(System.Boolean)">
+            <summary>
+                Initializes the game over view.
+            </summary>
+            <param name="lose">
+                <value>True</value>
+                if the player lost,
+                <value>False</value>
+                otherwise
+            </param>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.GetChildren">
+            <summary>
+                Gets the children of the game over view
+            </summary>
+            <returns>Collection of UIElements that are children of the view</returns>
+        </member>
         <member name="E:DodgeDots.View.GameOverView.ScoreSubmitted">
             <summary>
                 Occurs when [game time updated].
@@ -734,6 +761,12 @@
                 Changes the color of the inner dot.
             </summary>
             <param name="color">The color.</param>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.DyingAnimation">
+            <summary>
+                Runs the dying animation of the player dot.
+                TODO Figure out an animation
+            </summary>
         </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.InitializeComponent">
             <summary>

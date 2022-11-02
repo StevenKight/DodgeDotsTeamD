@@ -83,8 +83,6 @@ namespace DodgeDots.View
 
         private void showGameView()
         {
-            this.brightenBackgroundElements();
-
             foreach (var gameViewElement in this.gameViewElements)
             {
                 if (this.background.Children.Contains(gameViewElement))
@@ -96,6 +94,8 @@ namespace DodgeDots.View
                     this.background.Children.Add(gameViewElement);
                 }
             }
+
+            this.brightenBackgroundElements();
         }
 
         private void hideAllViews()
@@ -139,7 +139,6 @@ namespace DodgeDots.View
         {
             this.setGameOverResultText("YOU WIN");
 
-            // TODO Dying animation would go during this time
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
             this.gameOver(false);
@@ -169,7 +168,7 @@ namespace DodgeDots.View
 
         private void addNewElements()
         {
-            foreach (var child in this.gameOverView.getChildren())
+            foreach (var child in this.gameOverView.GetChildren())
             {
                 this.background.Children.Add(child);
             }
@@ -187,7 +186,7 @@ namespace DodgeDots.View
         {
             foreach (var child in this.background.Children)
             {
-                child.Opacity = 0.25;
+                child.Opacity = 1;
             }
         }
 
@@ -195,7 +194,6 @@ namespace DodgeDots.View
         {
             this.setGameOverResultText("GAME OVER");
 
-            // TODO Dying animation would go during this time
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
             this.removeGameDisplay();

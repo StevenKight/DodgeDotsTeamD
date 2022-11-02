@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using DodgeDots.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -10,7 +9,7 @@ namespace DodgeDots.View
     /// <summary>
     ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GameOverView : Page
+    public sealed partial class GameOverView
     {
         #region Types and Delegates
 
@@ -34,6 +33,15 @@ namespace DodgeDots.View
 
         #region Constructors
 
+        /// <summary>
+        ///     Initializes the game over view.
+        /// </summary>
+        /// <param name="lose">
+        ///     <value>True</value>
+        ///     if the player lost,
+        ///     <value>False</value>
+        ///     otherwise
+        /// </param>
         public GameOverView(bool lose)
         {
             this.InitializeComponent();
@@ -59,7 +67,11 @@ namespace DodgeDots.View
 
         #region Methods
 
-        public Collection<UIElement> getChildren()
+        /// <summary>
+        ///     Gets the children of the game over view
+        /// </summary>
+        /// <returns>Collection of UIElements that are children of the view</returns>
+        public Collection<UIElement> GetChildren()
         {
             var children = new Collection<UIElement>();
 
@@ -75,8 +87,6 @@ namespace DodgeDots.View
         private void gameOver()
         {
             this.newScoreText.Text = "Try Again?";
-            this.submitButton.Content = "Start Menu";
-            this.userName.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>

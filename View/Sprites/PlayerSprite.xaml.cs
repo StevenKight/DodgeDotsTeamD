@@ -45,6 +45,15 @@ namespace DodgeDots.View.Sprites
             this.innerCircle.Fill = new SolidColorBrush(color);
         }
 
+        /// <summary>
+        ///     Runs the dying animation of the player dot.
+        ///     TODO Figure out an animation
+        /// </summary>
+        public void DyingAnimation()
+        {
+            (this.innerCircle.Fill, this.outerCircle.Fill) = (this.outerCircle.Fill, this.innerCircle.Fill);
+        }
+
         #endregion
     }
 }

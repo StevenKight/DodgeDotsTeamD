@@ -180,6 +180,8 @@ namespace DodgeDots.Model
         {
             if (this.waveManager.HasPlayerHitADot())
             {
+                this.playerObject.DyingAnimation();
+
                 this.stopGame();
                 this.onGameLost();
             }
