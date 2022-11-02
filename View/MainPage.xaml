@@ -9,10 +9,12 @@
 
     <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black">
 
-        <TextBlock TextWrapping="Wrap" Text="Welcome to DodgeDots" FontSize="20" Foreground="Red" Canvas.Left="94" Canvas.Top="96" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button Content="Start" VerticalAlignment="Top" Canvas.Left="175" Canvas.Top="164" HorizontalAlignment="Center" Click="Start_Click"/>
-        <Button Content="High Scoreboard" VerticalAlignment="Top" Canvas.Left="137" Canvas.Top="229" HorizontalAlignment="Center" Click="High_Score_Click"/>
-        <Button Content="Reset Scoreboard" VerticalAlignment="Top" Canvas.Left="135" Canvas.Top="295" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="startText" TextWrapping="Wrap" Text="Welcome To DodgeDots" Canvas.Top="75" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
+        <Grid x:Name="buttonGrid" Height="400" Width="400">
+            <Button Content="Start" FontWeight="Bold" FontSize="16" Width="100" Canvas.ZIndex="2" Click="Start_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="High Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="High_Score_Click" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center"/>
+            <Button Content="Reset Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="High_Score_Click" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center"/>
+        </Grid>
 
     </Canvas>
 </Page>

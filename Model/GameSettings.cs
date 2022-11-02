@@ -61,6 +61,11 @@ namespace DodgeDots.Model
         public const int GameSurvivalTime = 25;
 
         /// <summary>
+        ///     The length in seconds of the dying animation.
+        /// </summary>
+        public const int DyingAnimationLength = 2;
+
+        /// <summary>
         ///     The application height
         /// </summary>
         public const double ApplicationHeight = 450;

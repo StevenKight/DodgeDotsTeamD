@@ -1,14 +1,13 @@
-﻿using Windows.Foundation;
+﻿using System.Collections.ObjectModel;
+using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using DodgeDots.Model;
-using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace DodgeDots.View
 {
-
     /// <summary>
     ///     The main view that opens when running application.
     /// </summary>
@@ -31,6 +30,10 @@ namespace DodgeDots.View
 
             this.mainPageElements = this.getChildren();
 
+            this.startText.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Height = GameSettings.ApplicationHeight;
+
             this.canvas.Width = GameSettings.ApplicationWidth;
 
             ApplicationView.PreferredLaunchViewSize = new Size
@@ -45,6 +48,7 @@ namespace DodgeDots.View
         #endregion
 
         #region Method
+
         private Collection<UIElement> getChildren()
         {
             var children = new Collection<UIElement>();
@@ -62,10 +66,28 @@ namespace DodgeDots.View
         {
             this.Hide_Views();
             var gameView = new GamePage(this.canvas);
-            gameView.GameEnd += this.displayStartView;
+
+            gameView.ScoreSubmitted += this.displayView;
+        }
+
+        private void displayView(bool startScreen)
+        {
+            if (startScreen)
+            {
+                this.displayStartView();
+            }
+            else
+            {
+                this.displayHighScoreView();
+            }
         }
 
         private void High_Score_Click(object sender, RoutedEventArgs e)
+        {
+            this.displayHighScoreView();
+        }
+
+        private void displayHighScoreView()
         {
             this.Hide_Views();
             var highScoreView = new HighScorePage(this.canvas);

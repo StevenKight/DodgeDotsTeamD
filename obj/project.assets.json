@@ -5886,7 +5886,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "ok+RPAtESz/9MUXeIEz6Lv5XAGQsaNmEYXMsgVALj4D7kqC8gveKWXWXbufLySR2fWrwZf8smyN5RmHu0e4BHA==",
+      "sha512": "GmkKfoyerqmsHMn7OZj0AKpcBabD+GaafqphvX2Mw406IwiJRy1pKcKqdCfKJfYmkRyJ6+e+RaUylgdJoDa1jQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
@@ -6194,7 +6194,7 @@
       ]
     },
     "NETStandard.Library/2.0.3": {
-      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
+      "sha512": "548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
@@ -10247,18 +10247,18 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\victo\\.nuget\\packages\\": {},
+    "C:\\Users\\sgk07\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj",
+      "projectUniqueName": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj",
       "projectName": "DodgeDots",
-      "projectPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\DodgeDots.csproj",
-      "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victo\\Desktop\\Important Documents\\Textbooks and Stuff\\ProgCons\\TeamDDodgeDots\\obj\\",
+      "projectPath": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj",
+      "packagesPath": "C:\\Users\\sgk07\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -10266,7 +10266,7 @@
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\victo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sgk07\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

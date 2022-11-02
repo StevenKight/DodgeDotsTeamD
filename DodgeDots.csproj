@@ -139,6 +139,9 @@
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\GameOverView.xaml.cs">
+      <DependentUpon>GameOverView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Sprites\BaseSprite.xaml.cs">
       <DependentUpon>BaseSprite.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GameOverView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

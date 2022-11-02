@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using DodgeDots.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -11,6 +12,15 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class HighScorePage
     {
+        #region Types and Delegates
+
+        /// <summary>
+        ///     A delegate for clicking the back button.
+        /// </summary>
+        public delegate void BackClickHandler();
+
+        #endregion
+
         #region Data members
 
         private const int ElementsInStartView = 4;
@@ -29,6 +39,11 @@ namespace DodgeDots.View
         public HighScorePage(Canvas background)
         {
             this.InitializeComponent();
+
+            this.highScoreboardText.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Height = GameSettings.ApplicationHeight;
+
             this.highScoreElements = this.getChildren();
 
             this.background = background;
@@ -72,11 +87,6 @@ namespace DodgeDots.View
             this.canvas.Children.Clear();
             return children;
         }
-
-        /// <summary>
-        ///     A delegate for clicking the back button.
-        /// </summary>
-        public delegate void BackClickHandler();
 
         /// <summary>
         ///     Fires an event when the back button is clicked.

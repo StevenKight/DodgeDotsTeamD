@@ -16,11 +16,21 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class GamePage
     {
+        #region Types and Delegates
+
+        /// <summary>
+        ///     A delegate for losing the game.
+        /// </summary>
+        public delegate void ScoreSubmittedHandler(bool startScreen);
+
+        #endregion
+
         #region Data members
 
-        private const int ElementsInStartView = 4;
+        private const int Milliseconds = 1000;
 
         private PlayerDotManager playerManager;
+        private GameOverView gameOverView;
 
         private readonly Collection<UIElement> gameViewElements;
         private readonly Canvas background;
@@ -42,29 +52,38 @@ namespace DodgeDots.View
         {
             this.InitializeComponent();
 
-            this.countdown.Width = GameSettings.ApplicationWidth - 5;
+            this.countdown.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
             this.gameOverTextBlock.Width = GameSettings.ApplicationWidth;
-
-            this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
-            this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
-            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
             this.canvas.Height = GameSettings.ApplicationHeight;
 
             this.gameViewElements = this.getChildren();
             this.background = background;
-            this.showGameView();
+
+            this.runGameView();
         }
 
         #endregion
 
         #region Methods
 
+        private void runGameView()
+        {
+            this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
+            this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
+            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
+
+            this.hideAllViews();
+
+            this.showGameView();
+
+            var player = this.displayPlayer();
+
+            this.runGame(player);
+        }
+
         private void showGameView()
         {
-            for (var i = this.background.Children.Count; i > ElementsInStartView; i--)
-            {
-                this.background.Children[i].Visibility = Visibility.Collapsed;
-            }
+            this.brightenBackgroundElements();
 
             foreach (var gameViewElement in this.gameViewElements)
             {
@@ -77,13 +96,14 @@ namespace DodgeDots.View
                     this.background.Children.Add(gameViewElement);
                 }
             }
-
-            var player = this.displayPlayer();
-
-            this.runGameDisplay(player);
         }
 
-        private void runGameDisplay(Player player)
+        private void hideAllViews()
+        {
+            this.background.Children.Clear();
+        }
+
+        private void runGame(Player player)
         {
             var gameManager = new GameManager(player);
             gameManager.InitializeGame(this.background);
@@ -115,30 +135,72 @@ namespace DodgeDots.View
             return children;
         }
 
-        /// <summary>
-        ///     A delegate for clicking the back button.
-        /// </summary>
-        public delegate void GameEndHandler();
-
-        /// <summary>
-        ///     Fires an event when the back button is clicked.
-        /// </summary>
-        public event GameEndHandler GameEnd;
-
-        private void GameManager_GameWon()
+        private async void GameManager_GameWon()
         {
             this.setGameOverResultText("YOU WIN");
+
+            // TODO Dying animation would go during this time
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
+            this.gameOver(false);
+        }
+
+        /// <summary>
+        ///     Occurs when [game time updated].
+        /// </summary>
+        public event ScoreSubmittedHandler ScoreSubmitted;
+
+        private void userSubmittedScore(bool startScreen)
+        {
+            this.ScoreSubmitted?.Invoke(startScreen);
+        }
+
+        private void gameOver(bool lose)
+        {
+            this.dimBackgroundElements();
+
+            this.gameOverView = new GameOverView(lose);
+
+            this.gameOverView.PlayAgain += this.runGameView;
+            this.gameOverView.ScoreSubmitted += this.userSubmittedScore;
+
+            this.addNewElements();
+        }
+
+        private void addNewElements()
+        {
+            foreach (var child in this.gameOverView.getChildren())
+            {
+                this.background.Children.Add(child);
+            }
+        }
+
+        private void dimBackgroundElements()
+        {
+            foreach (var child in this.background.Children)
+            {
+                child.Opacity = 0.25;
+            }
+        }
+
+        private void brightenBackgroundElements()
+        {
+            foreach (var child in this.background.Children)
+            {
+                child.Opacity = 0.25;
+            }
         }
 
         private async void GameManager_GameLostAsync()
         {
             this.setGameOverResultText("GAME OVER");
 
-            await Task.Delay(2 * 1000);
+            // TODO Dying animation would go during this time
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
             this.removeGameDisplay();
 
-            this.GameEnd?.Invoke();
+            this.gameOver(true);
         }
 
         private void removeGameDisplay()
@@ -164,13 +226,22 @@ namespace DodgeDots.View
             return this.dotCheck(child) || this.playerCheck(child) || this.gameViewCheck(child);
         }
 
-        private bool gameViewCheck(UIElement child) => this.gameViewElements.Contains(child);
+        private bool gameViewCheck(UIElement child)
+        {
+            return this.gameViewElements.Contains(child);
+        }
 
         // TODO Ask about below warning
-        private bool playerCheck(UIElement child) => child.GetType() == typeof(PlayerSprite);
+        private bool playerCheck(UIElement child)
+        {
+            return child.GetType() == typeof(PlayerSprite);
+        }
 
         // TODO Ask about below warning
-        private bool dotCheck(UIElement child) => child.GetType() == typeof(DotSprite);
+        private bool dotCheck(UIElement child)
+        {
+            return child.GetType() == typeof(DotSprite);
+        }
 
         private void setGameOverResultText(string message)
         {

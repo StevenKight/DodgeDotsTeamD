@@ -310,6 +310,21 @@
                 The game survival time
             </summary>
         </member>
+        <member name="F:DodgeDots.Model.GameSettings.DyingAnimationLength">
+            <summary>
+                The length in seconds of the dying animation.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.ApplicationHeight">
+            <summary>
+                The application height
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.ApplicationWidth">
+            <summary>
+                The application width
+            </summary>
+        </member>
         <member name="P:DodgeDots.Model.GameSettings.PrimaryDotColor">
             <summary>
                 Gets the primary dot color.
@@ -477,24 +492,85 @@
                 Stops all active dot managers.
             </summary>
         </member>
-        <member name="T:DodgeDots.View.MainPage">
+        <member name="T:DodgeDots.View.GamePage">
             <summary>
                 The main page for the game.
             </summary>
         </member>
-        <member name="F:DodgeDots.View.MainPage.ApplicationHeight">
+        <member name="T:DodgeDots.View.GamePage.ScoreSubmittedHandler">
             <summary>
-                The application height
+                A delegate for losing the game.
             </summary>
         </member>
-        <member name="F:DodgeDots.View.MainPage.ApplicationWidth">
+        <member name="M:DodgeDots.View.GamePage.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
-                The application width
+                Initializes a new instance of the <see cref="T:DodgeDots.View.GamePage" /> class.
+            </summary>
+        </member>
+        <member name="E:DodgeDots.View.GamePage.ScoreSubmitted">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GamePage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GamePage.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GamePage.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.HighScorePage">
+            <summary>
+                The High Score Board page for displaying the top 10 high scores.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.HighScorePage.BackClickHandler">
+            <summary>
+                A delegate for clicking the back button.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.HighScorePage.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+                The High Score Board page for displaying the top 10 high scores.
+            </summary>
+            <param name="background">The canvas to put the High Score screen on.</param>
+        </member>
+        <member name="E:DodgeDots.View.HighScorePage.BackButtonClick">
+            <summary>
+                Fires an event when the back button is clicked.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.HighScorePage.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.HighScorePage.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.HighScorePage.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.MainPage">
+            <summary>
+                The main view that opens when running application.
             </summary>
         </member>
         <member name="M:DodgeDots.View.MainPage.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:DodgeDots.View.MainPage" /> class.
+                The main view that opens when running application.
             </summary>
         </member>
         <member name="M:DodgeDots.View.MainPage.InitializeComponent">
@@ -508,6 +584,46 @@
             </summary>
         </member>
         <member name="M:DodgeDots.View.MainPage.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.GameOverView">
+            <summary>
+                An empty page that can be used on its own or navigated to within a Frame.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.GameOverView.PlayAgainHandler">
+            <summary>
+                A delegate for losing the game.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.GameOverView.SubmitHandler">
+            <summary>
+                A delegate for losing the game.
+            </summary>
+        </member>
+        <member name="E:DodgeDots.View.GameOverView.ScoreSubmitted">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.View.GameOverView.PlayAgain">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.GetBindingConnector(System.Int32,System.Object)">
             <summary>
             GetBindingConnector(int connectionId, object target)
             </summary>

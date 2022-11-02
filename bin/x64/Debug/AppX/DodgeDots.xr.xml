@@ -33,7 +33,35 @@
       <RootProperty Name="Height" />
       <RootProperty Name="FontStyle" />
     </RootType>
+    <RootType FullName="DodgeDots.View.GamePage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Height" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Content" />
+      <RootProperty Name="FontWeight" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootEvent Name="Click" />
+    </RootType>
+    <RootType FullName="DodgeDots.View.HighScorePage" />
     <RootType FullName="DodgeDots.View.MainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="FontWeight" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="RenderTransformOrigin" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+    </RootType>
+    <RootType FullName="DodgeDots.View.GameOverView" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl" />
     <RootType FullName="DodgeDots.View.Sprites.BaseSprite">
       <RootProperty Name="Width" />
