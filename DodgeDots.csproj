@@ -120,6 +120,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AudioPlayer.cs" />
     <Compile Include="Model\Dot.cs" />
     <Compile Include="Model\DotFactory.cs" />
     <Compile Include="Model\DotManager.cs" />
@@ -130,6 +131,8 @@
     <Compile Include="Model\LevelManager.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\PlayerDotManager.cs" />
+    <Compile Include="Model\PointManager.cs" />
+    <Compile Include="Model\PointObject.cs" />
     <Compile Include="Model\WaveManager.cs" />
     <Compile Include="View\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
@@ -154,6 +157,9 @@
     <Compile Include="View\Sprites\PlayerSprite.xaml.cs">
       <DependentUpon>PlayerSprite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Sprites\PointSprite.xaml.cs">
+      <DependentUpon>PointSprite.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -161,6 +167,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\GameOver.wav" />
+    <Content Include="Assets\PointAdded.wav" />
+    <Content Include="Assets\YouWin.wav" />
     <Content Include="notes.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -201,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sprites\PlayerSprite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Sprites\PointSprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

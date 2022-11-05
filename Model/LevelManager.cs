@@ -26,7 +26,13 @@ namespace DodgeDots.Model
         /// <summary>
         ///     A delegate for winning the game.
         /// </summary>
-        public delegate void GameWonHandler();
+        public delegate void LevelWonHandler();
+
+        /// <summary>
+        ///     A delegate for hitting a point object
+        /// </summary>
+        /// <param name="pointAmount">The point amount.</param>
+        public delegate void PointHitHandler(int pointAmount);
 
         #endregion
 
@@ -93,6 +99,7 @@ namespace DodgeDots.Model
             this.CountdownCount = this.survivalTime;
 
             this.waveManager = new WaveManager(this.canvas, this.playerObject);
+            this.waveManager.PointHit += this.onPointHit;
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;
@@ -114,23 +121,34 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Occurs when [game won].
         /// </summary>
-        public event GameWonHandler GameWon;
+        public event LevelWonHandler LevelWon;
 
         /// <summary>
         ///     Occurs when [game lost].
         /// </summary>
         public event GameLostHandler Collision;
 
+        /// <summary>
+        ///     Occurs when Player hits a Point.
+        /// </summary>
+        public event PointHitHandler PointHit;
+
         private void onGameTimeUpdated()
         {
             this.GameTimeUpdated?.Invoke(this.CountdownCount);
         }
 
-        private void onGameWon()
+        private void onPointHit(int pointAmount)
+        {
+            this.PointHit?.Invoke(pointAmount);
+        }
+
+        private void onLevelWon()
         {
             this.waveManager.RemoveAllWaves();
+            this.stopGame();
             this.waveTimerCount = 0;
-            this.GameWon?.Invoke();
+            this.LevelWon?.Invoke();
         }
 
         private void onGameLost()
@@ -140,7 +158,7 @@ namespace DodgeDots.Model
 
         private void WaveTimer_Tick(object sender, object e)
         {
-            if (this.waveTimerCount % this.levelInformation.GameSurvivalTime == 0 &&
+            if (this.waveTimerCount % this.levelInformation.WaveInterval == 0 &&
                 !this.waveManager.HasPlayerHitADot())
             {
                 this.startNextWave();
@@ -196,7 +214,7 @@ namespace DodgeDots.Model
             else if (this.waveTimerCount == this.survivalTime)
             {
                 this.stopGame();
-                this.onGameWon();
+                this.onLevelWon();
             }
         }
 
@@ -204,7 +222,7 @@ namespace DodgeDots.Model
         {
             this.timer.Stop();
             this.waveTimer.Stop();
-            this.waveManager.StopAllActiveDotManagers();
+            this.waveManager.RemoveAllWaves();
         }
 
         #endregion

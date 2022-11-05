@@ -50,6 +50,7 @@ namespace DodgeDots.View
             this.countdown.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
             this.lives.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
             this.lives.Margin = new Thickness(25, 0, 0, 0);
+            this.score.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
 
             this.gameOverTextBlock.Width = GameSettings.ApplicationWidth;
             this.canvas.Height = GameSettings.ApplicationHeight;
@@ -79,6 +80,12 @@ namespace DodgeDots.View
             gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
             gameManager.Collision += this.GameManager_GameLostAsync;
             gameManager.GameWon += this.GameManager_GameWon;
+            gameManager.GameScoreUpdated += this.GameManager_GameScoreUpdated;
+        }
+
+        private void GameManager_GameScoreUpdated(int gameScore)
+        {
+            this.score.Text = $"Score: {gameScore}";
         }
 
         private Player displayPlayer()

@@ -67,6 +67,11 @@
         /// </summary>
         public const double ApplicationWidth = 400;
 
+        /// <summary>
+        ///     TODO Move to level
+        /// </summary>
+        public const int PointItemAmount = 10;
+
         #endregion
     }
 }

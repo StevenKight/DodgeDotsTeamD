@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 
 namespace DodgeDots.Model
@@ -14,6 +15,12 @@ namespace DodgeDots.Model
         ///     A delegate for losing the game.
         /// </summary>
         public delegate void GameLostHandler();
+
+        /// <summary>
+        ///     A delegate for the game score
+        /// </summary>
+        /// <param name="gameScore">The game score number.</param>
+        public delegate void GameScoreHandler(int gameScore);
 
         /// <summary>
         ///     A delegate for the countdown
@@ -34,6 +41,21 @@ namespace DodgeDots.Model
         private readonly Collection<Level> levelList;
 
         private int currentLevel;
+        private int pointTotal;
+
+        private readonly AudioPlayer audioPlayer;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets the game score.
+        /// </summary>
+        /// <value>
+        ///     The game score.
+        /// </value>
+        public int GameScore { get; private set; }
 
         #endregion
 
@@ -56,10 +78,15 @@ namespace DodgeDots.Model
             };
 
             this.levelManager.Collision += this.onGameLost;
-            this.levelManager.GameWon += this.levelWon;
+            this.levelManager.LevelWon += this.levelWon;
             this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
 
             this.currentLevel = 0;
+            this.pointTotal = 0;
+
+            this.levelManager.PointHit += this.WaveManager_PointHit;
+
+            this.audioPlayer = new AudioPlayer();
         }
 
         #endregion
@@ -89,6 +116,11 @@ namespace DodgeDots.Model
         public event GameTimeHandler GameTimeUpdated;
 
         /// <summary>
+        ///     Occurs when [game time updated].
+        /// </summary>
+        public event GameScoreHandler GameScoreUpdated;
+
+        /// <summary>
         ///     Occurs when [game won].
         /// </summary>
         public event GameWonHandler GameWon;
@@ -103,19 +135,35 @@ namespace DodgeDots.Model
             this.GameTimeUpdated?.Invoke(countdownCount);
         }
 
-        private void onGameWon()
+        private async void onGameWon()
         {
+            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("YouWin.wav");
+            this.audioPlayer.PlayAudio(file);
             this.GameWon?.Invoke();
         }
 
-        private void onGameLost()
+        private async void onGameLost()
         {
+            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("GameOver.wav");
+            this.audioPlayer.PlayAudio(file);
             this.Collision?.Invoke();
+        }
+
+        private void onGameScoreUpdated()
+        {
+            this.GameScoreUpdated?.Invoke(this.GameScore);
         }
 
         private void levelWon()
         {
+            this.currentLevel++;
             this.InitializeGame();
+        }
+
+        private void WaveManager_PointHit(int pointAmount)
+        {
+            this.GameScore += pointAmount;
+            this.onGameScoreUpdated();
         }
 
         #endregion

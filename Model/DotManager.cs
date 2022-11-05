@@ -100,6 +100,7 @@ namespace DodgeDots.Model
             }
 
             this.dots.Clear();
+            this.StopDotManager();
         }
 
         private void Timer_Tick(object sender, object e)
