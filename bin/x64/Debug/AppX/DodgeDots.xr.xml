@@ -33,6 +33,18 @@
       <RootProperty Name="Height" />
       <RootProperty Name="FontStyle" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.LinearGradientBrush">
+      <RootProperty Name="EndPoint" />
+      <RootProperty Name="StartPoint" />
+      <RootProperty Name="GradientStops" />
+      <RootProperty Name="SpreadMethod" />
+      <RootProperty Name="MappingMode" />
+      <RootProperty Name="RelativeTransform" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.GradientStop">
+      <RootProperty Name="Color" />
+      <RootProperty Name="Offset" />
+    </RootType>
     <RootType FullName="DodgeDots.View.GamePage" />
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Height" />
@@ -72,8 +84,15 @@
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
       <RootProperty Name="Fill" />
+      <RootProperty Name="Stroke" />
     </RootType>
     <RootType FullName="DodgeDots.View.Sprites.DotSprite" />
     <RootType FullName="DodgeDots.View.Sprites.PlayerSprite" />
+    <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
+      <RootProperty Name="CenterY" />
+      <RootProperty Name="CenterX" />
+      <RootProperty Name="Rotation" />
+    </RootType>
+    <RootType FullName="DodgeDots.View.Sprites.PointSprite" />
   </Roots.RootTypes>
 </Roots>

@@ -11,10 +11,22 @@ namespace DodgeDots.Model
     /// </summary>
     public class WaveManager
     {
+        #region Types and Delegates
+
+        /// <summary>
+        ///     A delegate for hitting a point object
+        /// </summary>
+        /// <param name="pointAmount">The point amount.</param>
+        public delegate void PointHitHandler(int pointAmount);
+
+        #endregion
+
         #region Data members
 
         private readonly Canvas backgroundCanvas;
         private readonly Player player;
+        private readonly PointManager pointManager;
+        private PointObject lastHitPoint;
 
         private readonly DispatcherTimer timer;
         private readonly IList<DotManager> waves;
@@ -31,6 +43,7 @@ namespace DodgeDots.Model
         public WaveManager(Canvas background, Player player)
         {
             this.waves = new List<DotManager>();
+            this.pointManager = new PointManager(background);
 
             this.backgroundCanvas = background;
             this.player = player;
@@ -44,6 +57,11 @@ namespace DodgeDots.Model
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///     Occurs when Player hits a Point.
+        /// </summary>
+        public event PointHitHandler PointHit;
 
         /// <summary>
         ///     Starts a new wave that moves newly populated dots
@@ -86,20 +104,61 @@ namespace DodgeDots.Model
         }
 
         /// <summary>
+        ///     Determines whether [has player hit a point].
+        /// </summary>
+        /// <returns>
+        ///     <c>true</c> if [has player hit a point]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasPlayerHitAPoint()
+        {
+            foreach (var point in this.pointManager)
+            {
+                if (this.isCircleCollisionForPlayerAndDot(point))
+                {
+                    this.lastHitPoint = point;
+                    this.onPointHit();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void onPointHit()
+        {
+            this.PointHit?.Invoke(this.lastHitPoint.PointAmount);
+        }
+
+        /// <summary>
         ///     Stops all active dot managers.
         /// </summary>
-        public void StopAllActiveDotManagers()
+        public void StopAllActiveWaveObjects()
         {
             foreach (var newWave in this.waves)
             {
                 newWave.StopDotManager();
                 this.timer.Stop();
             }
+
+            this.pointManager.StopPointSpawn();
         }
 
         private void Timer_Tick(object sender, object e)
         {
             this.HasPlayerHitADot();
+            if (this.HasPlayerHitAPoint())
+            {
+                this.removePointObject(this.lastHitPoint);
+            }
+        }
+
+        private void removePointObject(PointObject point)
+        {
+            if (point != null)
+            {
+                this.pointManager.Remove(point);
+                this.backgroundCanvas.Children.Remove(point.Sprite);
+            }
         }
 
         private bool checkPlayerHitsDotInSpecificWave(DotManager wave)
@@ -123,7 +182,7 @@ namespace DodgeDots.Model
             return this.player.OuterColor != dot.Color;
         }
 
-        private bool isCircleCollisionForPlayerAndDot(Dot dot)
+        private bool isCircleCollisionForPlayerAndDot(GameObject dot)
         {
             var playerRectangle = new Rectangle((int)this.player.X, (int)this.player.Y, (int)this.player.Width,
                 (int)this.player.Height);

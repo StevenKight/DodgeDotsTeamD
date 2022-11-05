@@ -71,6 +71,7 @@ namespace DodgeDots.Model
         public const int WaveInterval = 5;
         public const int FinalBlitzSpeedMultiplier = 2;
         public const int GameSurvivalTime = 25;
+        public const int PointItemAmount = 10;
 
         #endregion
 
