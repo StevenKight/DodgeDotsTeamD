@@ -126,7 +126,8 @@
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\GameSettings.cs" />
-    <Compile Include="Model\Level.cs" />
+    <Compile Include="Model\Levels.cs" />
+    <Compile Include="Model\LevelManager.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\PlayerDotManager.cs" />
     <Compile Include="Model\WaveManager.cs" />

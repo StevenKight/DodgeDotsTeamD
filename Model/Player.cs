@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Windows.UI;
 using Windows.UI.Xaml;
 using DodgeDots.View.Sprites;
@@ -22,6 +23,8 @@ namespace DodgeDots.Model
         private readonly DispatcherTimer timer;
         private int tickCount;
 
+        private int currentColorIndex;
+
         #endregion
 
         #region Properties
@@ -35,18 +38,22 @@ namespace DodgeDots.Model
         public Color OuterColor { get; private set; }
 
         /// <summary>
-        ///     Gets the color of the inner circle.
+        ///     A collection of colors the player can swap through.
         /// </summary>
         /// <value>
-        ///     The color of the inner.
+        ///     A collection of colors.
         /// </value>
-        public Color InnerColor { get; private set; }
+        public Collection<Color> Colors { get; set; }
 
         /// <summary>
         ///     Gets the players sprite object.
         /// </summary>
         public PlayerSprite PlayerSprite { get; }
 
+        /// <summary>
+        ///     The amount of lives the player has in the game.
+        ///     TODO Potentially move out to PlayerManager
+        /// </summary>
         public int PlayerLives { get; set; }
 
         #endregion
@@ -64,6 +71,8 @@ namespace DodgeDots.Model
 
             this.PlayerLives = GameSettings.PlayerLives;
 
+            this.currentColorIndex = 0;
+
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;
             this.timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -75,23 +84,33 @@ namespace DodgeDots.Model
         #region Methods
 
         /// <summary>
-        ///     Sets the color of the player.
+        ///     Rotates through to the next set of colors the player has.
         /// </summary>
-        /// <param name="color">The color.</param>
-        public void SetOuterColor(Color color)
+        public void SetColors()
         {
-            this.PlayerSprite.ChangeDotOuterColor(color);
-            this.OuterColor = color;
+            this.PlayerSprite.ChangeDotOuterColor(this.Colors[0]);
+            this.OuterColor = this.Colors[0];
+
+            var lastIndex = this.Colors.Count - 1;
+            this.PlayerSprite.ChangeDotInnerColor(this.Colors[lastIndex]);
         }
 
         /// <summary>
         ///     Sets the color of the player.
         /// </summary>
-        /// <param name="color">The color.</param>
-        public void SetInnerColor(Color color)
+        public void SwapOuterColor()
         {
-            this.PlayerSprite.ChangeDotInnerColor(color);
-            this.InnerColor = color;
+            this.currentColorIndex++;
+            if (this.currentColorIndex >= this.Colors.Count)
+            {
+                this.currentColorIndex = 0;
+            }
+
+            this.PlayerSprite.ChangeDotInnerColor(this.OuterColor);
+
+            var newColor = this.Colors[this.currentColorIndex];
+            this.PlayerSprite.ChangeDotOuterColor(newColor);
+            this.OuterColor = newColor;
         }
 
         /// <summary>

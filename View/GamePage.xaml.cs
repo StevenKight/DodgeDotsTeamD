@@ -19,13 +19,6 @@ namespace DodgeDots.View
         private const int Milliseconds = 1000;
 
         private PlayerDotManager playerManager;
-        private GameOverView gameOverView;
-
-        #endregion
-
-        #region Properties
-
-        private Player Player => this.playerManager.PlayerDot;
 
         #endregion
 
@@ -43,6 +36,10 @@ namespace DodgeDots.View
 
         #region Methods
 
+        /// <summary>
+        ///     Runs when the page is navigated to from another page
+        /// </summary>
+        /// <param name="e">Navigation event arguments</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.buildView();
@@ -52,6 +49,7 @@ namespace DodgeDots.View
         {
             this.countdown.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
             this.lives.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
+            this.lives.Margin = new Thickness(25, 0, 0, 0);
 
             this.gameOverTextBlock.Width = GameSettings.ApplicationWidth;
             this.canvas.Height = GameSettings.ApplicationHeight;
@@ -68,8 +66,6 @@ namespace DodgeDots.View
 
         private void runGameView()
         {
-            this.countdown.Text = GameSettings.GameSurvivalTime.ToString();
-
             var player = this.displayPlayer();
 
             this.runGame(player);
@@ -77,8 +73,9 @@ namespace DodgeDots.View
 
         private void runGame(Player player)
         {
-            var gameManager = new GameManager(player);
-            gameManager.InitializeGame(this.canvas);
+            var gameManager = new GameManager(this.canvas, player);
+            gameManager.InitializeGame();
+
             gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
             gameManager.Collision += this.GameManager_GameLostAsync;
             gameManager.GameWon += this.GameManager_GameWon;
@@ -89,22 +86,20 @@ namespace DodgeDots.View
             this.playerManager = new PlayerDotManager(this.canvas);
             var player = this.playerManager.PlayerDot;
 
-            this.Player.SetOuterColor(GameSettings.PrimaryDotColor);
-            this.Player.SetInnerColor(GameSettings.SecondaryDotColor);
             return player;
         }
 
         private async void GameManager_GameWon()
         {
-            // TODO Data binding
+            // TODO Data binding win message
             this.setGameOverResultText("YOU WIN");
 
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
-            this.gameOver(false);
+            this.gameOver();
         }
 
-        private void gameOver(bool lose)
+        private void gameOver()
         {
             this.dimBackgroundElements();
 
@@ -121,12 +116,12 @@ namespace DodgeDots.View
 
         private async void GameManager_GameLostAsync()
         {
-            // TODO Data binding
+            // TODO Data binding lose message
             this.setGameOverResultText("GAME OVER");
 
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
-            this.gameOver(true);
+            this.gameOver();
         }
 
         private void setGameOverResultText(string message)

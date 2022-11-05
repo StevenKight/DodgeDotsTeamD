@@ -12,6 +12,7 @@ namespace DodgeDots.Model
     {
         #region Data members
 
+        // TODO Use level class to store these
         private const int MinimumSpeed = 1;
         private const int MaximumSpeed = 5;
 

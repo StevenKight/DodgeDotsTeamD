@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black">
+    <Canvas Width="400" Height="400" Background ="Black">
 
         <TextBlock x:Name="highScoreboardText" TextWrapping="Wrap" Text="High Score Board" Canvas.Top="25" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
         <Grid x:Name="buttonGrid"  Height="400" Width="400">

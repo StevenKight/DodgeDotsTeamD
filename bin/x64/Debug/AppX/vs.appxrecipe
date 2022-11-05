@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-11-05T01:31:12.429</Modified>
+      <Modified>2022-11-05T05:00:06.470</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\DodgeDots.exe">
       <PackagePath>entrypoint\DodgeDots.exe</PackagePath>
-      <Modified>2022-11-05T01:31:11.586</Modified>
+      <Modified>2022-11-05T05:00:06.079</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.10\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
@@ -94,35 +94,35 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.505</Modified>
+      <Modified>2022-11-05T05:00:06.005</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\GamePage.xbf">
       <PackagePath>View\GamePage.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.005</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\HighScorePage.xbf">
       <PackagePath>View\HighScorePage.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.005</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\MainPage.xbf">
       <PackagePath>View\MainPage.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.005</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\GameOverView.xbf">
       <PackagePath>View\GameOverView.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.005</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
       <PackagePath>View\Sprites\BaseSprite.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.006</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\DotSprite.xbf">
       <PackagePath>View\Sprites\DotSprite.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.006</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
       <PackagePath>View\Sprites\PlayerSprite.xbf</PackagePath>
-      <Modified>2022-11-05T01:31:11.506</Modified>
+      <Modified>2022-11-05T05:00:06.006</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -130,11 +130,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2022-11-05T01:31:11.898</Modified>
+      <Modified>2022-11-05T05:00:06.157</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\Core\DodgeDots.exe">
       <PackagePath>DodgeDots.exe</PackagePath>
-      <Modified>2022-11-05T01:31:12.417</Modified>
+      <Modified>2022-11-05T05:00:06.468</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -11,23 +11,11 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class GameOverView
     {
-        #region Data members
-
-        private readonly bool startScreen;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
         ///     Initializes the game over view.
         /// </summary>
-        /// <param name="lose">
-        ///     <value>True</value>
-        ///     if the player lost,
-        ///     <value>False</value>
-        ///     otherwise
-        /// </param>
         public GameOverView()
         {
             this.InitializeComponent();
@@ -37,6 +25,10 @@ namespace DodgeDots.View
 
         #region Methods
 
+        /// <summary>
+        ///     Runs when the page is navigated to from another page
+        /// </summary>
+        /// <param name="e">Navigation event arguments</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.buildView();

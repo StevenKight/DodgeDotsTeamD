@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Color = Windows.UI.Color;
 
 namespace DodgeDots.Model
 {
@@ -49,19 +50,24 @@ namespace DodgeDots.Model
         ///     Starts a new wave that moves newly populated dots
         ///     from the top of the screen to the bottom of the screen.
         /// </summary>
-        public void StartWave(GameSettings.Wave waveStart, GameSettings.DotType type)
+        /// <param name="waveStart">The wave to create</param>
+        /// <param name="color">The color of the dots within the wave</param>
+        public void StartWave(GameSettings.Wave waveStart, Color color)
         {
-            switch (type)
+            switch (waveStart)
             {
-                case GameSettings.DotType.NormalDot:
-                    var wave = new DotManager(this.backgroundCanvas, waveStart, type);
+                default:
+                    var wave = new DotManager(this.backgroundCanvas, waveStart, color);
                     this.waves.Add(wave);
                     break;
-                case GameSettings.DotType.FinalBlitzDot:
-                    var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North,
-                        GameSettings.DotType.FinalBlitzDot);
-                    var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South,
-                        GameSettings.DotType.FinalBlitzDot);
+                case GameSettings.Wave.NsFinalBlitz:
+                    var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North, color);
+                    var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South, color);
+
+                    // TODO Use level class to store these
+                    waveMoveDown.FinalBlitzMultiplier = 2;
+                    waveMoveUp.FinalBlitzMultiplier = 2;
+
                     this.waves.Add(waveMoveDown);
                     this.waves.Add(waveMoveUp);
                     break;
@@ -94,6 +100,17 @@ namespace DodgeDots.Model
             {
                 newWave.StopDotManager();
                 this.timer.Stop();
+            }
+        }
+
+        /// <summary>
+        ///     Removes all waves from tracking and display.
+        /// </summary>
+        public void RemoveAllWaves()
+        {
+            foreach (var wave in this.waves)
+            {
+                wave.RemoveAllDots();
             }
         }
 

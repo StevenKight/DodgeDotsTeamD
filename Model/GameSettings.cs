@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Windows.UI;
-
-namespace DodgeDots.Model
+﻿namespace DodgeDots.Model
 {
     /// <summary>
     ///     Holds the settings used in the game
@@ -11,33 +8,38 @@ namespace DodgeDots.Model
         #region Types and Delegates
 
         /// <summary>
-        ///     Dot Type Enumeration used to determine the type of dot
+        ///     The waves the game can have in a level.
         /// </summary>
-        public enum DotType
-        {
-            /// <summary>
-            ///     The Normal Dot Enum
-            /// </summary>
-            NormalDot,
-
-            /// <summary>
-            ///     The Final Blitz Dot Enum
-            /// </summary>
-            FinalBlitzDot
-        }
-
         public enum Wave
         {
+            /// <summary>
+            ///     The wave coming from the North.
+            /// </summary>
             North,
 
+            /// <summary>
+            ///     The wave coming from the West.
+            /// </summary>
             West,
 
+            /// <summary>
+            ///     The wave coming from the South.
+            /// </summary>
             South,
 
+            /// <summary>
+            ///     The wave coming from the East.
+            /// </summary>
             East,
 
-            UpDownFinalBlitz,
+            /// <summary>
+            ///     The wave coming from the North and South.
+            /// </summary>
+            NsFinalBlitz,
 
+            /// <summary>
+            ///     The wave coming diagonally.
+            /// </summary>
             DiagonalFinalBlitz
         }
 
@@ -64,90 +66,6 @@ namespace DodgeDots.Model
         ///     The application width
         /// </summary>
         public const double ApplicationWidth = 400;
-
-        // TODO Put in a level class
-        public static Color PrimaryDotColor = Colors.MediumSpringGreen;
-        public static Color SecondaryDotColor = Colors.DarkViolet;
-        public const int WaveInterval = 5;
-        public const int FinalBlitzSpeedMultiplier = 2;
-        public const int GameSurvivalTime = 25;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets the final blitz dot color.
-        /// </summary>
-        /// <value>
-        ///     The final blitz dot color.
-        /// </value>
-        public static Color FinalBlitzDotColor => Colors.Yellow;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     Level 1 for the game.
-        /// </summary>
-        public static class Level1
-        {
-            #region Data members
-
-            public const string Title = "Level 1";
-
-            public const int GameSurvivalTime = 25;
-
-            public const int WaveInterval = 5;
-
-            public static Collection<Wave> Waves = new Collection<Wave>
-            {
-                Wave.North,
-                Wave.West,
-                Wave.South,
-                Wave.East
-            };
-
-            public static Collection<Color> WaveColors = new Collection<Color>
-            {
-                Colors.MediumSpringGreen,
-                Colors.DarkViolet
-            };
-
-            #endregion
-        }
-
-        /// <summary>
-        ///     Level 1 for the game.
-        /// </summary>
-        public static class Level2
-        {
-            #region Data members
-
-            public const string Title = "Level 2";
-
-            public const int GameSurvivalTime = 30;
-
-            public const int WaveInterval = 5;
-
-            public static Collection<Wave> Waves = new Collection<Wave>
-            {
-                Wave.North,
-                Wave.West,
-                Wave.South,
-                Wave.East,
-                Wave.UpDownFinalBlitz
-            };
-
-            public static Collection<Color> WaveColors = new Collection<Color>
-            {
-                Colors.MediumSpringGreen,
-                Colors.DarkViolet
-            };
-
-            #endregion
-        }
 
         #endregion
     }

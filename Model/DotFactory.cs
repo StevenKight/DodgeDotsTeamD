@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI;
 
 namespace DodgeDots.Model
 {
@@ -13,24 +14,25 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Creates the dot.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="direction">The direction.</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentOutOfRangeException">direction - null</exception>
-        public Dot CreateDot(GameSettings.DotType type, GameSettings.Wave wave)
+        /// <returns>The new dot created</returns>
+        /// <param name="color">The color of the dot.</param>
+        /// <param name="wave">The wave the dot is in.</param>
+        /// <param name="finalMultiplier">The multiplier to adjust speed for final blitz.</param>
+        public Dot CreateDot(Color color, GameSettings.Wave wave, int finalMultiplier)
         {
             var dot = new DotFactory();
-            switch (type)
+            switch (wave)
             {
-                case GameSettings.DotType.NormalDot:
+                default:
                     setDirectionalSpeeds(wave, dot);
+                    dot.SetColor(color);
 
                     break;
-                case GameSettings.DotType.FinalBlitzDot:
+                case GameSettings.Wave.NsFinalBlitz:
                     setDirectionalSpeeds(wave, dot);
-                    dot.SetColor(GameSettings.FinalBlitzDotColor);
-                    dot.SetSpeed(dot.SpeedX * GameSettings.FinalBlitzSpeedMultiplier,
-                        dot.SpeedY * GameSettings.FinalBlitzSpeedMultiplier);
+                    dot.SetColor(color);
+                    dot.SetSpeed(dot.SpeedX * finalMultiplier,
+                        dot.SpeedY * finalMultiplier);
                     break;
             }
 
@@ -42,20 +44,16 @@ namespace DodgeDots.Model
             switch (wave)
             {
                 case GameSettings.Wave.South:
-                    dot.SetColor(GameSettings.PrimaryDotColor);
                     dot.SetSpeed(0, -dot.SpeedY);
                     break;
                 case GameSettings.Wave.North:
-                    dot.SetColor(GameSettings.PrimaryDotColor);
                     dot.SetSpeed(0, dot.SpeedY);
                     break;
                 case GameSettings.Wave.East:
-                    dot.SetColor(GameSettings.SecondaryDotColor);
                     dot.SetSpeed(-dot.SpeedX, 0);
                     break;
                 case GameSettings.Wave.West:
                     dot.SetSpeed(dot.SpeedX, 0);
-                    dot.SetColor(GameSettings.SecondaryDotColor);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(wave), wave, null);

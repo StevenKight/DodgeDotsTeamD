@@ -16,7 +16,6 @@ namespace DodgeDots.View
         /// <summary>
         ///     The High Score Board page for displaying the top 10 high scores.
         /// </summary>
-        /// <param name="background">The canvas to put the High Score screen on.</param>
         public HighScorePage()
         {
             this.InitializeComponent();
@@ -26,6 +25,10 @@ namespace DodgeDots.View
 
         #region Methods
 
+        /// <summary>
+        ///     Runs when the page is navigated to from another page
+        /// </summary>
+        /// <param name="e">Navigation event arguments</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.buildView();

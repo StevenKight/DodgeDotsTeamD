@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,12 +18,21 @@ namespace DodgeDots.Model
         private readonly IList<Dot> dots;
         private readonly Canvas canvas;
         private readonly GameSettings.Wave wave;
-        private readonly GameSettings.DotType type;
+        private readonly Color color;
         private readonly DotFactory dotFactory;
 
         private readonly DispatcherTimer timer;
         private int tickCount;
         private int randomSpawnTick;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     The amount to multiply the speed of the final blitz by.
+        /// </summary>
+        public int FinalBlitzMultiplier { get; set; }
 
         #endregion
 
@@ -34,15 +44,16 @@ namespace DodgeDots.Model
         ///     Post-condition: dots list is created, and tick is setup
         /// </summary>
         /// <param name="background">The background.</param>
-        /// <param name="direction">The direction.</param>
-        /// <param name="type">The type of dot.</param>
-        public DotManager(Canvas background, GameSettings.Wave wave, GameSettings.DotType type)
+        /// <param name="wave">The wave to generate.</param>
+        /// <param name="color">The color of dots.</param>
+        public DotManager(Canvas background, GameSettings.Wave wave, Color color)
         {
             this.dots = new List<Dot>();
             this.dotFactory = new DotFactory();
             this.canvas = background;
             this.wave = wave;
-            this.type = type;
+            this.color = color;
+            this.FinalBlitzMultiplier = 1;
 
             this.tickCount = 0;
             this.randomSpawnTick = 0;
@@ -78,6 +89,19 @@ namespace DodgeDots.Model
             this.timer.Stop();
         }
 
+        /// <summary>
+        ///     Removes all dots from tracking and from the display.
+        /// </summary>
+        public void RemoveAllDots()
+        {
+            foreach (var dot in this.dots)
+            {
+                this.canvas.Children.Remove(dot.Sprite);
+            }
+
+            this.dots.Clear();
+        }
+
         private void Timer_Tick(object sender, object e)
         {
             if (this.tickCount == this.randomSpawnTick)
@@ -99,7 +123,7 @@ namespace DodgeDots.Model
 
         private void createDot()
         {
-            var dot = this.dotFactory.CreateDot(this.type, this.wave);
+            var dot = this.dotFactory.CreateDot(this.color, this.wave, this.FinalBlitzMultiplier);
             this.dots.Add(dot);
             this.canvas.Children.Add(dot.Sprite);
             this.setDotInPosition(dot);
