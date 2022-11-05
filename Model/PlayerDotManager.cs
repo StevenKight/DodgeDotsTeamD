@@ -54,15 +54,15 @@ namespace DodgeDots.Model
             this.backgroundCanvas = background;
             background.Children.Add(this.PlayerDot.Sprite);
             this.placePlayerCenteredInGameArena();
-            
+
             Window.Current.CoreWindow.KeyDown += this.playerKeyDownFlag;
             Window.Current.CoreWindow.KeyUp += this.playerKeyUpFlag;
-            
+
             var playerTimer = new DispatcherTimer();
             playerTimer.Tick += this.PlayerTimer_Tick;
             playerTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             playerTimer.Start();
-            
+
             this.colors = new[]
             {
                 GameSettings.PrimaryDotColor, GameSettings.SecondaryDotColor

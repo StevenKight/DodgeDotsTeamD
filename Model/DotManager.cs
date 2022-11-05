@@ -16,7 +16,7 @@ namespace DodgeDots.Model
 
         private readonly IList<Dot> dots;
         private readonly Canvas canvas;
-        private readonly GameSettings.Direction direction;
+        private readonly GameSettings.Wave wave;
         private readonly GameSettings.DotType type;
         private readonly DotFactory dotFactory;
 
@@ -36,12 +36,12 @@ namespace DodgeDots.Model
         /// <param name="background">The background.</param>
         /// <param name="direction">The direction.</param>
         /// <param name="type">The type of dot.</param>
-        public DotManager(Canvas background, GameSettings.Direction direction, GameSettings.DotType type)
+        public DotManager(Canvas background, GameSettings.Wave wave, GameSettings.DotType type)
         {
             this.dots = new List<Dot>();
             this.dotFactory = new DotFactory();
             this.canvas = background;
-            this.direction = direction;
+            this.wave = wave;
             this.type = type;
 
             this.tickCount = 0;
@@ -99,7 +99,7 @@ namespace DodgeDots.Model
 
         private void createDot()
         {
-            var dot = this.dotFactory.CreateDot(this.type, this.direction);
+            var dot = this.dotFactory.CreateDot(this.type, this.wave);
             this.dots.Add(dot);
             this.canvas.Children.Add(dot.Sprite);
             this.setDotInPosition(dot);
@@ -107,14 +107,14 @@ namespace DodgeDots.Model
 
         private void setDotInPosition(Dot dot)
         {
-            switch (this.direction)
+            switch (this.wave)
             {
-                case GameSettings.Direction.Up:
-                case GameSettings.Direction.Down:
+                case GameSettings.Wave.North:
+                case GameSettings.Wave.South:
                     this.randomlyPositionUpAndDownDirectionalDots(dot);
                     break;
-                case GameSettings.Direction.Left:
-                case GameSettings.Direction.Right:
+                case GameSettings.Wave.West:
+                case GameSettings.Wave.East:
                     this.randomlyPositionLeftAndRightDirectionalDots(dot);
                     break;
                 default:
@@ -131,9 +131,9 @@ namespace DodgeDots.Model
             var randomIndex = rnd.Next(0, positionsWithRespectToDotHeight.Length);
             dot.Y = positionsWithRespectToDotHeight[randomIndex];
 
-            if (this.direction == GameSettings.Direction.Right)
+            if (this.wave == GameSettings.Wave.West)
             {
-                dot.X = -1 * dot.Width;
+                dot.X = -dot.Width;
             }
             else
             {
@@ -149,9 +149,9 @@ namespace DodgeDots.Model
             var randomIndex = rnd.Next(0, positionsWithRespectToDotWidth.Length);
             dot.X = positionsWithRespectToDotWidth[randomIndex];
 
-            if (this.direction == GameSettings.Direction.Down)
+            if (this.wave == GameSettings.Wave.North)
             {
-                dot.Y = -1 * dot.Height;
+                dot.Y = -dot.Height;
             }
             else
             {

@@ -8,12 +8,6 @@ namespace DodgeDots.Model
     /// <seealso cref="DodgeDots.Model.GameObject" />
     public class DotFactory : Dot
     {
-        #region Data members
-
-        private const int FinalBlitzSpeedMultiplier = 2;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -23,47 +17,48 @@ namespace DodgeDots.Model
         /// <param name="direction">The direction.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentOutOfRangeException">direction - null</exception>
-        public Dot CreateDot(GameSettings.DotType type, GameSettings.Direction direction)
+        public Dot CreateDot(GameSettings.DotType type, GameSettings.Wave wave)
         {
             var dot = new DotFactory();
             switch (type)
             {
                 case GameSettings.DotType.NormalDot:
-                    setDirectionalSpeeds(direction, dot);
+                    setDirectionalSpeeds(wave, dot);
 
                     break;
                 case GameSettings.DotType.FinalBlitzDot:
-                    setDirectionalSpeeds(direction, dot);
+                    setDirectionalSpeeds(wave, dot);
                     dot.SetColor(GameSettings.FinalBlitzDotColor);
-                    dot.SetSpeed(dot.SpeedX * FinalBlitzSpeedMultiplier, dot.SpeedY * FinalBlitzSpeedMultiplier);
+                    dot.SetSpeed(dot.SpeedX * GameSettings.FinalBlitzSpeedMultiplier,
+                        dot.SpeedY * GameSettings.FinalBlitzSpeedMultiplier);
                     break;
             }
 
             return dot;
         }
 
-        private static void setDirectionalSpeeds(GameSettings.Direction direction, DotFactory dot)
+        private static void setDirectionalSpeeds(GameSettings.Wave wave, DotFactory dot)
         {
-            switch (direction)
+            switch (wave)
             {
-                case GameSettings.Direction.Up:
+                case GameSettings.Wave.South:
                     dot.SetColor(GameSettings.PrimaryDotColor);
-                    dot.SetSpeed(0, -1 * dot.SpeedY);
+                    dot.SetSpeed(0, -dot.SpeedY);
                     break;
-                case GameSettings.Direction.Down:
+                case GameSettings.Wave.North:
                     dot.SetColor(GameSettings.PrimaryDotColor);
                     dot.SetSpeed(0, dot.SpeedY);
                     break;
-                case GameSettings.Direction.Left:
+                case GameSettings.Wave.East:
                     dot.SetColor(GameSettings.SecondaryDotColor);
-                    dot.SetSpeed(-1 * dot.SpeedX, 0);
+                    dot.SetSpeed(-dot.SpeedX, 0);
                     break;
-                case GameSettings.Direction.Right:
+                case GameSettings.Wave.West:
                     dot.SetSpeed(dot.SpeedX, 0);
                     dot.SetColor(GameSettings.SecondaryDotColor);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(wave), wave, null);
             }
         }
 

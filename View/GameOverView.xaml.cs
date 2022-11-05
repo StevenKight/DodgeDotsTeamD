@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 using DodgeDots.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -11,20 +11,6 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class GameOverView
     {
-        #region Types and Delegates
-
-        /// <summary>
-        ///     A delegate for losing the game.
-        /// </summary>
-        public delegate void PlayAgainHandler();
-
-        /// <summary>
-        ///     A delegate for losing the game.
-        /// </summary>
-        public delegate void SubmitHandler(bool startScreen);
-
-        #endregion
-
         #region Data members
 
         private readonly bool startScreen;
@@ -42,46 +28,26 @@ namespace DodgeDots.View
         ///     <value>False</value>
         ///     otherwise
         /// </param>
-        public GameOverView(bool lose)
+        public GameOverView()
         {
             this.InitializeComponent();
-
-            this.newScoreText.Width = GameSettings.ApplicationWidth;
-            this.scoreText.Width = GameSettings.ApplicationWidth;
-            this.buttonGrid.Width = GameSettings.ApplicationWidth;
-            this.buttonGrid.Height = GameSettings.ApplicationHeight;
-
-            if (lose)
-            {
-                this.gameOver();
-
-                this.startScreen = true;
-            }
-            else
-            {
-                this.startScreen = false;
-            }
         }
 
         #endregion
 
         #region Methods
 
-        /// <summary>
-        ///     Gets the children of the game over view
-        /// </summary>
-        /// <returns>Collection of UIElements that are children of the view</returns>
-        public Collection<UIElement> GetChildren()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var children = new Collection<UIElement>();
+            this.buildView();
+        }
 
-            foreach (var child in this.canvas.Children)
-            {
-                children.Add(child);
-            }
-
-            this.canvas.Children.Clear();
-            return children;
+        private void buildView()
+        {
+            this.newScoreText.Width = GameSettings.ApplicationWidth;
+            this.scoreText.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Width = GameSettings.ApplicationWidth;
+            this.buttonGrid.Height = GameSettings.ApplicationHeight;
         }
 
         private void gameOver()
@@ -89,24 +55,14 @@ namespace DodgeDots.View
             this.newScoreText.Text = "Try Again?";
         }
 
-        /// <summary>
-        ///     Occurs when [game time updated].
-        /// </summary>
-        public event SubmitHandler ScoreSubmitted;
-
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.ScoreSubmitted?.Invoke(this.startScreen);
+            Frame.Navigate(typeof(HighScorePage));
         }
-
-        /// <summary>
-        ///     Occurs when [game time updated].
-        /// </summary>
-        public event PlayAgainHandler PlayAgain;
 
         private void playAgain_Click(object sender, RoutedEventArgs e)
         {
-            this.PlayAgain?.Invoke();
+            Frame.Navigate(typeof(GamePage));
         }
 
         #endregion

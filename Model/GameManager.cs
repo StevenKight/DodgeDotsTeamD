@@ -31,7 +31,6 @@ namespace DodgeDots.Model
 
         #region Data members
 
-        private const int WaveInterval = 5;
         private const int SurvivalTime = GameSettings.GameSurvivalTime;
 
         private readonly Player playerObject;
@@ -46,18 +45,6 @@ namespace DodgeDots.Model
         private DispatcherTimer waveTimer;
         private int waveTimerCount;
         private int countdownCount;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets or sets the current level.
-        /// </summary>
-        /// <value>
-        ///     The current level.
-        /// </value>
-        public int CurrentLevel { get; set; } = 1;
 
         #endregion
 
@@ -90,7 +77,7 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Occurs when [game lost].
         /// </summary>
-        public event GameLostHandler GameLost;
+        public event GameLostHandler Collision;
 
         private void onGameTimeUpdated()
         {
@@ -104,7 +91,7 @@ namespace DodgeDots.Model
 
         private void onGameLost()
         {
-            this.GameLost?.Invoke();
+            this.Collision?.Invoke();
         }
 
         /// <summary>
@@ -132,12 +119,12 @@ namespace DodgeDots.Model
 
             this.timer.Start();
             this.waveTimer.Start();
-            this.waveManager.StartWaveDownMoveDirection();
+            this.waveManager.StartWave(GameSettings.Wave.North, GameSettings.DotType.NormalDot);
         }
 
         private void WaveTimer_Tick(object sender, object e)
         {
-            if (this.waveTimerCount % WaveInterval == 0 && this.waveTimerCount != 0 &&
+            if (this.waveTimerCount % GameSettings.WaveInterval == 0 && this.waveTimerCount != 0 &&
                 !this.waveManager.HasPlayerHitADot())
             {
                 this.startNextWave();
@@ -155,22 +142,22 @@ namespace DodgeDots.Model
             {
                 case 2:
                 {
-                    this.waveManager.StartWaveRightMoveDirection();
+                    this.waveManager.StartWave(GameSettings.Wave.West, GameSettings.DotType.NormalDot);
                     break;
                 }
                 case 3:
                 {
-                    this.waveManager.StartWaveUpMoveDirection();
+                    this.waveManager.StartWave(GameSettings.Wave.South, GameSettings.DotType.NormalDot);
                     break;
                 }
                 case 4:
                 {
-                    this.waveManager.StartWaveLeftMoveDirection();
+                    this.waveManager.StartWave(GameSettings.Wave.East, GameSettings.DotType.NormalDot);
                     break;
                 }
                 case 5:
                 {
-                    this.waveManager.StartFinalBlitzWave();
+                    this.waveManager.StartWave(GameSettings.Wave.North, GameSettings.DotType.FinalBlitzDot);
                     break;
                 }
             }
@@ -180,6 +167,8 @@ namespace DodgeDots.Model
         {
             if (this.waveManager.HasPlayerHitADot())
             {
+                this.playerObject.PlayerLives--;
+
                 this.playerObject.DyingAnimation();
 
                 this.stopGame();

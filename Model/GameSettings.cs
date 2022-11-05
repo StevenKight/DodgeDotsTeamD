@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using System.Collections.ObjectModel;
+using Windows.UI;
 
 namespace DodgeDots.Model
 {
@@ -8,32 +9,6 @@ namespace DodgeDots.Model
     public class GameSettings
     {
         #region Types and Delegates
-
-        /// <summary>
-        ///     Direction Enumeration used to determine movement direction
-        /// </summary>
-        public enum Direction
-        {
-            /// <summary>
-            ///     The Down Direction Enum
-            /// </summary>
-            Down,
-
-            /// <summary>
-            ///     The Left Direction Enum
-            /// </summary>
-            Left,
-
-            /// <summary>
-            ///     The Right Direction Enum
-            /// </summary>
-            Right,
-
-            /// <summary>
-            ///     The Up direction Enum
-            /// </summary>
-            Up
-        }
 
         /// <summary>
         ///     Dot Type Enumeration used to determine the type of dot
@@ -51,14 +26,24 @@ namespace DodgeDots.Model
             FinalBlitzDot
         }
 
+        public enum Wave
+        {
+            North,
+
+            West,
+
+            South,
+
+            East,
+
+            UpDownFinalBlitz,
+
+            DiagonalFinalBlitz
+        }
+
         #endregion
 
         #region Data members
-
-        /// <summary>
-        ///     The game survival time
-        /// </summary>
-        public const int GameSurvivalTime = 25;
 
         /// <summary>
         ///     The length in seconds of the dying animation.
@@ -66,34 +51,30 @@ namespace DodgeDots.Model
         public const int DyingAnimationLength = 2;
 
         /// <summary>
+        ///     The number of lives the player gets
+        /// </summary>
+        public const int PlayerLives = 3;
+
+        /// <summary>
         ///     The application height
         /// </summary>
-        public const double ApplicationHeight = 450;
+        public const double ApplicationHeight = 400;
 
         /// <summary>
         ///     The application width
         /// </summary>
-        public const double ApplicationWidth = 450;
+        public const double ApplicationWidth = 400;
+
+        // TODO Put in a level class
+        public static Color PrimaryDotColor = Colors.MediumSpringGreen;
+        public static Color SecondaryDotColor = Colors.DarkViolet;
+        public const int WaveInterval = 5;
+        public const int FinalBlitzSpeedMultiplier = 2;
+        public const int GameSurvivalTime = 25;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///     Gets the primary dot color.
-        /// </summary>
-        /// <value>
-        ///     The primary dot color.
-        /// </value>
-        public static Color PrimaryDotColor => Colors.MediumSpringGreen;
-
-        /// <summary>
-        ///     Gets the secondary dot color.
-        /// </summary>
-        /// <value>
-        ///     The secondary dot color.
-        /// </value>
-        public static Color SecondaryDotColor => Colors.DarkViolet;
 
         /// <summary>
         ///     Gets the final blitz dot color.
@@ -102,6 +83,71 @@ namespace DodgeDots.Model
         ///     The final blitz dot color.
         /// </value>
         public static Color FinalBlitzDotColor => Colors.Yellow;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Level 1 for the game.
+        /// </summary>
+        public static class Level1
+        {
+            #region Data members
+
+            public const string Title = "Level 1";
+
+            public const int GameSurvivalTime = 25;
+
+            public const int WaveInterval = 5;
+
+            public static Collection<Wave> Waves = new Collection<Wave>
+            {
+                Wave.North,
+                Wave.West,
+                Wave.South,
+                Wave.East
+            };
+
+            public static Collection<Color> WaveColors = new Collection<Color>
+            {
+                Colors.MediumSpringGreen,
+                Colors.DarkViolet
+            };
+
+            #endregion
+        }
+
+        /// <summary>
+        ///     Level 1 for the game.
+        /// </summary>
+        public static class Level2
+        {
+            #region Data members
+
+            public const string Title = "Level 2";
+
+            public const int GameSurvivalTime = 30;
+
+            public const int WaveInterval = 5;
+
+            public static Collection<Wave> Waves = new Collection<Wave>
+            {
+                Wave.North,
+                Wave.West,
+                Wave.South,
+                Wave.East,
+                Wave.UpDownFinalBlitz
+            };
+
+            public static Collection<Color> WaveColors = new Collection<Color>
+            {
+                Colors.MediumSpringGreen,
+                Colors.DarkViolet
+            };
+
+            #endregion
+        }
 
         #endregion
     }

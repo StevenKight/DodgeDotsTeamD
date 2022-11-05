@@ -47,6 +47,8 @@ namespace DodgeDots.Model
         /// </summary>
         public PlayerSprite PlayerSprite { get; }
 
+        public int PlayerLives { get; set; }
+
         #endregion
 
         #region Constructors
@@ -59,6 +61,8 @@ namespace DodgeDots.Model
             Sprite = new PlayerSprite();
             this.PlayerSprite = (PlayerSprite)Sprite;
             SetSpeed(SpeedXDirection, SpeedYDirection);
+
+            this.PlayerLives = GameSettings.PlayerLives;
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;

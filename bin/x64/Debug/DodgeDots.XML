@@ -89,7 +89,7 @@
             </summary>
             <seealso cref="T:DodgeDots.Model.GameObject" />
         </member>
-        <member name="M:DodgeDots.Model.DotFactory.CreateDot(DodgeDots.Model.GameSettings.DotType,DodgeDots.Model.GameSettings.Direction)">
+        <member name="M:DodgeDots.Model.DotFactory.CreateDot(DodgeDots.Model.GameSettings.DotType,DodgeDots.Model.GameSettings.Wave)">
             <summary>
                 Creates the dot.
             </summary>
@@ -103,7 +103,7 @@
                 Manages the dots in a game.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Direction,DodgeDots.Model.GameSettings.DotType)">
+        <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Wave,DodgeDots.Model.GameSettings.DotType)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.DotManager" /> class.
                 Precondition: None
@@ -145,14 +145,6 @@
                 A delegate for winning the game.
             </summary>
         </member>
-        <member name="P:DodgeDots.Model.GameManager.CurrentLevel">
-            <summary>
-                Gets or sets the current level.
-            </summary>
-            <value>
-                The current level.
-            </value>
-        </member>
         <member name="M:DodgeDots.Model.GameManager.#ctor(DodgeDots.Model.Player)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
@@ -170,7 +162,7 @@
                 Occurs when [game won].
             </summary>
         </member>
-        <member name="E:DodgeDots.Model.GameManager.GameLost">
+        <member name="E:DodgeDots.Model.GameManager.Collision">
             <summary>
                 Occurs when [game lost].
             </summary>
@@ -265,31 +257,6 @@
                 Holds the settings used in the game
             </summary>
         </member>
-        <member name="T:DodgeDots.Model.GameSettings.Direction">
-            <summary>
-                Direction Enumeration used to determine movement direction
-            </summary>
-        </member>
-        <member name="F:DodgeDots.Model.GameSettings.Direction.Down">
-            <summary>
-                The Down Direction Enum
-            </summary>
-        </member>
-        <member name="F:DodgeDots.Model.GameSettings.Direction.Left">
-            <summary>
-                The Left Direction Enum
-            </summary>
-        </member>
-        <member name="F:DodgeDots.Model.GameSettings.Direction.Right">
-            <summary>
-                The Right Direction Enum
-            </summary>
-        </member>
-        <member name="F:DodgeDots.Model.GameSettings.Direction.Up">
-            <summary>
-                The Up direction Enum
-            </summary>
-        </member>
         <member name="T:DodgeDots.Model.GameSettings.DotType">
             <summary>
                 Dot Type Enumeration used to determine the type of dot
@@ -305,14 +272,14 @@
                 The Final Blitz Dot Enum
             </summary>
         </member>
-        <member name="F:DodgeDots.Model.GameSettings.GameSurvivalTime">
-            <summary>
-                The game survival time
-            </summary>
-        </member>
         <member name="F:DodgeDots.Model.GameSettings.DyingAnimationLength">
             <summary>
                 The length in seconds of the dying animation.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.PlayerLives">
+            <summary>
+                The number of lives the player gets
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.ApplicationHeight">
@@ -325,22 +292,6 @@
                 The application width
             </summary>
         </member>
-        <member name="P:DodgeDots.Model.GameSettings.PrimaryDotColor">
-            <summary>
-                Gets the primary dot color.
-            </summary>
-            <value>
-                The primary dot color.
-            </value>
-        </member>
-        <member name="P:DodgeDots.Model.GameSettings.SecondaryDotColor">
-            <summary>
-                Gets the secondary dot color.
-            </summary>
-            <value>
-                The secondary dot color.
-            </value>
-        </member>
         <member name="P:DodgeDots.Model.GameSettings.FinalBlitzDotColor">
             <summary>
                 Gets the final blitz dot color.
@@ -348,6 +299,41 @@
             <value>
                 The final blitz dot color.
             </value>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings.Level1">
+            <summary>
+                Level 1 for the game.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.Title">
+            <summary>
+                The title of the given level.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.GameSurvivalTime">
+            <summary>
+                The length of the given level in seconds.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.WaveInterval">
+            <summary>
+                The interval between waves in level, in seconds.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.Waves">
+            <summary>
+                List of waves in the given level
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.WaveColors">
+            <summary>
+                The color of the given waves
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Levels.Level.FinalBlitzSpeedMultiplier">
+            <summary>
+                The multiplier applied to final blitz level max speed.
+            </summary>
         </member>
         <member name="T:DodgeDots.Model.Player">
             <summary>
@@ -461,34 +447,10 @@
             <param name="background">The background.</param>
             <param name="player">The player.</param>
         </member>
-        <member name="M:DodgeDots.Model.WaveManager.StartWaveDownMoveDirection">
+        <member name="M:DodgeDots.Model.WaveManager.StartWave(DodgeDots.Model.GameSettings.Wave,DodgeDots.Model.GameSettings.DotType)">
             <summary>
                 Starts a new wave that moves newly populated dots
                 from the top of the screen to the bottom of the screen.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.WaveManager.StartWaveRightMoveDirection">
-            <summary>
-                Starts a new wave that moves newly populated dots
-                from the left of the screen to the right of the screen.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.WaveManager.StartWaveUpMoveDirection">
-            <summary>
-                Starts a new wave that moves newly populated dots
-                from the bottom of the screen to the top of the screen.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.WaveManager.StartWaveLeftMoveDirection">
-            <summary>
-                Starts a new wave that moves newly populated dots
-                from the right of the screen to the left of the screen.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.Model.WaveManager.StartFinalBlitzWave">
-            <summary>
-                Starts the final blitz wave
-                with new dots attacking simultaneously from the top and bottom.
             </summary>
         </member>
         <member name="M:DodgeDots.Model.WaveManager.HasPlayerHitADot">
@@ -507,19 +469,9 @@
                 The main page for the game.
             </summary>
         </member>
-        <member name="T:DodgeDots.View.GamePage.ScoreSubmittedHandler">
-            <summary>
-                A delegate for losing the game.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.View.GamePage.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+        <member name="M:DodgeDots.View.GamePage.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.View.GamePage" /> class.
-            </summary>
-        </member>
-        <member name="E:DodgeDots.View.GamePage.ScoreSubmitted">
-            <summary>
-                Occurs when [game time updated].
             </summary>
         </member>
         <member name="M:DodgeDots.View.GamePage.InitializeComponent">
@@ -542,21 +494,11 @@
                 The High Score Board page for displaying the top 10 high scores.
             </summary>
         </member>
-        <member name="T:DodgeDots.View.HighScorePage.BackClickHandler">
-            <summary>
-                A delegate for clicking the back button.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.View.HighScorePage.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+        <member name="M:DodgeDots.View.HighScorePage.#ctor">
             <summary>
                 The High Score Board page for displaying the top 10 high scores.
             </summary>
             <param name="background">The canvas to put the High Score screen on.</param>
-        </member>
-        <member name="E:DodgeDots.View.HighScorePage.BackButtonClick">
-            <summary>
-                Fires an event when the back button is clicked.
-            </summary>
         </member>
         <member name="M:DodgeDots.View.HighScorePage.InitializeComponent">
             <summary>
@@ -603,17 +545,7 @@
                 An empty page that can be used on its own or navigated to within a Frame.
             </summary>
         </member>
-        <member name="T:DodgeDots.View.GameOverView.PlayAgainHandler">
-            <summary>
-                A delegate for losing the game.
-            </summary>
-        </member>
-        <member name="T:DodgeDots.View.GameOverView.SubmitHandler">
-            <summary>
-                A delegate for losing the game.
-            </summary>
-        </member>
-        <member name="M:DodgeDots.View.GameOverView.#ctor(System.Boolean)">
+        <member name="M:DodgeDots.View.GameOverView.#ctor">
             <summary>
                 Initializes the game over view.
             </summary>
@@ -623,22 +555,6 @@
                 <value>False</value>
                 otherwise
             </param>
-        </member>
-        <member name="M:DodgeDots.View.GameOverView.GetChildren">
-            <summary>
-                Gets the children of the game over view
-            </summary>
-            <returns>Collection of UIElements that are children of the view</returns>
-        </member>
-        <member name="E:DodgeDots.View.GameOverView.ScoreSubmitted">
-            <summary>
-                Occurs when [game time updated].
-            </summary>
-        </member>
-        <member name="E:DodgeDots.View.GameOverView.PlayAgain">
-            <summary>
-                Occurs when [game time updated].
-            </summary>
         </member>
         <member name="M:DodgeDots.View.GameOverView.InitializeComponent">
             <summary>

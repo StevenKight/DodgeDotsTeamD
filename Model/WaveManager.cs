@@ -49,58 +49,23 @@ namespace DodgeDots.Model
         ///     Starts a new wave that moves newly populated dots
         ///     from the top of the screen to the bottom of the screen.
         /// </summary>
-        public void StartWaveDownMoveDirection()
+        public void StartWave(GameSettings.Wave waveStart, GameSettings.DotType type)
         {
-            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down,
-                GameSettings.DotType.NormalDot);
-            this.waves.Add(waveMoveDown);
-        }
-
-        /// <summary>
-        ///     Starts a new wave that moves newly populated dots
-        ///     from the left of the screen to the right of the screen.
-        /// </summary>
-        public void StartWaveRightMoveDirection()
-        {
-            var waveMoveRight = new DotManager(this.backgroundCanvas, GameSettings.Direction.Right,
-                GameSettings.DotType.NormalDot);
-            this.waves.Add(waveMoveRight);
-        }
-
-        /// <summary>
-        ///     Starts a new wave that moves newly populated dots
-        ///     from the bottom of the screen to the top of the screen.
-        /// </summary>
-        public void StartWaveUpMoveDirection()
-        {
-            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up,
-                GameSettings.DotType.NormalDot);
-            this.waves.Add(waveMoveUp);
-        }
-
-        /// <summary>
-        ///     Starts a new wave that moves newly populated dots
-        ///     from the right of the screen to the left of the screen.
-        /// </summary>
-        public void StartWaveLeftMoveDirection()
-        {
-            var waveMoveLeft = new DotManager(this.backgroundCanvas, GameSettings.Direction.Left,
-                GameSettings.DotType.NormalDot);
-            this.waves.Add(waveMoveLeft);
-        }
-
-        /// <summary>
-        ///     Starts the final blitz wave
-        ///     with new dots attacking simultaneously from the top and bottom.
-        /// </summary>
-        public void StartFinalBlitzWave()
-        {
-            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Direction.Down,
-                GameSettings.DotType.FinalBlitzDot);
-            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Direction.Up,
-                GameSettings.DotType.FinalBlitzDot);
-            this.waves.Add(waveMoveDown);
-            this.waves.Add(waveMoveUp);
+            switch (type)
+            {
+                case GameSettings.DotType.NormalDot:
+                    var wave = new DotManager(this.backgroundCanvas, waveStart, type);
+                    this.waves.Add(wave);
+                    break;
+                case GameSettings.DotType.FinalBlitzDot:
+                    var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North,
+                        GameSettings.DotType.FinalBlitzDot);
+                    var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South,
+                        GameSettings.DotType.FinalBlitzDot);
+                    this.waves.Add(waveMoveDown);
+                    this.waves.Add(waveMoveUp);
+                    break;
+            }
         }
 
         /// <summary>
