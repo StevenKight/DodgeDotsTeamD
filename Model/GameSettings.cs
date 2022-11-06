@@ -1,4 +1,6 @@
-﻿namespace DodgeDots.Model
+﻿using Windows.UI;
+
+namespace DodgeDots.Model
 {
     /// <summary>
     ///     Holds the settings used in the game
@@ -6,6 +8,24 @@
     public class GameSettings
     {
         #region Types and Delegates
+
+        public enum PointType
+        {
+            /// <summary>
+            ///     Basic points that spawn with normal frequency.
+            /// </summary>
+            Basic = 5,
+
+            /// <summary>
+            ///     Medium value points that spawn uncommonly.
+            /// </summary>
+            Mid = 15,
+
+            /// <summary>
+            ///     Max value points that spawn rarely
+            /// </summary>
+            Max = 30
+        }
 
         /// <summary>
         ///     The waves the game can have in a level.
@@ -68,9 +88,34 @@
         public const double ApplicationWidth = 400;
 
         /// <summary>
-        ///     TODO Move to level
+        ///     The color of the basic point object.
         /// </summary>
-        public const int PointItemAmount = 10;
+        public static Color BasicPointColor = Colors.SaddleBrown;
+
+        /// <summary>
+        ///     The rarity of the basic point object. (1 - 10)
+        /// </summary>
+        public const double BasicRarity = 1;
+
+        /// <summary>
+        ///     The color of the Mid point object.
+        /// </summary>
+        public static Color MidPointColor = Colors.Silver;
+
+        /// <summary>
+        ///     The rarity of the mid point object. (1 - 10)
+        /// </summary>
+        public const double MidRarity = 2;
+
+        /// <summary>
+        ///     The color of the Max point object.
+        /// </summary>
+        public static Color MaxPointColor = Colors.Gold;
+
+        /// <summary>
+        ///     The rarity of the max point object. (1 - 10)
+        /// </summary>
+        public const double MaxRarity = 3;
 
         #endregion
     }

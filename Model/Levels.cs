@@ -33,6 +33,11 @@ namespace DodgeDots.Model
                 Colors.MediumSpringGreen,
                 Colors.DarkViolet
             };
+
+            PointTypes = new Collection<PointType>
+            {
+                GameSettings.PointType.Basic
+            };
         }
 
         #endregion
@@ -72,6 +77,12 @@ namespace DodgeDots.Model
             };
 
             FinalColor = Colors.Yellow;
+
+            PointTypes = new Collection<PointType>
+            {
+                GameSettings.PointType.Basic,
+                GameSettings.PointType.Mid
+            };
         }
 
         #endregion
@@ -112,6 +123,13 @@ namespace DodgeDots.Model
             };
 
             FinalColor = Colors.Yellow;
+
+            PointTypes = new Collection<PointType>
+            {
+                GameSettings.PointType.Basic,
+                GameSettings.PointType.Mid,
+                GameSettings.PointType.Max
+            };
         }
 
         #endregion
@@ -153,6 +171,11 @@ namespace DodgeDots.Model
         ///     The color of the final blitz wave if one is present.
         /// </summary>
         public Color FinalColor { get; set; }
+
+        /// <summary>
+        ///     The point objects that spawn in the level.
+        /// </summary>
+        public Collection<PointType> PointTypes { get; set; }
 
         #endregion
     }

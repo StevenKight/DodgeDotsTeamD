@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -14,13 +15,18 @@ namespace DodgeDots.Model
     {
         #region Data members
 
+        private const int minRandomSpawnTick = 80;
+
         private readonly IList<PointObject> points;
         private readonly Canvas backgroundCanvas;
         private readonly AudioPlayer audioPlayer;
+        private readonly GameSettings.PointType type;
+        private Color color;
 
         private readonly DispatcherTimer timer;
         private int tickCount;
         private int randomSpawnTick;
+        private int maxRandomSpawnTick;
 
         #endregion
 
@@ -44,11 +50,14 @@ namespace DodgeDots.Model
         ///     Initializes a new instance of the <see cref="PointManager" /> class.
         /// </summary>
         /// <param name="background">The background.</param>
-        public PointManager(Canvas background)
+        public PointManager(Canvas background, GameSettings.PointType type)
         {
             this.points = new List<PointObject>();
             this.backgroundCanvas = background;
             this.audioPlayer = new AudioPlayer();
+            this.type = type;
+
+            this.pointColor();
 
             this.randomSpawnTick = 0;
             this.timer = new DispatcherTimer();
@@ -136,10 +145,36 @@ namespace DodgeDots.Model
             return this.points.Remove(item);
         }
 
+        private void pointColor()
+        {
+            var maxDifference = 0.0;
+
+            switch (this.type)
+            {
+                case GameSettings.PointType.Basic:
+                    this.color = GameSettings.BasicPointColor;
+
+                    maxDifference = minRandomSpawnTick * GameSettings.BasicRarity;
+                    break;
+                case GameSettings.PointType.Mid:
+                    this.color = GameSettings.MidPointColor;
+
+                    maxDifference = minRandomSpawnTick * GameSettings.MidRarity;
+                    break;
+                case GameSettings.PointType.Max:
+                    this.color = GameSettings.MaxPointColor;
+
+                    maxDifference = minRandomSpawnTick * GameSettings.MaxRarity;
+                    break;
+            }
+
+            this.maxRandomSpawnTick = (int)(minRandomSpawnTick + maxDifference);
+        }
+
         /// <summary>
         ///     Removes all point objects from tacking and canvas.
         /// </summary>
-        public void RemovePointObjects()
+        public void StopPointManager()
         {
             foreach (var point in this.points)
             {
@@ -147,7 +182,7 @@ namespace DodgeDots.Model
             }
 
             this.points.Clear();
-            this.StopPointSpawn();
+            this.stopPointSpawn();
         }
 
         private void Timer_Tick(object sender, object e)
@@ -161,7 +196,7 @@ namespace DodgeDots.Model
 
                 this.tickCount = 0;
                 var rnd = new Random();
-                var randomSpawnNext = rnd.Next(80, 120);
+                var randomSpawnNext = rnd.Next(minRandomSpawnTick, this.maxRandomSpawnTick);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else
@@ -172,12 +207,15 @@ namespace DodgeDots.Model
 
         private async Task createRandomPoint()
         {
-            var point = new PointObject(GameSettings.PointItemAmount);
+            var point = new PointObject((int)this.type, this.color);
+
             var rnd = new Random();
             var randomXPosition = rnd.Next(0, (int)(this.backgroundCanvas.Width - point.Width) + 1);
             var randomYPosition = rnd.Next(0, (int)(this.backgroundCanvas.Height - point.Height) + 1);
+
             point.X = randomYPosition;
             point.Y = randomXPosition;
+
             this.backgroundCanvas.Children.Add(point.Sprite);
             this.points.Add(point);
 
@@ -185,10 +223,7 @@ namespace DodgeDots.Model
             this.audioPlayer.PlayAudio(file);
         }
 
-        /// <summary>
-        ///     Stops the points from spawning.
-        /// </summary>
-        public void StopPointSpawn()
+        private void stopPointSpawn()
         {
             this.timer.Stop();
         }

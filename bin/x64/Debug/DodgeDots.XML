@@ -58,6 +58,30 @@
             GetXmlnsDefinitions()
             </summary>
         </member>
+        <member name="T:DodgeDots.Model.AudioPlayer">
+            <summary>
+                The Audio Player class.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.AudioPlayer.AudioFolder">
+            <summary>
+                Gets the audio folder.
+            </summary>
+            <value>
+                The audio folder.
+            </value>
+        </member>
+        <member name="M:DodgeDots.Model.AudioPlayer.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.AudioPlayer" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.AudioPlayer.PlayAudio(Windows.Storage.StorageFile)">
+            <summary>
+                Plays the audio from the specified file.
+            </summary>
+            <param name="file">The audio file that will be played.</param>
+        </member>
         <member name="T:DodgeDots.Model.Dot">
             <summary>
                 Manages the dot
@@ -93,14 +117,19 @@
             <summary>
                 Creates the dot.
             </summary>
-            <param name="type">The type.</param>
-            <param name="direction">The direction.</param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">direction - null</exception>
+            <returns>The new dot created</returns>
+            <param name="color">The color of the dot.</param>
+            <param name="wave">The wave the dot is in.</param>
+            <param name="finalMultiplier">The multiplier to adjust speed for final blitz.</param>
         </member>
         <member name="T:DodgeDots.Model.DotManager">
             <summary>
                 Manages the dots in a game.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.DotManager.FinalBlitzMultiplier">
+            <summary>
+                The amount to multiply the speed of the final blitz by.
             </summary>
         </member>
         <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Wave,Windows.UI.Color)">
@@ -110,8 +139,8 @@
                 Post-condition: dots list is created, and tick is setup
             </summary>
             <param name="background">The background.</param>
-            <param name="direction">The direction.</param>
-            <param name="type">The type of dot.</param>
+            <param name="wave">The wave to generate.</param>
+            <param name="color">The color of dots.</param>
         </member>
         <member name="M:DodgeDots.Model.DotManager.GetEnumerator">
             <summary>
@@ -124,6 +153,11 @@
                 Stops the dots from running.
             </summary>
         </member>
+        <member name="M:DodgeDots.Model.DotManager.RemoveAllDots">
+            <summary>
+                Removes all dots from tracking and from the display.
+            </summary>
+        </member>
         <member name="T:DodgeDots.Model.GameManager">
             <summary>
                 Manages the entire game.
@@ -133,6 +167,12 @@
             <summary>
                 A delegate for losing the game.
             </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.GameScoreHandler">
+            <summary>
+                A delegate for the game score
+            </summary>
+            <param name="gameScore">The game score number.</param>
         </member>
         <member name="T:DodgeDots.Model.GameManager.GameTimeHandler">
             <summary>
@@ -145,13 +185,32 @@
                 A delegate for winning the game.
             </summary>
         </member>
+        <member name="P:DodgeDots.Model.GameManager.GameScore">
+            <summary>
+                Gets the game score.
+            </summary>
+            <value>
+                The game score.
+            </value>
+        </member>
         <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.Player)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
-                Precondition: backgroundHeight > 0 AND backgroundWidth > 0
+            </summary>
+            <param name="background">The canvas to display the game on.</param>
+            <param name="player">The player object within the game.</param>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.InitializeGame">
+            <summary>
+                Initialize and run the game.
             </summary>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameTimeUpdated">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.GameScoreUpdated">
             <summary>
                 Occurs when [game time updated].
             </summary>
@@ -248,19 +307,54 @@
                 Holds the settings used in the game
             </summary>
         </member>
-        <member name="T:DodgeDots.Model.GameSettings.DotType">
+        <member name="F:DodgeDots.Model.GameSettings.PointType.Basic">
             <summary>
-                Dot Type Enumeration used to determine the type of dot
+                Basic points that spawn with normal frequency.
             </summary>
         </member>
-        <member name="F:DodgeDots.Model.GameSettings.DotType.NormalDot">
+        <member name="F:DodgeDots.Model.GameSettings.PointType.Mid">
             <summary>
-                The Normal Dot Enum
+                Medium value points that spawn uncommonly.
             </summary>
         </member>
-        <member name="F:DodgeDots.Model.GameSettings.DotType.FinalBlitzDot">
+        <member name="F:DodgeDots.Model.GameSettings.PointType.Max">
             <summary>
-                The Final Blitz Dot Enum
+                Max value points that spawn rarely
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings.Wave">
+            <summary>
+                The waves the game can have in a level.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.North">
+            <summary>
+                The wave coming from the North.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.West">
+            <summary>
+                The wave coming from the West.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.South">
+            <summary>
+                The wave coming from the South.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.East">
+            <summary>
+                The wave coming from the East.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.NsFinalBlitz">
+            <summary>
+                The wave coming from the North and South.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.Wave.DiagonalFinalBlitz">
+            <summary>
+                The wave coming diagonally.
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.DyingAnimationLength">
@@ -283,13 +377,110 @@
                 The application width
             </summary>
         </member>
-        <member name="P:DodgeDots.Model.GameSettings.FinalBlitzDotColor">
+        <member name="F:DodgeDots.Model.GameSettings.BasicPointColor">
             <summary>
-                Gets the final blitz dot color.
+                The color of the basic point object.
             </summary>
-            <value>
-                The final blitz dot color.
-            </value>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.BasicRarity">
+            <summary>
+                The rarity of the basic point object. (1 - 10)
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.MidPointColor">
+            <summary>
+                The color of the Mid point object.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.MidRarity">
+            <summary>
+                The rarity of the mid point object. (1 - 10)
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.MaxPointColor">
+            <summary>
+                The color of the Max point object.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.MaxRarity">
+            <summary>
+                The rarity of the max point object. (1 - 10)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.LevelOne">
+            <summary>
+                Stores the game settings for level one.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.LevelOne.#ctor">
+            <summary>
+                Initiates the <see cref="T:DodgeDots.Model.LevelOne" /> settings.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.LevelTwo">
+            <summary>
+                Stores the game settings for level two.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.LevelTwo.#ctor">
+            <summary>
+                Initiates the <see cref="T:DodgeDots.Model.LevelTwo" /> settings.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.LevelThree">
+            <summary>
+                Stores the game settings for level Three.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.LevelThree.#ctor">
+            <summary>
+                Initiates the <see cref="T:DodgeDots.Model.LevelThree" /> settings.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.Level">
+            <summary>
+                Base level class to define what information to store.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.Title">
+            <summary>
+                The title of the level.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.GameSurvivalTime">
+            <summary>
+                The length of the level in seconds.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.WaveInterval">
+            <summary>
+                The interval between waves in the level in seconds.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.Waves">
+            <summary>
+                List of waves in the level.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.WaveColors">
+            <summary>
+                A list of wave colors for all except final blitz.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.FinalColor">
+            <summary>
+                The color of the final blitz wave if one is present.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.PointTypes">
+            <summary>
+                The point objects that spawn in the level.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.LevelManager">
+            <summary>
+                Manages the different levels and level settings inside the game.
+            </summary>
         </member>
         <member name="T:DodgeDots.Model.LevelManager.GameLostHandler">
             <summary>
@@ -302,10 +493,28 @@
             </summary>
             <param name="countDownNumber">The count down number.</param>
         </member>
-        <member name="T:DodgeDots.Model.LevelManager.GameWonHandler">
+        <member name="T:DodgeDots.Model.LevelManager.LevelWonHandler">
             <summary>
                 A delegate for winning the game.
             </summary>
+        </member>
+        <member name="T:DodgeDots.Model.LevelManager.PointHitHandler">
+            <summary>
+                A delegate for hitting a point object
+            </summary>
+            <param name="pointAmount">The point amount.</param>
+        </member>
+        <member name="P:DodgeDots.Model.LevelManager.CountdownCount">
+            <summary>
+                The time left in the level.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.LevelManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.Player)">
+            <summary>
+                Initializes a instance of <see cref="T:DodgeDots.Model.LevelManager" /> class.
+            </summary>
+            <param name="background">The canvas to display on.</param>
+            <param name="player">The player to manipulate.</param>
         </member>
         <member name="M:DodgeDots.Model.LevelManager.InitializeGame(DodgeDots.Model.Level)">
             <summary>
@@ -313,14 +522,14 @@
                 Precondition: background != null
                 Post-condition: Game is initialized and ready for play.
             </summary>
-            <param name="background">The background canvas.</param>
+            <param name="level">The level data to run the level/game with</param>
         </member>
         <member name="E:DodgeDots.Model.LevelManager.GameTimeUpdated">
             <summary>
                 Occurs when [game time updated].
             </summary>
         </member>
-        <member name="E:DodgeDots.Model.LevelManager.GameWon">
+        <member name="E:DodgeDots.Model.LevelManager.LevelWon">
             <summary>
                 Occurs when [game won].
             </summary>
@@ -328,6 +537,11 @@
         <member name="E:DodgeDots.Model.LevelManager.Collision">
             <summary>
                 Occurs when [game lost].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.LevelManager.PointHit">
+            <summary>
+                Occurs when Player hits a Point.
             </summary>
         </member>
         <member name="T:DodgeDots.Model.Player">
@@ -344,9 +558,23 @@
                 The color of the outer.
             </value>
         </member>
+        <member name="P:DodgeDots.Model.Player.Colors">
+            <summary>
+                A collection of colors the player can swap through.
+            </summary>
+            <value>
+                A collection of colors.
+            </value>
+        </member>
         <member name="P:DodgeDots.Model.Player.PlayerSprite">
             <summary>
                 Gets the players sprite object.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Player.PlayerLives">
+            <summary>
+                The amount of lives the player has in the game.
+                TODO Potentially move out to PlayerManager
             </summary>
         </member>
         <member name="M:DodgeDots.Model.Player.#ctor">
@@ -354,11 +582,15 @@
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.Player" /> class.
             </summary>
         </member>
+        <member name="M:DodgeDots.Model.Player.SetColors">
+            <summary>
+                Rotates through to the next set of colors the player has.
+            </summary>
+        </member>
         <member name="M:DodgeDots.Model.Player.SwapOuterColor">
             <summary>
                 Sets the color of the player.
             </summary>
-            <param name="color">The color.</param>
         </member>
         <member name="M:DodgeDots.Model.Player.MoveLeft">
             <summary>
@@ -390,18 +622,10 @@
                 Manages the Player Dot in the game.
             </summary>
         </member>
-        <member name="F:DodgeDots.Model.PlayerDotManager.ColorSwapLevel">
-            <summary>
-                The player color swap ability level.
-            </summary>
-        </member>
         <member name="P:DodgeDots.Model.PlayerDotManager.PlayerDot">
             <summary>
                 Gets the player dot.
             </summary>
-            <value>
-                The player dot.
-            </value>
         </member>
         <member name="M:DodgeDots.Model.PlayerDotManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
@@ -409,11 +633,103 @@
             </summary>
             <param name="background">The background.</param>
         </member>
-        <member name="M:DodgeDots.Model.PlayerDotManager.placePlayerCenteredInGameArena">
+        <member name="T:DodgeDots.Model.PointManager">
             <summary>
-                Moves the player to the left, if player is not a the left border.
-                Precondition: none
-                Post-condition: The player has moved left.
+                The Point Manager class
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.PointManager.Count">
+            <summary>
+                Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"></see>.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.PointManager.IsReadOnly">
+            <summary>
+                Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"></see> is read-only.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.PointType)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.PointManager" /> class.
+            </summary>
+            <param name="background">The background.</param>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+                An enumerator that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.Add(DodgeDots.Model.PointObject)">
+            <summary>
+                Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"></see>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"></see>.</param>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.Clear">
+            <summary>
+                Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"></see>.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.Contains(DodgeDots.Model.PointObject)">
+            <summary>
+                Determines whether this instance contains the object.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"></see>.</param>
+            <returns>
+                true if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"></see>; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.CopyTo(DodgeDots.Model.PointObject[],System.Int32)">
+            <summary>
+                Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"></see> to an
+                <see cref="T:System.Array"></see>, starting at a particular <see cref="T:System.Array"></see> index.
+            </summary>
+            <param name="array">
+                The one-dimensional <see cref="T:System.Array"></see> that is the destination of the elements
+                copied from <see cref="T:System.Collections.Generic.ICollection`1"></see>. The <see cref="T:System.Array"></see>
+                must have zero-based indexing.
+            </param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.Remove(DodgeDots.Model.PointObject)">
+            <summary>
+                Removes the first occurrence of a specific object from the
+                <see cref="T:System.Collections.Generic.ICollection`1"></see>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"></see>.</param>
+            <returns>
+                true if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"></see>;
+                otherwise, false. This method also returns false if item is not found in the original
+                <see cref="T:System.Collections.Generic.ICollection`1"></see>.
+            </returns>
+        </member>
+        <member name="M:DodgeDots.Model.PointManager.StopPointManager">
+            <summary>
+                Removes all point objects from tacking and canvas.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.PointObject">
+            <summary>
+                Point Object class.
+            </summary>
+            <seealso cref="T:DodgeDots.Model.GameObject" />
+        </member>
+        <member name="P:DodgeDots.Model.PointObject.PointAmount">
+            <summary>
+                Gets the point amount.
+            </summary>
+            <value>
+                The point amount.
+            </value>
+        </member>
+        <member name="M:DodgeDots.Model.PointObject.#ctor(System.Int32,Windows.UI.Color)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.Model.PointObject" /> class.
+                precondition: pointAmount > 0
+                post-condition: PointAmount == pointAmount
             </summary>
         </member>
         <member name="T:DodgeDots.Model.WaveManager">
@@ -433,6 +749,8 @@
                 Starts a new wave that moves newly populated dots
                 from the top of the screen to the bottom of the screen.
             </summary>
+            <param name="waveStart">The wave to create</param>
+            <param name="color">The color of the dots within the wave</param>
         </member>
         <member name="M:DodgeDots.Model.WaveManager.HasPlayerHitADot">
             <summary>
@@ -440,9 +758,14 @@
             </summary>
             <returns> true if player hits a dot, false otherwise </returns>
         </member>
-        <member name="M:DodgeDots.Model.WaveManager.StopAllActiveDotManagers">
+        <member name="M:DodgeDots.Model.WaveManager.StopAllActiveWaveObjects">
             <summary>
                 Stops all active dot managers.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.RemoveAllWaves">
+            <summary>
+                Removes all waves from tracking and display.
             </summary>
         </member>
         <member name="T:DodgeDots.View.GamePage">
@@ -454,6 +777,12 @@
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.View.GamePage" /> class.
             </summary>
+        </member>
+        <member name="M:DodgeDots.View.GamePage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Runs when the page is navigated to from another page
+            </summary>
+            <param name="e">Navigation event arguments</param>
         </member>
         <member name="M:DodgeDots.View.GamePage.InitializeComponent">
             <summary>
@@ -479,7 +808,12 @@
             <summary>
                 The High Score Board page for displaying the top 10 high scores.
             </summary>
-            <param name="background">The canvas to put the High Score screen on.</param>
+        </member>
+        <member name="M:DodgeDots.View.HighScorePage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Runs when the page is navigated to from another page
+            </summary>
+            <param name="e">Navigation event arguments</param>
         </member>
         <member name="M:DodgeDots.View.HighScorePage.InitializeComponent">
             <summary>
@@ -530,12 +864,12 @@
             <summary>
                 Initializes the game over view.
             </summary>
-            <param name="lose">
-                <value>True</value>
-                if the player lost,
-                <value>False</value>
-                otherwise
-            </param>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Runs when the page is navigated to from another page
+            </summary>
+            <param name="e">Navigation event arguments</param>
         </member>
         <member name="M:DodgeDots.View.GameOverView.InitializeComponent">
             <summary>
@@ -676,6 +1010,34 @@
             </summary>
         </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.PointSprite">
+            <summary>
+                The PointSprite CodeBehind
+            </summary>
+            <seealso cref="T:DodgeDots.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PointSprite.#ctor(Windows.UI.Color)">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.PointSprite" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PointSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PointSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PointSprite.GetBindingConnector(System.Int32,System.Object)">
             <summary>
             GetBindingConnector(int connectionId, object target)
             </summary>

@@ -36,5 +36,6 @@
                 </LinearGradientBrush>
             </Ellipse.Fill>
         </Ellipse>
+        <Ellipse x:Name="filter" Width="30" Height="30" Opacity="0.35"/>
     </Canvas>
 </local:BaseSprite>

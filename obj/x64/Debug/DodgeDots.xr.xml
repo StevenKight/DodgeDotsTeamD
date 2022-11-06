@@ -85,6 +85,7 @@
       <RootProperty Name="Height" />
       <RootProperty Name="Fill" />
       <RootProperty Name="Stroke" />
+      <RootProperty Name="Opacity" />
     </RootType>
     <RootType FullName="DodgeDots.View.Sprites.DotSprite" />
     <RootType FullName="DodgeDots.View.Sprites.PlayerSprite" />

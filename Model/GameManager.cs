@@ -156,7 +156,6 @@ namespace DodgeDots.Model
 
         private void levelWon()
         {
-            this.currentLevel++;
             this.InitializeGame();
         }
 

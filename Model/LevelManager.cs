@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,9 +42,11 @@ namespace DodgeDots.Model
         private int survivalTime;
 
         private readonly Player playerObject;
+        private PointObject lastHitPoint;
         private Level levelInformation;
 
         private WaveManager waveManager;
+        private Collection<PointManager> pointManager;
         private readonly Canvas canvas;
 
         private int currentWave;
@@ -91,6 +94,12 @@ namespace DodgeDots.Model
         {
             this.levelInformation = level;
             this.survivalTime = level.GameSurvivalTime;
+            this.pointManager = new Collection<PointManager>();
+
+            foreach (var pointType in level.PointTypes)
+            {
+                this.pointManager.Add(new PointManager(this.canvas, pointType));
+            }
 
             this.playerObject.Colors = level.WaveColors;
             this.playerObject.SetColors();
@@ -99,7 +108,6 @@ namespace DodgeDots.Model
             this.CountdownCount = this.survivalTime;
 
             this.waveManager = new WaveManager(this.canvas, this.playerObject);
-            this.waveManager.PointHit += this.onPointHit;
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;
@@ -145,7 +153,6 @@ namespace DodgeDots.Model
 
         private void onLevelWon()
         {
-            this.waveManager.RemoveAllWaves();
             this.stopGame();
             this.waveTimerCount = 0;
             this.LevelWon?.Invoke();
@@ -167,6 +174,26 @@ namespace DodgeDots.Model
             this.waveTimerCount++;
             this.CountdownCount--;
             this.onGameTimeUpdated();
+        }
+
+        private bool HasPlayerHitAPoint()
+        {
+            foreach (var points in this.pointManager)
+            {
+                foreach (var point in points)
+                {
+                    if (this.playerObject.isCircleCollisionForPlayerAndDot(point))
+                    {
+                        this.lastHitPoint = point;
+                        this.onPointHit(point.PointAmount);
+                        points.Remove(point);
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void startNextWave()
@@ -204,12 +231,11 @@ namespace DodgeDots.Model
         {
             if (this.waveManager.HasPlayerHitADot())
             {
-                this.playerObject.PlayerLives--;
-
-                this.playerObject.DyingAnimation();
-
-                this.stopGame();
-                this.onGameLost();
+                this.gameOver();
+            }
+            else if (this.HasPlayerHitAPoint())
+            {
+                this.removePointObject(this.lastHitPoint);
             }
             else if (this.waveTimerCount == this.survivalTime)
             {
@@ -218,11 +244,42 @@ namespace DodgeDots.Model
             }
         }
 
+        private void gameOver()
+        {
+            this.playerObject.PlayerLives--;
+
+            this.playerObject.DyingAnimation();
+
+            this.stopGame();
+            this.onGameLost();
+        }
+
         private void stopGame()
         {
             this.timer.Stop();
             this.waveTimer.Stop();
             this.waveManager.RemoveAllWaves();
+
+            foreach (var points in this.pointManager)
+            {
+                points.StopPointManager();
+            }
+        }
+
+        private void removePointObject(PointObject point)
+        {
+            if (point != null)
+            {
+                foreach (var points in this.pointManager)
+                {
+                    if (!points.Contains(point))
+                    {
+                        points.Remove(point);
+                    }
+                }
+
+                this.canvas.Children.Remove(point.Sprite);
+            }
         }
 
         #endregion

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Windows.UI;
+using System.Drawing;
 using Windows.UI.Xaml;
 using DodgeDots.View.Sprites;
+using Color = Windows.UI.Color;
 
 namespace DodgeDots.Model
 {
@@ -147,6 +148,23 @@ namespace DodgeDots.Model
         {
             SetSpeed(0, SpeedYDirection);
             Move();
+        }
+
+        public bool isCircleCollisionForPlayerAndDot(GameObject dot)
+        {
+            var playerRectangle = new Rectangle((int)X, (int)Y, (int)Width, (int)Height);
+            var dotRectangle = new Rectangle((int)dot.X, (int)dot.Y, (int)dot.Width, (int)dot.Height);
+
+            var radiusSum = playerRectangle.Width / 2.0 + dotRectangle.Width / 2.0;
+            var deltaX = playerRectangle.X - dotRectangle.X;
+            var deltaY = playerRectangle.Y - dotRectangle.Y;
+
+            return deltaX * deltaX + deltaY * deltaY <= radiusSum * radiusSum;
+        }
+
+        public bool isCollidingDotSameColorAsPlayerDot(Dot dot)
+        {
+            return this.OuterColor != dot.Color;
         }
 
         /// <summary>

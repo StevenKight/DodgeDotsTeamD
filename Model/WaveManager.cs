@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Color = Windows.UI.Color;
 
 namespace DodgeDots.Model
 {
@@ -12,22 +11,10 @@ namespace DodgeDots.Model
     /// </summary>
     public class WaveManager
     {
-        #region Types and Delegates
-
-        /// <summary>
-        ///     A delegate for hitting a point object
-        /// </summary>
-        /// <param name="pointAmount">The point amount.</param>
-        public delegate void PointHitHandler(int pointAmount);
-
-        #endregion
-
         #region Data members
 
         private readonly Canvas backgroundCanvas;
         private readonly Player player;
-        private readonly PointManager pointManager;
-        private PointObject lastHitPoint;
 
         private readonly DispatcherTimer timer;
         private readonly IList<DotManager> waves;
@@ -44,7 +31,6 @@ namespace DodgeDots.Model
         public WaveManager(Canvas background, Player player)
         {
             this.waves = new List<DotManager>();
-            this.pointManager = new PointManager(background);
 
             this.backgroundCanvas = background;
             this.player = player;
@@ -58,11 +44,6 @@ namespace DodgeDots.Model
         #endregion
 
         #region Methods
-
-        /// <summary>
-        ///     Occurs when Player hits a Point.
-        /// </summary>
-        public event PointHitHandler PointHit;
 
         /// <summary>
         ///     Starts a new wave that moves newly populated dots
@@ -110,32 +91,6 @@ namespace DodgeDots.Model
         }
 
         /// <summary>
-        ///     Determines whether [has player hit a point].
-        /// </summary>
-        /// <returns>
-        ///     <c>true</c> if [has player hit a point]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool HasPlayerHitAPoint()
-        {
-            foreach (var point in this.pointManager)
-            {
-                if (this.isCircleCollisionForPlayerAndDot(point))
-                {
-                    this.lastHitPoint = point;
-                    this.onPointHit();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void onPointHit()
-        {
-            this.PointHit?.Invoke(this.lastHitPoint.PointAmount);
-        }
-
-        /// <summary>
         ///     Stops all active dot managers.
         /// </summary>
         public void StopAllActiveWaveObjects()
@@ -146,7 +101,6 @@ namespace DodgeDots.Model
             }
 
             this.timer.Stop();
-            this.pointManager.RemovePointObjects();
         }
 
         /// <summary>
@@ -164,28 +118,15 @@ namespace DodgeDots.Model
         private void Timer_Tick(object sender, object e)
         {
             this.HasPlayerHitADot();
-            if (this.HasPlayerHitAPoint())
-            {
-                this.removePointObject(this.lastHitPoint);
-            }
-        }
-
-        private void removePointObject(PointObject point)
-        {
-            if (point != null)
-            {
-                this.pointManager.Remove(point);
-                this.backgroundCanvas.Children.Remove(point.Sprite);
-            }
         }
 
         private bool checkPlayerHitsDotInSpecificWave(DotManager wave)
         {
             foreach (var dot in wave)
             {
-                if (this.isCircleCollisionForPlayerAndDot(dot))
+                if (this.player.isCircleCollisionForPlayerAndDot(dot))
                 {
-                    if (this.isCollidingDotSameColorAsPlayerDot(dot))
+                    if (this.player.isCollidingDotSameColorAsPlayerDot(dot))
                     {
                         return true;
                     }
@@ -193,22 +134,6 @@ namespace DodgeDots.Model
             }
 
             return false;
-        }
-
-        private bool isCollidingDotSameColorAsPlayerDot(Dot dot)
-        {
-            return this.player.OuterColor != dot.Color;
-        }
-
-        private bool isCircleCollisionForPlayerAndDot(GameObject dot)
-        {
-            var playerRectangle = new Rectangle((int)this.player.X, (int)this.player.Y, (int)this.player.Width,
-                (int)this.player.Height);
-            var dotRectangle = new Rectangle((int)dot.X, (int)dot.Y, (int)dot.Width, (int)dot.Height);
-            var radiusSum = playerRectangle.Width / 2.0 + dotRectangle.Width / 2.0;
-            var deltaX = playerRectangle.X - dotRectangle.X;
-            var deltaY = playerRectangle.Y - dotRectangle.Y;
-            return deltaX * deltaX + deltaY * deltaY <= radiusSum * radiusSum;
         }
 
         #endregion
