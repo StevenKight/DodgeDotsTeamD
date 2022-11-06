@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,6 +13,8 @@ namespace DodgeDots.Model
     public class WaveManager
     {
         #region Data members
+
+        private const int NumberNormalWaves = 4;
 
         private readonly Canvas backgroundCanvas;
         private readonly Player player;
@@ -60,17 +63,41 @@ namespace DodgeDots.Model
                     this.waves.Add(wave);
                     break;
                 case GameSettings.Wave.NsFinalBlitz:
-                    var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North, color);
-                    var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South, color);
-
-                    // TODO Use level class to store these
-                    waveMoveDown.FinalBlitzMultiplier = 2;
-                    waveMoveUp.FinalBlitzMultiplier = 2;
-
-                    this.waves.Add(waveMoveDown);
-                    this.waves.Add(waveMoveUp);
+                    this.northSouthFinalBlitz(color);
+                    break;
+                case GameSettings.Wave.DiagonalFinalBlitz:
+                    this.diagonalFinalBlitz(color);
                     break;
             }
+        }
+
+        private void diagonalFinalBlitz(Color color)
+        {
+            var waves = Enum.GetValues(typeof(GameSettings.Wave)).Cast<GameSettings.Wave>();
+
+            for (var i = 0; i < NumberNormalWaves; i++)
+            {
+                var wave = waves.ElementAt(i);
+                var generatedWave = new DotManager(this.backgroundCanvas, wave, color);
+
+                generatedWave.FinalBlitzMultiplier = 2;
+                generatedWave.DiagonalWave = true;
+
+                this.waves.Add(generatedWave);
+            }
+        }
+
+        private void northSouthFinalBlitz(Color color)
+        {
+            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North, color);
+            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South, color);
+
+            // TODO Use level class to store these
+            waveMoveDown.FinalBlitzMultiplier = 2;
+            waveMoveUp.FinalBlitzMultiplier = 2;
+
+            this.waves.Add(waveMoveDown);
+            this.waves.Add(waveMoveUp);
         }
 
         /// <summary>

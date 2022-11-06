@@ -113,7 +113,7 @@
             </summary>
             <seealso cref="T:DodgeDots.Model.GameObject" />
         </member>
-        <member name="M:DodgeDots.Model.DotFactory.CreateDot(Windows.UI.Color,DodgeDots.Model.GameSettings.Wave,System.Int32)">
+        <member name="M:DodgeDots.Model.DotFactory.CreateDot(Windows.UI.Color,DodgeDots.Model.GameSettings.Wave,System.Int32,System.Boolean)">
             <summary>
                 Creates the dot.
             </summary>
@@ -130,6 +130,11 @@
         <member name="P:DodgeDots.Model.DotManager.FinalBlitzMultiplier">
             <summary>
                 The amount to multiply the speed of the final blitz by.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.DotManager.DiagonalWave">
+            <summary>
+                Creates dots with diagonal movement.
             </summary>
         </member>
         <member name="M:DodgeDots.Model.DotManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.GameSettings.Wave,Windows.UI.Color)">
@@ -316,6 +321,11 @@
         <member name="T:DodgeDots.Model.GameSettings">
             <summary>
                 Holds the settings used in the game
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings.PointType">
+            <summary>
+                The types of point objects and the associated point value.
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.PointType.Basic">
@@ -623,6 +633,30 @@
                 Moves the player down.
             </summary>
         </member>
+        <member name="M:DodgeDots.Model.Player.IsCircleOverlapPlayer(DodgeDots.Model.GameObject)">
+            <summary>
+                Tests if the player overlaps the given GameObject.
+            </summary>
+            <param name="dot">The GameObject to test overlap of.</param>
+            <returns>
+                <value>True</value>
+                if overlap and
+                <value>false</value>
+                otherwise.
+            </returns>
+        </member>
+        <member name="M:DodgeDots.Model.Player.IsColorSameAsPlayer(DodgeDots.Model.Dot)">
+            <summary>
+                Tests if the player and the given GameObject have the same color.
+            </summary>
+            <param name="dot">The GameObject to test color of.</param>
+            <returns>
+                <value>True</value>
+                if colors are the same and
+                <value>false</value>
+                otherwise.
+            </returns>
+        </member>
         <member name="M:DodgeDots.Model.Player.DyingAnimation">
             <summary>
                 Starts the dying animation timer.
@@ -679,6 +713,7 @@
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.PointManager" /> class.
             </summary>
             <param name="background">The background.</param>
+            <param name="type">The type of point objects to spawn.</param>
         </member>
         <member name="M:DodgeDots.Model.PointManager.GetEnumerator">
             <summary>

@@ -34,6 +34,11 @@ namespace DodgeDots.Model
         /// </summary>
         public int FinalBlitzMultiplier { get; set; }
 
+        /// <summary>
+        ///     Creates dots with diagonal movement.
+        /// </summary>
+        public bool DiagonalWave { get; set; }
+
         #endregion
 
         #region Constructors
@@ -54,6 +59,7 @@ namespace DodgeDots.Model
             this.wave = wave;
             this.color = color;
             this.FinalBlitzMultiplier = 1;
+            this.DiagonalWave = false;
 
             this.tickCount = 0;
             this.randomSpawnTick = 0;
@@ -124,7 +130,7 @@ namespace DodgeDots.Model
 
         private void createDot()
         {
-            var dot = this.dotFactory.CreateDot(this.color, this.wave, this.FinalBlitzMultiplier);
+            var dot = this.dotFactory.CreateDot(this.color, this.wave, this.FinalBlitzMultiplier, this.DiagonalWave);
             this.dots.Add(dot);
             this.canvas.Children.Add(dot.Sprite);
             this.setDotInPosition(dot);

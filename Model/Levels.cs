@@ -17,7 +17,7 @@ namespace DodgeDots.Model
         public LevelOne()
         {
             Title = "Level 1";
-            GameSurvivalTime = 25;
+            GameSurvivalTime = 25; // 25
             WaveInterval = 5;
 
             Waves = new Collection<Wave>
@@ -56,7 +56,7 @@ namespace DodgeDots.Model
         public LevelTwo()
         {
             Title = "Level 2";
-            GameSurvivalTime = 30;
+            GameSurvivalTime = 30; // 30
             WaveInterval = 5;
 
             Waves = new Collection<Wave>
@@ -101,7 +101,7 @@ namespace DodgeDots.Model
         public LevelThree()
         {
             Title = "Level 3";
-            GameSurvivalTime = 35;
+            GameSurvivalTime = 35; // 35
             WaveInterval = 5;
 
             Waves = new Collection<Wave>
@@ -110,8 +110,7 @@ namespace DodgeDots.Model
                 Wave.West,
                 Wave.South,
                 Wave.East,
-                // TODO Change to diagonal wave
-                Wave.NsFinalBlitz
+                Wave.DiagonalFinalBlitz
             };
 
             WaveColors = new Collection<Color>

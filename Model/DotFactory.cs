@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.UI;
+﻿using Windows.UI;
 
 namespace DodgeDots.Model
 {
@@ -9,6 +8,12 @@ namespace DodgeDots.Model
     /// <seealso cref="DodgeDots.Model.GameObject" />
     public class DotFactory : Dot
     {
+        #region Properties
+
+        public bool DiagonalSpeed { get; set; }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -18,28 +23,51 @@ namespace DodgeDots.Model
         /// <param name="color">The color of the dot.</param>
         /// <param name="wave">The wave the dot is in.</param>
         /// <param name="finalMultiplier">The multiplier to adjust speed for final blitz.</param>
-        public Dot CreateDot(Color color, GameSettings.Wave wave, int finalMultiplier)
+        public Dot CreateDot(Color color, GameSettings.Wave wave, int finalMultiplier, bool diagonal)
         {
+            this.DiagonalSpeed = diagonal;
+
             var dot = new DotFactory();
             switch (wave)
             {
                 default:
-                    setDirectionalSpeeds(wave, dot);
+                    this.setDirectionalSpeeds(wave, dot);
                     dot.SetColor(color);
 
                     break;
                 case GameSettings.Wave.NsFinalBlitz:
-                    setDirectionalSpeeds(wave, dot);
-                    dot.SetColor(color);
-                    dot.SetSpeed(dot.SpeedX * finalMultiplier,
-                        dot.SpeedY * finalMultiplier);
+                    this.setFinalBlitzSpeeds(color, wave, finalMultiplier, dot);
+                    break;
+                case GameSettings.Wave.DiagonalFinalBlitz:
+                    this.setFinalBlitzSpeeds(color, wave, finalMultiplier, dot);
                     break;
             }
 
             return dot;
         }
 
-        private static void setDirectionalSpeeds(GameSettings.Wave wave, DotFactory dot)
+        private void setFinalBlitzSpeeds(Color color, GameSettings.Wave wave, int finalMultiplier,
+            DotFactory dot)
+        {
+            this.setDirectionalSpeeds(wave, dot);
+            dot.SetColor(color);
+            dot.SetSpeed(dot.SpeedX * finalMultiplier,
+                dot.SpeedY * finalMultiplier);
+        }
+
+        private void setDirectionalSpeeds(GameSettings.Wave wave, DotFactory dot)
+        {
+            if (!this.DiagonalSpeed)
+            {
+                normalDotSpeed(wave, dot);
+            }
+            else
+            {
+                diagonalDotSpeed(wave, dot);
+            }
+        }
+
+        private static void normalDotSpeed(GameSettings.Wave wave, DotFactory dot)
         {
             switch (wave)
             {
@@ -55,8 +83,17 @@ namespace DodgeDots.Model
                 case GameSettings.Wave.West:
                     dot.SetSpeed(dot.SpeedX, 0);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(wave), wave, null);
+            }
+        }
+
+        private static void diagonalDotSpeed(GameSettings.Wave wave, DotFactory dot)
+        {
+            switch (wave)
+            {
+                case GameSettings.Wave.South:
+                case GameSettings.Wave.East:
+                    dot.SetSpeed(-dot.SpeedX, -dot.SpeedY);
+                    break;
             }
         }
 

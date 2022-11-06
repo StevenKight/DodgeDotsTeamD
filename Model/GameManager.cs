@@ -111,26 +111,37 @@ namespace DodgeDots.Model
         {
             this.currentLevel++;
 
-            this.playerManager.StopPlayer();
-            this.playerManager.PlacePlayerCenteredInGameArena();
-
-            var level = this.levelList[this.currentLevel - 1];
-            this.LevelUpdated?.Invoke(level.Title);
-
-            this.playerManager.PlayerDot.Colors = level.WaveColors;
-            this.playerManager.PlayerDot.SetColors();
-
-            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
-
             if (this.currentLevel <= this.levelList.Count)
             {
-                this.playerManager.RestartPlayer();
-                this.levelManager.InitializeGame(level);
+                var level = this.levelList[this.currentLevel - 1];
+                this.LevelUpdated?.Invoke(level.Title);
+
+                this.onGameTimeUpdated(level.GameSurvivalTime);
+
+                this.preparePlayer(level);
+
+                await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
+                this.runLevel(level);
             }
             else
             {
                 this.onGameWon();
             }
+        }
+
+        private void runLevel(Level level)
+        {
+            this.playerManager.RestartPlayer();
+            this.levelManager.InitializeGame(level);
+        }
+
+        private void preparePlayer(Level level)
+        {
+            this.playerManager.StopPlayer();
+            this.playerManager.PlacePlayerCenteredInGameArena();
+            this.playerManager.PlayerDot.Colors = level.WaveColors;
+            this.playerManager.PlayerDot.SetColors();
         }
 
         /// <summary>
