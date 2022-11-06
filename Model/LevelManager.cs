@@ -92,20 +92,7 @@ namespace DodgeDots.Model
         /// <param name="level">The level data to run the level/game with</param>
         public void InitializeGame(Level level)
         {
-            this.levelInformation = level;
-            this.survivalTime = level.GameSurvivalTime;
-            this.pointManager = new Collection<PointManager>();
-
-            foreach (var pointType in level.PointTypes)
-            {
-                this.pointManager.Add(new PointManager(this.canvas, pointType));
-            }
-
-            this.playerObject.Colors = level.WaveColors;
-            this.playerObject.SetColors();
-
-            this.currentWave = 0;
-            this.CountdownCount = this.survivalTime;
+            this.formatLevelInformation(level);
 
             this.waveManager = new WaveManager(this.canvas, this.playerObject);
 
@@ -119,6 +106,21 @@ namespace DodgeDots.Model
 
             this.timer.Start();
             this.waveTimer.Start();
+        }
+
+        private void formatLevelInformation(Level level)
+        {
+            this.levelInformation = level;
+            this.survivalTime = level.GameSurvivalTime;
+            this.pointManager = new Collection<PointManager>();
+
+            foreach (var pointType in level.PointTypes)
+            {
+                this.pointManager.Add(new PointManager(this.canvas, pointType));
+            }
+
+            this.currentWave = 0;
+            this.CountdownCount = this.survivalTime;
         }
 
         /// <summary>
@@ -176,13 +178,13 @@ namespace DodgeDots.Model
             this.onGameTimeUpdated();
         }
 
-        private bool HasPlayerHitAPoint()
+        private bool hasPlayerHitAPoint()
         {
             foreach (var points in this.pointManager)
             {
                 foreach (var point in points)
                 {
-                    if (this.playerObject.isCircleCollisionForPlayerAndDot(point))
+                    if (this.playerObject.IsCircleOverlapPlayer(point))
                     {
                         this.lastHitPoint = point;
                         this.onPointHit(point.PointAmount);
@@ -233,7 +235,7 @@ namespace DodgeDots.Model
             {
                 this.gameOver();
             }
-            else if (this.HasPlayerHitAPoint())
+            else if (this.hasPlayerHitAPoint())
             {
                 this.removePointObject(this.lastHitPoint);
             }

@@ -1,6 +1,4 @@
 ﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
-using DodgeDots.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,22 +22,6 @@ namespace DodgeDots.View
         #endregion
 
         #region Methods
-
-        /// <summary>
-        ///     Runs when the page is navigated to from another page
-        /// </summary>
-        /// <param name="e">Navigation event arguments</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            this.buildView();
-        }
-
-        private void buildView()
-        {
-            this.highScoreboardText.Width = GameSettings.ApplicationWidth;
-            this.buttonGrid.Width = GameSettings.ApplicationWidth;
-            this.buttonGrid.Height = GameSettings.ApplicationHeight;
-        }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {

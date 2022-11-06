@@ -36,7 +36,7 @@ namespace DodgeDots.Model
 
             PointTypes = new Collection<PointType>
             {
-                GameSettings.PointType.Basic
+                PointType.Basic
             };
         }
 
@@ -80,8 +80,8 @@ namespace DodgeDots.Model
 
             PointTypes = new Collection<PointType>
             {
-                GameSettings.PointType.Basic,
-                GameSettings.PointType.Mid
+                PointType.Basic,
+                PointType.Mid
             };
         }
 
@@ -126,9 +126,9 @@ namespace DodgeDots.Model
 
             PointTypes = new Collection<PointType>
             {
-                GameSettings.PointType.Basic,
-                GameSettings.PointType.Mid,
-                GameSettings.PointType.Max
+                PointType.Basic,
+                PointType.Mid,
+                PointType.Max
             };
         }
 

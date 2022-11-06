@@ -14,6 +14,8 @@ namespace DodgeDots.Model
         #region Data members
 
         private readonly Canvas backgroundCanvas;
+        private readonly DispatcherTimer playerTimer;
+
         private bool isUpKeyDown;
         private bool isDownKeyDown;
         private bool isLeftKeyDown;
@@ -42,20 +44,45 @@ namespace DodgeDots.Model
             this.PlayerDot = new Player();
             this.backgroundCanvas = background;
             background.Children.Add(this.PlayerDot.Sprite);
-            this.placePlayerCenteredInGameArena();
+            this.PlacePlayerCenteredInGameArena();
 
             Window.Current.CoreWindow.KeyDown += this.playerKeyDownFlag;
             Window.Current.CoreWindow.KeyUp += this.playerKeyUpFlag;
 
-            var playerTimer = new DispatcherTimer();
-            playerTimer.Tick += this.PlayerTimer_Tick;
-            playerTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
-            playerTimer.Start();
+            this.playerTimer = new DispatcherTimer();
+            this.playerTimer.Tick += this.PlayerTimer_Tick;
+            this.playerTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
+            this.playerTimer.Start();
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///     Place the player in the center of the display.
+        /// </summary>
+        public void PlacePlayerCenteredInGameArena()
+        {
+            this.PlayerDot.X = this.backgroundCanvas.Width / 2 - this.PlayerDot.Width / 2.0;
+            this.PlayerDot.Y = this.backgroundCanvas.Height / 2 - this.PlayerDot.Height / 2.0;
+        }
+
+        /// <summary>
+        ///     Stops the player movement.
+        /// </summary>
+        public void StopPlayer()
+        {
+            this.playerTimer.Stop();
+        }
+
+        /// <summary>
+        ///     Restarts the player movement.
+        /// </summary>
+        public void RestartPlayer()
+        {
+            this.playerTimer.Start();
+        }
 
         private void PlayerTimer_Tick(object sender, object e)
         {
@@ -135,12 +162,6 @@ namespace DodgeDots.Model
         private void colorSwap()
         {
             this.PlayerDot.SwapOuterColor();
-        }
-
-        private void placePlayerCenteredInGameArena()
-        {
-            this.PlayerDot.X = this.backgroundCanvas.Width / 2 - this.PlayerDot.Width / 2.0;
-            this.PlayerDot.Y = this.backgroundCanvas.Height / 2 - this.PlayerDot.Height / 2.0;
         }
 
         #endregion

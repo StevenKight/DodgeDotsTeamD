@@ -15,7 +15,7 @@ namespace DodgeDots.Model
     {
         #region Data members
 
-        private const int minRandomSpawnTick = 80;
+        private const int MinRandomSpawnTick = 80;
 
         private readonly IList<PointObject> points;
         private readonly Canvas backgroundCanvas;
@@ -50,6 +50,7 @@ namespace DodgeDots.Model
         ///     Initializes a new instance of the <see cref="PointManager" /> class.
         /// </summary>
         /// <param name="background">The background.</param>
+        /// <param name="type">The type of point objects to spawn.</param>
         public PointManager(Canvas background, GameSettings.PointType type)
         {
             this.points = new List<PointObject>();
@@ -154,21 +155,21 @@ namespace DodgeDots.Model
                 case GameSettings.PointType.Basic:
                     this.color = GameSettings.BasicPointColor;
 
-                    maxDifference = minRandomSpawnTick * GameSettings.BasicRarity;
+                    maxDifference = MinRandomSpawnTick * GameSettings.BasicRarity;
                     break;
                 case GameSettings.PointType.Mid:
                     this.color = GameSettings.MidPointColor;
 
-                    maxDifference = minRandomSpawnTick * GameSettings.MidRarity;
+                    maxDifference = MinRandomSpawnTick * GameSettings.MidRarity;
                     break;
                 case GameSettings.PointType.Max:
                     this.color = GameSettings.MaxPointColor;
 
-                    maxDifference = minRandomSpawnTick * GameSettings.MaxRarity;
+                    maxDifference = MinRandomSpawnTick * GameSettings.MaxRarity;
                     break;
             }
 
-            this.maxRandomSpawnTick = (int)(minRandomSpawnTick + maxDifference);
+            this.maxRandomSpawnTick = (int)(MinRandomSpawnTick + maxDifference);
         }
 
         /// <summary>
@@ -196,7 +197,7 @@ namespace DodgeDots.Model
 
                 this.tickCount = 0;
                 var rnd = new Random();
-                var randomSpawnNext = rnd.Next(minRandomSpawnTick, this.maxRandomSpawnTick);
+                var randomSpawnNext = rnd.Next(MinRandomSpawnTick, this.maxRandomSpawnTick);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else

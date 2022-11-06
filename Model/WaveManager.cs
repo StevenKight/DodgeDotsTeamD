@@ -124,9 +124,9 @@ namespace DodgeDots.Model
         {
             foreach (var dot in wave)
             {
-                if (this.player.isCircleCollisionForPlayerAndDot(dot))
+                if (this.player.IsCircleOverlapPlayer(dot))
                 {
-                    if (this.player.isCollidingDotSameColorAsPlayerDot(dot))
+                    if (!this.player.IsColorSameAsPlayer(dot))
                     {
                         return true;
                     }

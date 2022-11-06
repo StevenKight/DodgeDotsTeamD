@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace DodgeDots.Model
@@ -33,10 +34,19 @@ namespace DodgeDots.Model
         /// </summary>
         public delegate void GameWonHandler();
 
+        /// <summary>
+        ///     A delegate for the game level
+        /// </summary>
+        /// <param name="levelTitle">The title of the level.</param>
+        public delegate void LevelHandler(string levelTitle);
+
         #endregion
 
         #region Data members
 
+        private const int Milliseconds = 1000;
+
+        private readonly PlayerDotManager playerManager;
         private readonly LevelManager levelManager;
         private readonly Collection<Level> levelList;
 
@@ -66,9 +76,10 @@ namespace DodgeDots.Model
         /// </summary>
         /// <param name="background">The canvas to display the game on.</param>
         /// <param name="player">The player object within the game.</param>
-        public GameManager(Canvas background, Player player)
+        public GameManager(Canvas background, PlayerDotManager player)
         {
-            this.levelManager = new LevelManager(background, player);
+            this.playerManager = player;
+            this.levelManager = new LevelManager(background, player.PlayerDot);
 
             this.levelList = new Collection<Level>
             {
@@ -96,13 +107,25 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Initialize and run the game.
         /// </summary>
-        public void InitializeGame()
+        public async Task InitializeGameAsync()
         {
             this.currentLevel++;
 
+            this.playerManager.StopPlayer();
+            this.playerManager.PlacePlayerCenteredInGameArena();
+
+            var level = this.levelList[this.currentLevel - 1];
+            this.LevelUpdated?.Invoke(level.Title);
+
+            this.playerManager.PlayerDot.Colors = level.WaveColors;
+            this.playerManager.PlayerDot.SetColors();
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
             if (this.currentLevel <= this.levelList.Count)
             {
-                this.levelManager.InitializeGame(this.levelList[this.currentLevel - 1]);
+                this.playerManager.RestartPlayer();
+                this.levelManager.InitializeGame(level);
             }
             else
             {
@@ -121,6 +144,11 @@ namespace DodgeDots.Model
         public event GameScoreHandler GameScoreUpdated;
 
         /// <summary>
+        ///     Occurs when [game time updated].
+        /// </summary>
+        public event LevelHandler LevelUpdated;
+
+        /// <summary>
         ///     Occurs when [game won].
         /// </summary>
         public event GameWonHandler GameWon;
@@ -137,15 +165,21 @@ namespace DodgeDots.Model
 
         private async void onGameWon()
         {
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("YouWin.wav");
-            this.audioPlayer.PlayAudio(file);
+            await this.gameOver("YouWin.wav");
             this.GameWon?.Invoke();
+        }
+
+        private async Task gameOver(string filename)
+        {
+            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync(filename);
+            this.audioPlayer.PlayAudio(file);
+
+            this.playerManager.StopPlayer();
         }
 
         private async void onGameLost()
         {
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("GameOver.wav");
-            this.audioPlayer.PlayAudio(file);
+            await this.gameOver("GameOver.wav");
             this.Collision?.Invoke();
         }
 
@@ -156,7 +190,7 @@ namespace DodgeDots.Model
 
         private void levelWon()
         {
-            this.InitializeGame();
+            _ = this.InitializeGameAsync();
         }
 
         private void WaveManager_PointHit(int pointAmount)

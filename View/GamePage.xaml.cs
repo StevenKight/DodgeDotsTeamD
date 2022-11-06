@@ -47,53 +47,39 @@ namespace DodgeDots.View
 
         private void buildView()
         {
-            this.countdown.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
-            this.lives.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
-            this.lives.Margin = new Thickness(25, 0, 0, 0);
-            this.score.Width = GameSettings.ApplicationWidth - this.countdown.FontSize;
-
-            this.gameOverTextBlock.Width = GameSettings.ApplicationWidth;
-            this.canvas.Height = GameSettings.ApplicationHeight;
-
-            this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
-            this.lives.Foreground = new SolidColorBrush(Colors.LawnGreen);
+            this.adjustColors();
 
             this.gameOverTextBlock.Visibility = Visibility.Collapsed;
 
             this.lives.Text += GameSettings.PlayerLives;
 
-            this.runGameView();
+            this.playerManager = new PlayerDotManager(this.canvas);
+
+            this.runGame();
         }
 
-        private void runGameView()
+        private void adjustColors()
         {
-            var player = this.displayPlayer();
-
-            this.runGame(player);
+            this.countdown.Foreground = new SolidColorBrush(Colors.LawnGreen);
+            this.lives.Foreground = new SolidColorBrush(Colors.LawnGreen);
         }
 
-        private void runGame(Player player)
+        private void runGame()
         {
-            var gameManager = new GameManager(this.canvas, player);
-            gameManager.InitializeGame();
+            var gameManager = new GameManager(this.canvas, this.playerManager);
 
             gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
             gameManager.Collision += this.GameManager_GameLostAsync;
             gameManager.GameWon += this.GameManager_GameWon;
             gameManager.GameScoreUpdated += this.GameManager_GameScoreUpdated;
+            gameManager.LevelUpdated += this.GameManager_LevelIncrementAsync;
+
+            _ = gameManager.InitializeGameAsync();
         }
 
         private void GameManager_GameScoreUpdated(int gameScore)
         {
             this.score.Text = $"Score: {gameScore}";
-        }
-
-        private Player displayPlayer()
-        {
-            this.playerManager = new PlayerDotManager(this.canvas);
-            var player = this.playerManager.PlayerDot;
-
-            return player;
         }
 
         private async void GameManager_GameWon()
@@ -108,17 +94,7 @@ namespace DodgeDots.View
 
         private void gameOver()
         {
-            this.dimBackgroundElements();
-
             Frame.Navigate(typeof(GameOverView));
-        }
-
-        private void dimBackgroundElements()
-        {
-            foreach (var child in this.canvas.Children)
-            {
-                child.Opacity = 0.25;
-            }
         }
 
         private async void GameManager_GameLostAsync()
@@ -129,6 +105,15 @@ namespace DodgeDots.View
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
             this.gameOver();
+        }
+
+        private async void GameManager_LevelIncrementAsync(string title)
+        {
+            this.setGameOverResultText(title);
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
+            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private void setGameOverResultText(string message)

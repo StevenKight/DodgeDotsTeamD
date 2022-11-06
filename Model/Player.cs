@@ -150,7 +150,17 @@ namespace DodgeDots.Model
             Move();
         }
 
-        public bool isCircleCollisionForPlayerAndDot(GameObject dot)
+        /// <summary>
+        ///     Tests if the player overlaps the given GameObject.
+        /// </summary>
+        /// <param name="dot">The GameObject to test overlap of.</param>
+        /// <returns>
+        ///     <value>True</value>
+        ///     if overlap and
+        ///     <value>false</value>
+        ///     otherwise.
+        /// </returns>
+        public bool IsCircleOverlapPlayer(GameObject dot)
         {
             var playerRectangle = new Rectangle((int)X, (int)Y, (int)Width, (int)Height);
             var dotRectangle = new Rectangle((int)dot.X, (int)dot.Y, (int)dot.Width, (int)dot.Height);
@@ -162,9 +172,19 @@ namespace DodgeDots.Model
             return deltaX * deltaX + deltaY * deltaY <= radiusSum * radiusSum;
         }
 
-        public bool isCollidingDotSameColorAsPlayerDot(Dot dot)
+        /// <summary>
+        ///     Tests if the player and the given GameObject have the same color.
+        /// </summary>
+        /// <param name="dot">The GameObject to test color of.</param>
+        /// <returns>
+        ///     <value>True</value>
+        ///     if colors are the same and
+        ///     <value>false</value>
+        ///     otherwise.
+        /// </returns>
+        public bool IsColorSameAsPlayer(Dot dot)
         {
-            return this.OuterColor != dot.Color;
+            return this.OuterColor == dot.Color;
         }
 
         /// <summary>

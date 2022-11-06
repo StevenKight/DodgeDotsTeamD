@@ -185,6 +185,12 @@
                 A delegate for winning the game.
             </summary>
         </member>
+        <member name="T:DodgeDots.Model.GameManager.LevelHandler">
+            <summary>
+                A delegate for the game level
+            </summary>
+            <param name="levelTitle">The title of the level.</param>
+        </member>
         <member name="P:DodgeDots.Model.GameManager.GameScore">
             <summary>
                 Gets the game score.
@@ -193,14 +199,14 @@
                 The game score.
             </value>
         </member>
-        <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.Player)">
+        <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.PlayerDotManager)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
             </summary>
             <param name="background">The canvas to display the game on.</param>
             <param name="player">The player object within the game.</param>
         </member>
-        <member name="M:DodgeDots.Model.GameManager.InitializeGame">
+        <member name="M:DodgeDots.Model.GameManager.InitializeGameAsync">
             <summary>
                 Initialize and run the game.
             </summary>
@@ -211,6 +217,11 @@
             </summary>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameScoreUpdated">
+            <summary>
+                Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.LevelUpdated">
             <summary>
                 Occurs when [game time updated].
             </summary>
@@ -633,6 +644,21 @@
             </summary>
             <param name="background">The background.</param>
         </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.PlacePlayerCenteredInGameArena">
+            <summary>
+                Place the player in the center of the display.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.StopPlayer">
+            <summary>
+                Stops the player movement.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PlayerDotManager.RestartPlayer">
+            <summary>
+                Restarts the player movement.
+            </summary>
+        </member>
         <member name="T:DodgeDots.Model.PointManager">
             <summary>
                 The Point Manager class
@@ -809,12 +835,6 @@
                 The High Score Board page for displaying the top 10 high scores.
             </summary>
         </member>
-        <member name="M:DodgeDots.View.HighScorePage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-                Runs when the page is navigated to from another page
-            </summary>
-            <param name="e">Navigation event arguments</param>
-        </member>
         <member name="M:DodgeDots.View.HighScorePage.InitializeComponent">
             <summary>
             InitializeComponent()
@@ -864,12 +884,6 @@
             <summary>
                 Initializes the game over view.
             </summary>
-        </member>
-        <member name="M:DodgeDots.View.GameOverView.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
-            <summary>
-                Runs when the page is navigated to from another page
-            </summary>
-            <param name="e">Navigation event arguments</param>
         </member>
         <member name="M:DodgeDots.View.GameOverView.InitializeComponent">
             <summary>

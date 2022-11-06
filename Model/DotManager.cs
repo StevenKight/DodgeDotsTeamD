@@ -149,7 +149,8 @@ namespace DodgeDots.Model
 
         private void randomlyPositionLeftAndRightDirectionalDots(Dot dot)
         {
-            var yPositionsInBoundary = Enumerable.Range(0, (int)(this.canvas.Height - dot.Height)).ToArray();
+            var yPositionsInBoundary =
+                Enumerable.Range(0, (int)(GameSettings.ApplicationHeight - dot.Height)).ToArray();
             var positionsWithRespectToDotHeight =
                 yPositionsInBoundary.Where(x => x % (int)dot.Height == 0).ToArray();
             var rnd = new Random();
@@ -168,7 +169,7 @@ namespace DodgeDots.Model
 
         private void randomlyPositionUpAndDownDirectionalDots(Dot dot)
         {
-            var xPositionsInBoundary = Enumerable.Range(0, (int)(this.canvas.Width - dot.Width)).ToArray();
+            var xPositionsInBoundary = Enumerable.Range(0, (int)(GameSettings.ApplicationWidth - dot.Width)).ToArray();
             var positionsWithRespectToDotWidth = xPositionsInBoundary.Where(x => x % (int)dot.Width == 0).ToArray();
             var rnd = new Random();
             var randomIndex = rnd.Next(0, positionsWithRespectToDotWidth.Length);

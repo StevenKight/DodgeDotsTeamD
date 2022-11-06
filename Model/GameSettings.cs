@@ -9,6 +9,9 @@ namespace DodgeDots.Model
     {
         #region Types and Delegates
 
+        /// <summary>
+        ///     The types of point objects and the associated point value.
+        /// </summary>
         public enum PointType
         {
             /// <summary>
@@ -80,12 +83,12 @@ namespace DodgeDots.Model
         /// <summary>
         ///     The application height
         /// </summary>
-        public const double ApplicationHeight = 400;
+        public const double ApplicationHeight = 450;
 
         /// <summary>
         ///     The application width
         /// </summary>
-        public const double ApplicationWidth = 400;
+        public const double ApplicationWidth = 450;
 
         /// <summary>
         ///     The color of the basic point object.
