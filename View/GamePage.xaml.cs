@@ -77,11 +77,18 @@ namespace DodgeDots.View
             this.gameManager = new GameManager(this.canvas, this.playerManager, this.scoreBoard);
 
             this.gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
-            this.gameManager.GameOver += this.gameManagerGameOver;
+            this.gameManager.GameOver += this.gameManager_GameOver;
             this.gameManager.GameScoreUpdated += this.GameManager_GameScoreUpdated;
+            this.gameManager.LevelCompleted += this.GameManager_LevelCompleted;
             this.gameManager.LevelUpdated += this.GameManager_LevelIncrementAsync;
+            this.gameManager.LifeUpdated += this.GameManager_LifeUpdated;
 
             _ = this.gameManager.InitializeGameAsync();
+        }
+
+        private void GameManager_LifeUpdated(int lives)
+        {
+            this.lives.Text = $"Lives: {lives}";
         }
 
         private void GameManager_GameScoreUpdated(int gameScore)
@@ -89,7 +96,7 @@ namespace DodgeDots.View
             this.score.Text = $"Score: {gameScore}";
         }
 
-        private async void gameManagerGameOver(string text)
+        private async void gameManager_GameOver(string text)
         {
             this.setGameOverResultText(text);
 
@@ -97,6 +104,15 @@ namespace DodgeDots.View
 
             var gameOverList = new Collection<object> { this.gameManager, this.scoreBoard };
             Frame.Navigate(typeof(GameOverView), gameOverList);
+        }
+
+        private async void GameManager_LevelCompleted()
+        {
+            this.setGameOverResultText("LEVEL COMPLETE");
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
+            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private async void GameManager_LevelIncrementAsync(string title)

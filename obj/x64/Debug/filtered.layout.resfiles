@@ -1,6 +1,9 @@
 WinMetadata\Windows.winmd
 Assets\GameOver.wav
+Assets\LevelWon.wav
+Assets\LifeLost.wav
 Assets\LockScreenLogo.scale-200.png
+Assets\NewWave.wav
 Assets\PointAdded.wav
 Assets\SplashScreen.scale-200.png
 Assets\Square150x150Logo.scale-200.png

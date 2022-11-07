@@ -169,7 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\GameOver.wav" />
+    <Content Include="Assets\LifeLost.wav" />
+    <Content Include="Assets\NewWave.wav" />
     <Content Include="Assets\PointAdded.wav" />
+    <Content Include="Assets\LevelWon.wav" />
     <Content Include="Assets\YouWin.wav" />
     <Content Include="notes.txt" />
     <Content Include="Properties\Default.rd.xml" />

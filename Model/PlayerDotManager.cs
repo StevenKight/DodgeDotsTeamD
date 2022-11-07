@@ -161,7 +161,7 @@ namespace DodgeDots.Model
 
         private void colorSwap()
         {
-            this.PlayerDot.SwapOuterColor();
+            this.PlayerDot.SwapNextOuterColor();
         }
 
         #endregion

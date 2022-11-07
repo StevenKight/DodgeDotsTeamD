@@ -30,10 +30,21 @@ namespace DodgeDots.Model
         public delegate void GameTimeHandler(int countDownNumber);
 
         /// <summary>
+        ///     A delegate for the winning a level
+        /// </summary>
+        public delegate void LevelCompletedHandler();
+
+        /// <summary>
         ///     A delegate for the game level
         /// </summary>
         /// <param name="levelTitle">The title of the level.</param>
         public delegate void LevelHandler(string levelTitle);
+
+        /// <summary>
+        ///     A delegate for updating the lives
+        /// </summary>
+        /// <param name="lives">The lives.</param>
+        public delegate void LifeHandler(int lives);
 
         #endregion
 
@@ -45,6 +56,9 @@ namespace DodgeDots.Model
         private readonly LevelManager levelManager;
         private readonly HighScoreManager highScoreManager;
         private readonly Collection<Level> levelList;
+
+        private bool isLevelComplete;
+        private int playerDeathCount;
 
         private readonly AudioPlayer audioPlayer;
 
@@ -87,7 +101,8 @@ namespace DodgeDots.Model
                 new LevelThree()
             };
 
-            this.levelManager.Collision += this.onGameLost;
+            this.levelManager.GameLost += this.onGameLost;
+            this.levelManager.LifeUpdate += this.LevelManager_lifeLost;
             this.levelManager.LevelWon += this.levelWon;
             this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
             this.levelManager.PointHit += this.WaveManager_PointHit;
@@ -103,6 +118,18 @@ namespace DodgeDots.Model
 
         #region Methods
 
+        private async void LevelManager_lifeLost()
+        {
+            this.playerManager.StopPlayer();
+            this.playerDeathCount++;
+            await this.gameOver("LifeLost.wav");
+
+            if (this.playerDeathCount < GameSettings.PlayerLives)
+            {
+                await this.loadLevel();
+            }
+        }
+
         /// <summary>
         ///     Initialize and run the game.
         /// </summary>
@@ -112,20 +139,37 @@ namespace DodgeDots.Model
 
             if (this.CurrentLevel <= this.levelList.Count)
             {
-                var level = this.levelList[this.CurrentLevel - 1];
-                this.LevelUpdated?.Invoke(level.Title);
-
-                this.onGameTimeUpdated(level.GameSurvivalTime);
-
-                this.preparePlayer(level);
-
-                await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
-
-                this.runLevel(level);
+                await this.loadLevel();
             }
             else
             {
                 this.onGameWon();
+            }
+        }
+
+        private async Task loadLevel()
+        {
+            var level = this.levelList[this.CurrentLevel - 1];
+
+            this.onGameLifeUpdated(this.playerManager.PlayerDot.PlayerLives);
+
+            this.LevelUpdated?.Invoke(level.Title);
+
+            this.onGameTimeUpdated(level.GameSurvivalTime);
+
+            this.preparePlayer(level);
+
+            await this.delayForNextLevel();
+
+            this.runLevel(level);
+        }
+
+        private async Task delayForNextLevel()
+        {
+            if (this.isLevelComplete || this.playerDeathCount != GameSettings.PlayerLives)
+            {
+                await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+                this.isLevelComplete = false;
             }
         }
 
@@ -140,6 +184,7 @@ namespace DodgeDots.Model
 
         private void runLevel(Level level)
         {
+            this.playerManager.PlacePlayerCenteredInGameArena();
             this.playerManager.RestartPlayer();
             this.levelManager.InitializeGame(level);
         }
@@ -147,7 +192,6 @@ namespace DodgeDots.Model
         private void preparePlayer(Level level)
         {
             this.playerManager.StopPlayer();
-            this.playerManager.PlacePlayerCenteredInGameArena();
             this.playerManager.PlayerDot.Colors = level.WaveColors;
             this.playerManager.PlayerDot.SetColors();
         }
@@ -168,6 +212,16 @@ namespace DodgeDots.Model
         public event LevelHandler LevelUpdated;
 
         /// <summary>
+        ///     Occurs when [life updated].
+        /// </summary>
+        public event LifeHandler LifeUpdated;
+
+        /// <summary>
+        ///     Occurs when level is won.
+        /// </summary>
+        public event LevelCompletedHandler LevelCompleted;
+
+        /// <summary>
         ///     Occurs when [game won].
         /// </summary>
         public event GameOverHandler GameOver;
@@ -175,6 +229,11 @@ namespace DodgeDots.Model
         private void onGameTimeUpdated(int countdownCount)
         {
             this.GameTimeUpdated?.Invoke(countdownCount);
+        }
+
+        private void onGameLifeUpdated(int lives)
+        {
+            this.LifeUpdated?.Invoke(lives);
         }
 
         private async void onGameWon()
@@ -202,8 +261,19 @@ namespace DodgeDots.Model
             this.GameScoreUpdated?.Invoke(this.GameScore);
         }
 
-        private void levelWon()
+        private void onLevelCompleted()
         {
+            this.LevelCompleted?.Invoke();
+        }
+
+        private async void levelWon()
+        {
+            this.onLevelCompleted();
+            this.isLevelComplete = true;
+            await this.gameOver("LevelWon.wav");
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
             _ = this.InitializeGameAsync();
         }
 

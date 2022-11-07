@@ -191,11 +191,22 @@
             </summary>
             <param name="countDownNumber">The count down number.</param>
         </member>
+        <member name="T:DodgeDots.Model.GameManager.LevelCompletedHandler">
+            <summary>
+                A delegate for the winning a level
+            </summary>
+        </member>
         <member name="T:DodgeDots.Model.GameManager.LevelHandler">
             <summary>
                 A delegate for the game level
             </summary>
             <param name="levelTitle">The title of the level.</param>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.LifeHandler">
+            <summary>
+                A delegate for updating the lives
+            </summary>
+            <param name="lives">The lives.</param>
         </member>
         <member name="P:DodgeDots.Model.GameManager.GameScore">
             <summary>
@@ -242,6 +253,16 @@
         <member name="E:DodgeDots.Model.GameManager.LevelUpdated">
             <summary>
                 Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.LifeUpdated">
+            <summary>
+                Occurs when [life updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.LevelCompleted">
+            <summary>
+                Occurs when level is won.
             </summary>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameOver">
@@ -633,9 +654,14 @@
                 Occurs when [game won].
             </summary>
         </member>
-        <member name="E:DodgeDots.Model.LevelManager.Collision">
+        <member name="E:DodgeDots.Model.LevelManager.GameLost">
             <summary>
                 Occurs when [game lost].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.LevelManager.LifeUpdate">
+            <summary>
+                Occurs when [life lost].
             </summary>
         </member>
         <member name="E:DodgeDots.Model.LevelManager.PointHit">
@@ -686,7 +712,7 @@
                 Rotates through to the next set of colors the player has.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.Player.SwapOuterColor">
+        <member name="M:DodgeDots.Model.Player.SwapNextOuterColor">
             <summary>
                 Sets the color of the player.
             </summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -48,6 +49,7 @@ namespace DodgeDots.Model
         private WaveManager waveManager;
         private Collection<PointManager> pointManager;
         private readonly Canvas canvas;
+        private readonly AudioPlayer audioPlayer;
 
         private int currentWave;
 
@@ -78,6 +80,7 @@ namespace DodgeDots.Model
         {
             this.canvas = background;
             this.playerObject = player;
+            this.audioPlayer = new AudioPlayer();
         }
 
         #endregion
@@ -136,7 +139,12 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Occurs when [game lost].
         /// </summary>
-        public event GameLostHandler Collision;
+        public event GameLostHandler GameLost;
+
+        /// <summary>
+        ///     Occurs when [life lost].
+        /// </summary>
+        public event GameLostHandler LifeUpdate;
 
         /// <summary>
         ///     Occurs when Player hits a Point.
@@ -162,7 +170,12 @@ namespace DodgeDots.Model
 
         private void onGameLost()
         {
-            this.Collision?.Invoke();
+            this.GameLost?.Invoke();
+        }
+
+        private void onLifeLost()
+        {
+            this.LifeUpdate?.Invoke();
         }
 
         private void WaveTimer_Tick(object sender, object e)
@@ -211,8 +224,15 @@ namespace DodgeDots.Model
                     var color = this.getWaveColor(i);
 
                     this.waveManager.StartWave(wave, color);
+                    _ = this.playNewWaveSound();
                 }
             }
+        }
+
+        private async Task playNewWaveSound()
+        {
+            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("NewWave.wav");
+            this.audioPlayer.PlayAudio(file);
         }
 
         private Color getWaveColor(int i)
@@ -233,7 +253,8 @@ namespace DodgeDots.Model
         {
             if (this.waveManager.HasPlayerHitADot())
             {
-                this.gameOver();
+                this.stopGame();
+                this.lifeLost();
             }
             else if (this.hasPlayerHitAPoint())
             {
@@ -246,20 +267,26 @@ namespace DodgeDots.Model
             }
         }
 
-        private void gameOver()
+        private void lifeLost()
         {
-            this.playerObject.PlayerLives--;
-
             this.playerObject.DyingAnimation();
-
             this.stopGame();
-            this.onGameLost();
+
+            this.playerObject.PlayerLives--;
+            this.onLifeLost();
+
+            if (this.playerObject.PlayerLives <= 0)
+            {
+                this.onGameLost();
+            }
         }
 
         private void stopGame()
         {
             this.timer.Stop();
             this.waveTimer.Stop();
+
+            this.waveTimerCount = 0;
             this.waveManager.RemoveAllWaves();
 
             foreach (var points in this.pointManager)

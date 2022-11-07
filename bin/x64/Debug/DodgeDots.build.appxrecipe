@@ -37,8 +37,17 @@
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\GameOver.wav">
       <PackagePath>Assets\GameOver.wav</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\LifeLost.wav">
+      <PackagePath>Assets\LifeLost.wav</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\NewWave.wav">
+      <PackagePath>Assets\NewWave.wav</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\PointAdded.wav">
       <PackagePath>Assets\PointAdded.wav</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\LevelWon.wav">
+      <PackagePath>Assets\LevelWon.wav</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\YouWin.wav">
       <PackagePath>Assets\YouWin.wav</PackagePath>
