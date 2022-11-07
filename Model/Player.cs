@@ -91,6 +91,7 @@ namespace DodgeDots.Model
         {
             this.PlayerSprite.ChangeDotOuterColor(this.Colors[0]);
             this.OuterColor = this.Colors[0];
+            this.currentColorIndex = 0;
 
             var lastIndex = this.Colors.Count - 1;
             this.PlayerSprite.ChangeDotInnerColor(this.Colors[lastIndex]);
@@ -204,6 +205,7 @@ namespace DodgeDots.Model
             if (this.tickCount > TicksForAnimation)
             {
                 this.timer.Stop();
+                this.tickCount = 0;
             }
         }
 

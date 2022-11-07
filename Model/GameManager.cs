@@ -40,6 +40,17 @@ namespace DodgeDots.Model
         /// <param name="levelTitle">The title of the level.</param>
         public delegate void LevelHandler(string levelTitle);
 
+        /// <summary>
+        ///     A delegate for the winning a level
+        /// </summary>
+        public delegate void LevelCompletedHandler();
+
+        /// <summary>
+        ///  A delegate for updating the lives
+        /// </summary>
+        /// <param name="lives">The lives.</param>
+        public delegate void LifeHandler(int lives);
+
         #endregion
 
         #region Data members
@@ -52,6 +63,8 @@ namespace DodgeDots.Model
 
         private int currentLevel;
         private int pointTotal;
+        private bool isLevelComplete;
+        private bool hasPlayerDied;
 
         private readonly AudioPlayer audioPlayer;
 
@@ -89,6 +102,7 @@ namespace DodgeDots.Model
             };
 
             this.levelManager.Collision += this.onGameLost;
+            this.levelManager.lifeUpdate += this.LevelManager_lifeLost;
             this.levelManager.LevelWon += this.levelWon;
             this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
 
@@ -98,6 +112,14 @@ namespace DodgeDots.Model
             this.levelManager.PointHit += this.WaveManager_PointHit;
 
             this.audioPlayer = new AudioPlayer();
+        }
+
+        private async void LevelManager_lifeLost()
+        {
+            this.playerManager.StopPlayer();
+            this.hasPlayerDied = true;
+            await this.gameOver("LifeLost.wav");
+            await this.loadLevel();
         }
 
         #endregion
@@ -113,20 +135,39 @@ namespace DodgeDots.Model
 
             if (this.currentLevel <= this.levelList.Count)
             {
-                var level = this.levelList[this.currentLevel - 1];
-                this.LevelUpdated?.Invoke(level.Title);
-
-                this.onGameTimeUpdated(level.GameSurvivalTime);
-
-                this.preparePlayer(level);
-
-                await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
-
-                this.runLevel(level);
+                await this.loadLevel();
             }
             else
             {
                 this.onGameWon();
+            }
+        }
+
+        private async Task loadLevel()
+        {
+            var level = this.levelList[this.currentLevel - 1];
+
+            await this.delayForNextLevel();
+
+            this.onGameLifeUpdated(this.playerManager.PlayerDot.PlayerLives);
+
+            this.LevelUpdated?.Invoke(level.Title);
+
+            this.onGameTimeUpdated(level.GameSurvivalTime);
+
+            this.preparePlayer(level);
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
+            this.runLevel(level);
+        }
+
+        private async Task delayForNextLevel()
+        {
+            if (this.isLevelComplete || this.hasPlayerDied)
+            {
+                await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+                this.isLevelComplete = false;
             }
         }
 
@@ -160,6 +201,16 @@ namespace DodgeDots.Model
         public event LevelHandler LevelUpdated;
 
         /// <summary>
+        ///     Occurs when [life updated].
+        /// </summary>
+        public event LifeHandler LifeUpdated;
+
+        /// <summary>
+        ///     Occurs when level is won.
+        /// </summary>
+        public event LevelCompletedHandler LevelCompleted;
+
+        /// <summary>
         ///     Occurs when [game won].
         /// </summary>
         public event GameWonHandler GameWon;
@@ -172,6 +223,11 @@ namespace DodgeDots.Model
         private void onGameTimeUpdated(int countdownCount)
         {
             this.GameTimeUpdated?.Invoke(countdownCount);
+        }
+
+        private void onGameLifeUpdated(int lives)
+        {
+            this.LifeUpdated?.Invoke(lives);
         }
 
         private async void onGameWon()
@@ -199,8 +255,19 @@ namespace DodgeDots.Model
             this.GameScoreUpdated?.Invoke(this.GameScore);
         }
 
-        private void levelWon()
+        private void onLevelCompleted()
         {
+            this.LevelCompleted?.Invoke();
+        }
+
+        private async void levelWon()
+        {
+            this.onLevelCompleted();
+            this.isLevelComplete = true;
+            await this.gameOver("LevelWon.wav");
+
+            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
+
             _ = this.InitializeGameAsync();
         }
 

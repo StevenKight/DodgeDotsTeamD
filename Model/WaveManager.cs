@@ -78,10 +78,11 @@ namespace DodgeDots.Model
             for (var i = 0; i < NumberNormalWaves; i++)
             {
                 var wave = waves.ElementAt(i);
-                var generatedWave = new DotManager(this.backgroundCanvas, wave, color);
-
-                generatedWave.FinalBlitzMultiplier = 2;
-                generatedWave.DiagonalWave = true;
+                var generatedWave = new DotManager(this.backgroundCanvas, wave, color)
+                {
+                    FinalBlitzMultiplier = 2,
+                    DiagonalWave = true
+                };
 
                 this.waves.Add(generatedWave);
             }

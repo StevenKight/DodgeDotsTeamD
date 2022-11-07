@@ -196,6 +196,17 @@
             </summary>
             <param name="levelTitle">The title of the level.</param>
         </member>
+        <member name="T:DodgeDots.Model.GameManager.LevelCompletedHandler">
+            <summary>
+                A delegate for the winning a level
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameManager.LifeHandler">
+            <summary>
+             A delegate for updating the lives
+            </summary>
+            <param name="lives">The lives.</param>
+        </member>
         <member name="P:DodgeDots.Model.GameManager.GameScore">
             <summary>
                 Gets the game score.
@@ -229,6 +240,16 @@
         <member name="E:DodgeDots.Model.GameManager.LevelUpdated">
             <summary>
                 Occurs when [game time updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.LifeUpdated">
+            <summary>
+                Occurs when [life updated].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.GameManager.LevelCompleted">
+            <summary>
+                Occurs when level is won.
             </summary>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameWon">
@@ -558,6 +579,11 @@
         <member name="E:DodgeDots.Model.LevelManager.Collision">
             <summary>
                 Occurs when [game lost].
+            </summary>
+        </member>
+        <member name="E:DodgeDots.Model.LevelManager.lifeUpdate">
+            <summary>
+                Occurs when [life lost].
             </summary>
         </member>
         <member name="E:DodgeDots.Model.LevelManager.PointHit">
