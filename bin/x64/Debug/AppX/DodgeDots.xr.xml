@@ -46,6 +46,14 @@
       <RootProperty Name="Offset" />
     </RootType>
     <RootType FullName="DodgeDots.View.GamePage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Border">
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Child" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
@@ -63,13 +71,14 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootEvent Name="Click" />
     </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="DodgeDots.View.HighScorePage" />
     <RootType FullName="DodgeDots.View.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="TextWrapping" />
       <RootProperty Name="FontWeight" />
       <RootProperty Name="FontSize" />
-      <RootProperty Name="Text" />
+      <RootProperty Name="PlaceholderText" />
       <RootProperty Name="RenderTransformOrigin" />
       <RootProperty Name="Width" />
       <RootProperty Name="HorizontalAlignment" />

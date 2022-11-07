@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -19,6 +20,8 @@ namespace DodgeDots.View
         private const int Milliseconds = 1000;
 
         private PlayerDotManager playerManager;
+        private GameManager gameManager;
+        private HighScoreManager scoreBoard;
 
         #endregion
 
@@ -37,11 +40,16 @@ namespace DodgeDots.View
         #region Methods
 
         /// <summary>
-        ///     Runs when the page is navigated to from another page
+        ///     Invoked when Page is loaded and becomes the current source of a parent Frame.
         /// </summary>
-        /// <param name="e">Navigation event arguments</param>
+        /// <param name="e">Event arguments passed to the method.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.Parameter != null)
+            {
+                this.scoreBoard = (HighScoreManager)e.Parameter;
+            }
+
             this.buildView();
         }
 
@@ -66,15 +74,14 @@ namespace DodgeDots.View
 
         private void runGame()
         {
-            var gameManager = new GameManager(this.canvas, this.playerManager);
+            this.gameManager = new GameManager(this.canvas, this.playerManager, this.scoreBoard);
 
-            gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
-            gameManager.Collision += this.GameManager_GameLostAsync;
-            gameManager.GameWon += this.GameManager_GameWon;
-            gameManager.GameScoreUpdated += this.GameManager_GameScoreUpdated;
-            gameManager.LevelUpdated += this.GameManager_LevelIncrementAsync;
+            this.gameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
+            this.gameManager.GameOver += this.gameManagerGameOver;
+            this.gameManager.GameScoreUpdated += this.GameManager_GameScoreUpdated;
+            this.gameManager.LevelUpdated += this.GameManager_LevelIncrementAsync;
 
-            _ = gameManager.InitializeGameAsync();
+            _ = this.gameManager.InitializeGameAsync();
         }
 
         private void GameManager_GameScoreUpdated(int gameScore)
@@ -82,29 +89,14 @@ namespace DodgeDots.View
             this.score.Text = $"Score: {gameScore}";
         }
 
-        private async void GameManager_GameWon()
+        private async void gameManagerGameOver(string text)
         {
-            // TODO Data binding win message
-            this.setGameOverResultText("YOU WIN");
+            this.setGameOverResultText(text);
 
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
-            this.gameOver();
-        }
-
-        private void gameOver()
-        {
-            Frame.Navigate(typeof(GameOverView));
-        }
-
-        private async void GameManager_GameLostAsync()
-        {
-            // TODO Data binding lose message
-            this.setGameOverResultText("GAME OVER");
-
-            await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
-
-            this.gameOver();
+            var gameOverList = new Collection<object> { this.gameManager, this.scoreBoard };
+            Frame.Navigate(typeof(GameOverView), gameOverList);
         }
 
         private async void GameManager_LevelIncrementAsync(string title)

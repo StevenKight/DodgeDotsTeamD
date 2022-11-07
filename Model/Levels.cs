@@ -6,6 +6,7 @@ namespace DodgeDots.Model
 {
     /// <summary>
     ///     Stores the game settings for level one.
+    ///     TODO Is it ok to declare them like this?
     /// </summary>
     public class LevelOne : Level
     {

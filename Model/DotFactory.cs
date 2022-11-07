@@ -10,7 +10,10 @@ namespace DodgeDots.Model
     {
         #region Properties
 
-        public bool DiagonalSpeed { get; set; }
+        /// <summary>
+        ///     Gets if the wave is diagonal or not.
+        /// </summary>
+        public bool DiagonalSpeed { get; private set; }
 
         #endregion
 
@@ -23,6 +26,7 @@ namespace DodgeDots.Model
         /// <param name="color">The color of the dot.</param>
         /// <param name="wave">The wave the dot is in.</param>
         /// <param name="finalMultiplier">The multiplier to adjust speed for final blitz.</param>
+        /// <param name="diagonal">If the wave is diagonal or not.</param>
         public Dot CreateDot(Color color, GameSettings.Wave wave, int finalMultiplier, bool diagonal)
         {
             this.DiagonalSpeed = diagonal;

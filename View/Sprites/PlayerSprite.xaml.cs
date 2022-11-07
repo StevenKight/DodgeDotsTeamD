@@ -47,7 +47,6 @@ namespace DodgeDots.View.Sprites
 
         /// <summary>
         ///     Runs the dying animation of the player dot.
-        ///     TODO Figure out an animation
         /// </summary>
         public void DyingAnimation()
         {

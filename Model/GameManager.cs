@@ -13,9 +13,9 @@ namespace DodgeDots.Model
         #region Types and Delegates
 
         /// <summary>
-        ///     A delegate for losing the game.
+        ///     A delegate for winning the game.
         /// </summary>
-        public delegate void GameLostHandler();
+        public delegate void GameOverHandler(string displayText);
 
         /// <summary>
         ///     A delegate for the game score
@@ -28,11 +28,6 @@ namespace DodgeDots.Model
         /// </summary>
         /// <param name="countDownNumber">The count down number.</param>
         public delegate void GameTimeHandler(int countDownNumber);
-
-        /// <summary>
-        ///     A delegate for winning the game.
-        /// </summary>
-        public delegate void GameWonHandler();
 
         /// <summary>
         ///     A delegate for the game level
@@ -48,10 +43,8 @@ namespace DodgeDots.Model
 
         private readonly PlayerDotManager playerManager;
         private readonly LevelManager levelManager;
+        private readonly HighScoreManager highScoreManager;
         private readonly Collection<Level> levelList;
-
-        private int currentLevel;
-        private int pointTotal;
 
         private readonly AudioPlayer audioPlayer;
 
@@ -67,6 +60,11 @@ namespace DodgeDots.Model
         /// </value>
         public int GameScore { get; private set; }
 
+        /// <summary>
+        ///     Gets the current level of the game.
+        /// </summary>
+        public int CurrentLevel { get; private set; }
+
         #endregion
 
         #region Constructors
@@ -76,7 +74,8 @@ namespace DodgeDots.Model
         /// </summary>
         /// <param name="background">The canvas to display the game on.</param>
         /// <param name="player">The player object within the game.</param>
-        public GameManager(Canvas background, PlayerDotManager player)
+        /// <param name="scoreBoard">The scoreboard to save the users score to.</param>
+        public GameManager(Canvas background, PlayerDotManager player, HighScoreManager scoreBoard)
         {
             this.playerManager = player;
             this.levelManager = new LevelManager(background, player.PlayerDot);
@@ -91,11 +90,11 @@ namespace DodgeDots.Model
             this.levelManager.Collision += this.onGameLost;
             this.levelManager.LevelWon += this.levelWon;
             this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
-
-            this.currentLevel = 0;
-            this.pointTotal = 0;
-
             this.levelManager.PointHit += this.WaveManager_PointHit;
+
+            this.highScoreManager = scoreBoard;
+            this.CurrentLevel = 0;
+            this.GameScore = 0;
 
             this.audioPlayer = new AudioPlayer();
         }
@@ -109,11 +108,11 @@ namespace DodgeDots.Model
         /// </summary>
         public async Task InitializeGameAsync()
         {
-            this.currentLevel++;
+            this.CurrentLevel++;
 
-            if (this.currentLevel <= this.levelList.Count)
+            if (this.CurrentLevel <= this.levelList.Count)
             {
-                var level = this.levelList[this.currentLevel - 1];
+                var level = this.levelList[this.CurrentLevel - 1];
                 this.LevelUpdated?.Invoke(level.Title);
 
                 this.onGameTimeUpdated(level.GameSurvivalTime);
@@ -128,6 +127,15 @@ namespace DodgeDots.Model
             {
                 this.onGameWon();
             }
+        }
+
+        /// <summary>
+        ///     Saves the users score for the game.
+        /// </summary>
+        /// <param name="username">The name for the user</param>
+        public void SaveGameScore(string username)
+        {
+            this.highScoreManager.AddScore(this.GameScore, this.CurrentLevel, username);
         }
 
         private void runLevel(Level level)
@@ -162,12 +170,7 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Occurs when [game won].
         /// </summary>
-        public event GameWonHandler GameWon;
-
-        /// <summary>
-        ///     Occurs when [game lost].
-        /// </summary>
-        public event GameLostHandler Collision;
+        public event GameOverHandler GameOver;
 
         private void onGameTimeUpdated(int countdownCount)
         {
@@ -177,7 +180,7 @@ namespace DodgeDots.Model
         private async void onGameWon()
         {
             await this.gameOver("YouWin.wav");
-            this.GameWon?.Invoke();
+            this.GameOver?.Invoke("YOU WIN");
         }
 
         private async Task gameOver(string filename)
@@ -191,7 +194,7 @@ namespace DodgeDots.Model
         private async void onGameLost()
         {
             await this.gameOver("GameOver.wav");
-            this.Collision?.Invoke();
+            this.GameOver?.Invoke("GAME OVER");
         }
 
         private void onGameScoreUpdated()

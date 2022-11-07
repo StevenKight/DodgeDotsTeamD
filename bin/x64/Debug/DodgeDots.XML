@@ -113,6 +113,11 @@
             </summary>
             <seealso cref="T:DodgeDots.Model.GameObject" />
         </member>
+        <member name="P:DodgeDots.Model.DotFactory.DiagonalSpeed">
+            <summary>
+                Gets if the wave is diagonal or not.
+            </summary>
+        </member>
         <member name="M:DodgeDots.Model.DotFactory.CreateDot(Windows.UI.Color,DodgeDots.Model.GameSettings.Wave,System.Int32,System.Boolean)">
             <summary>
                 Creates the dot.
@@ -121,6 +126,7 @@
             <param name="color">The color of the dot.</param>
             <param name="wave">The wave the dot is in.</param>
             <param name="finalMultiplier">The multiplier to adjust speed for final blitz.</param>
+            <param name="diagonal">If the wave is diagonal or not.</param>
         </member>
         <member name="T:DodgeDots.Model.DotManager">
             <summary>
@@ -168,9 +174,9 @@
                 Manages the entire game.
             </summary>
         </member>
-        <member name="T:DodgeDots.Model.GameManager.GameLostHandler">
+        <member name="T:DodgeDots.Model.GameManager.GameOverHandler">
             <summary>
-                A delegate for losing the game.
+                A delegate for winning the game.
             </summary>
         </member>
         <member name="T:DodgeDots.Model.GameManager.GameScoreHandler">
@@ -184,11 +190,6 @@
                 A delegate for the countdown
             </summary>
             <param name="countDownNumber">The count down number.</param>
-        </member>
-        <member name="T:DodgeDots.Model.GameManager.GameWonHandler">
-            <summary>
-                A delegate for winning the game.
-            </summary>
         </member>
         <member name="T:DodgeDots.Model.GameManager.LevelHandler">
             <summary>
@@ -204,17 +205,29 @@
                 The game score.
             </value>
         </member>
-        <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.PlayerDotManager)">
+        <member name="P:DodgeDots.Model.GameManager.CurrentLevel">
+            <summary>
+                Gets the current level of the game.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.PlayerDotManager,DodgeDots.Model.HighScoreManager)">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
             </summary>
             <param name="background">The canvas to display the game on.</param>
             <param name="player">The player object within the game.</param>
+            <param name="scoreBoard">The scoreboard to save the users score to.</param>
         </member>
         <member name="M:DodgeDots.Model.GameManager.InitializeGameAsync">
             <summary>
                 Initialize and run the game.
             </summary>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.SaveGameScore(System.String)">
+            <summary>
+                Saves the users score for the game.
+            </summary>
+            <param name="username">The name for the user</param>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameTimeUpdated">
             <summary>
@@ -231,14 +244,9 @@
                 Occurs when [game time updated].
             </summary>
         </member>
-        <member name="E:DodgeDots.Model.GameManager.GameWon">
+        <member name="E:DodgeDots.Model.GameManager.GameOver">
             <summary>
                 Occurs when [game won].
-            </summary>
-        </member>
-        <member name="E:DodgeDots.Model.GameManager.Collision">
-            <summary>
-                Occurs when [game lost].
             </summary>
         </member>
         <member name="T:DodgeDots.Model.GameObject">
@@ -428,9 +436,79 @@
                 The rarity of the max point object. (1 - 10)
             </summary>
         </member>
+        <member name="T:DodgeDots.Model.HighScoreManager">
+            <summary>
+                Handles saving and loading of the score board.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.HighScoreManager.TopTen">
+            <summary>
+                The top ten scores sorted.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.HighScoreManager.LoadHighScoresAsync">
+            <summary>
+                Loads the scoreboard from the saved file if it is present.
+            </summary>
+            <returns>An asynchronous operation.</returns>
+        </member>
+        <member name="M:DodgeDots.Model.HighScoreManager.SaveHighScoresAsync">
+            <summary>
+                Saves the score board out to the file.
+            </summary>
+            <returns>An asynchronous operation.</returns>
+        </member>
+        <member name="M:DodgeDots.Model.HighScoreManager.AddScore(System.Int32,System.Int32,System.String)">
+            <summary>
+                Adds an entry to the scoreboard.
+            </summary>
+            <param name="score">The score achieved.</param>
+            <param name="level">The level achieved.</param>
+            <param name="name">The users name.</param>
+        </member>
+        <member name="M:DodgeDots.Model.HighScoreManager.SortTopTen">
+            <summary>
+                Sorts the top ten elements on the scoreboard.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.UserScore">
+            <summary>
+                Defines an entry in the scoreboard.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.UserScore.Score">
+            <summary>
+                The score achieved.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.UserScore.Level">
+            <summary>
+                The level achieved.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.UserScore.Username">
+            <summary>
+                The users name.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.UserScore.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+                Initializes a new entry of <see cref="T:DodgeDots.Model.UserScore" />.
+            </summary>
+            <param name="score">The score achieved.</param>
+            <param name="level">The level achieved.</param>
+            <param name="username">The users name.</param>
+        </member>
+        <member name="M:DodgeDots.Model.UserScore.ToString">
+            <summary>
+                Returns a string that represents the entry.
+            </summary>
+            <returns>A string that represents the entry.</returns>
+        </member>
         <member name="T:DodgeDots.Model.LevelOne">
             <summary>
                 Stores the game settings for level one.
+                TODO Is it ok to declare them like this?
             </summary>
         </member>
         <member name="M:DodgeDots.Model.LevelOne.#ctor">
@@ -841,9 +919,9 @@
         </member>
         <member name="M:DodgeDots.View.GamePage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
             <summary>
-                Runs when the page is navigated to from another page
+                Invoked when Page is loaded and becomes the current source of a parent Frame.
             </summary>
-            <param name="e">Navigation event arguments</param>
+            <param name="e">Event arguments passed to the method.</param>
         </member>
         <member name="M:DodgeDots.View.GamePage.InitializeComponent">
             <summary>
@@ -870,6 +948,12 @@
                 The High Score Board page for displaying the top 10 high scores.
             </summary>
         </member>
+        <member name="M:DodgeDots.View.HighScorePage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Invoked when Page is loaded and becomes the current source of a parent Frame.
+            </summary>
+            <param name="e">Event arguments passed to the method.</param>
+        </member>
         <member name="M:DodgeDots.View.HighScorePage.InitializeComponent">
             <summary>
             InitializeComponent()
@@ -895,6 +979,12 @@
                 The main view that opens when running application.
             </summary>
         </member>
+        <member name="M:DodgeDots.View.MainPage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Invoked when Page is loaded and becomes the current source of a parent Frame.
+            </summary>
+            <param name="e">Event arguments passed to the method.</param>
+        </member>
         <member name="M:DodgeDots.View.MainPage.InitializeComponent">
             <summary>
             InitializeComponent()
@@ -919,6 +1009,12 @@
             <summary>
                 Initializes the game over view.
             </summary>
+        </member>
+        <member name="M:DodgeDots.View.GameOverView.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)">
+            <summary>
+                Invoked when Page is loaded and becomes the current source of a parent Frame.
+            </summary>
+            <param name="e">Event arguments passed to the method.</param>
         </member>
         <member name="M:DodgeDots.View.GameOverView.InitializeComponent">
             <summary>
@@ -1045,7 +1141,6 @@
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.DyingAnimation">
             <summary>
                 Runs the dying animation of the player dot.
-                TODO Figure out an animation
             </summary>
         </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.InitializeComponent">

@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using DodgeDots.Model;
 using DodgeDots.View;
 
 namespace DodgeDots
@@ -13,6 +14,12 @@ namespace DodgeDots
     /// </summary>
     public sealed partial class App
     {
+        #region Data members
+
+        private readonly HighScoreManager scoreBoard;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -23,6 +30,8 @@ namespace DodgeDots
         {
             this.InitializeComponent();
             Suspending += this.OnSuspending;
+
+            this.scoreBoard = new HighScoreManager();
         }
 
         #endregion
@@ -34,7 +43,7 @@ namespace DodgeDots
         ///     will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -47,7 +56,7 @@ namespace DodgeDots
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    await this.scoreBoard.LoadHighScoresAsync();
                 }
 
                 // Place the frame in the current Window
@@ -58,10 +67,12 @@ namespace DodgeDots
             {
                 if (rootFrame.Content == null)
                 {
+                    await this.scoreBoard.LoadHighScoresAsync();
+
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), this.scoreBoard);
                 }
 
                 // Ensure the current window is active
@@ -86,10 +97,12 @@ namespace DodgeDots
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+
+            await this.scoreBoard.SaveHighScoresAsync();
+
             deferral.Complete();
         }
 

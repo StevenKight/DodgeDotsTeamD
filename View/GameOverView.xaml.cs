@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
+using DodgeDots.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -9,6 +12,13 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class GameOverView
     {
+        #region Data members
+
+        private GameManager gameManager;
+        private HighScoreManager scoreBoard;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -23,19 +33,40 @@ namespace DodgeDots.View
 
         #region Methods
 
-        private void gameOver()
+        /// <summary>
+        ///     Invoked when Page is loaded and becomes the current source of a parent Frame.
+        /// </summary>
+        /// <param name="e">Event arguments passed to the method.</param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.newScoreText.Text = "Try Again?";
+            if (e.Parameter != null)
+            {
+                var parameters = (Collection<object>)e.Parameter;
+
+                this.gameManager = (GameManager)parameters[0];
+                this.scoreBoard = (HighScoreManager)parameters[1];
+
+                this.scoreText.Text = $"Score: {this.gameManager.GameScore} Level: {this.gameManager.CurrentLevel}";
+            }
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(HighScorePage));
+            if (this.userName.Text != "")
+            {
+                this.gameManager.SaveGameScore(this.userName.Text);
+
+                Frame.Navigate(typeof(HighScorePage), this.scoreBoard);
+            }
+            else
+            {
+                Frame.Navigate(typeof(MainPage), this.scoreBoard);
+            }
         }
 
         private void playAgain_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GamePage));
+            Frame.Navigate(typeof(GamePage), this.scoreBoard);
         }
 
         #endregion
