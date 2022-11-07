@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>STEVENS_ENVY</Machine>
-    <WindowsUser>sgk07</WindowsUser>
+    <Machine>LAPTOP-5MRR965U</Machine>
+    <WindowsUser>victo</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,168 +10,168 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>2e40c30e-8fbb-4dcb-8af4-995209d894f6</PackageIdentityName>
     <PackageIdentityPublisher>CN=dyoder</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\victo\source\repos\DodgeDotsTeamD\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\DodgeDots.exe">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\DodgeDots.exe">
       <PackagePath>entrypoint\DodgeDots.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.10\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
+    <AppxPackagedFile Include="C:\Users\victo\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.10\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\GameOver.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\GameOver.wav">
       <PackagePath>Assets\GameOver.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\LifeLost.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\LifeLost.wav">
       <PackagePath>Assets\LifeLost.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\NewWave.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\NewWave.wav">
       <PackagePath>Assets\NewWave.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\PointAdded.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\PointAdded.wav">
       <PackagePath>Assets\PointAdded.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\LevelWon.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\LevelWon.wav">
       <PackagePath>Assets\LevelWon.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\YouWin.wav">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\YouWin.wav">
       <PackagePath>Assets\YouWin.wav</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\notes.txt">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\notes.txt">
       <PackagePath>notes.txt</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\DodgeDots.xr.xml">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\DodgeDots.xr.xml">
       <PackagePath>DodgeDots.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\GamePage.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\GamePage.xbf">
       <PackagePath>View\GamePage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\HighScorePage.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\HighScorePage.xbf">
       <PackagePath>View\HighScorePage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\MainPage.xbf">
       <PackagePath>View\MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\GameOverView.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\GameOverView.xbf">
       <PackagePath>View\GameOverView.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\BaseSprite.xbf">
       <PackagePath>View\Sprites\BaseSprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\DotSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\DotSprite.xbf">
       <PackagePath>View\Sprites\DotSprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PlayerSprite.xbf">
       <PackagePath>View\Sprites\PlayerSprite.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PointSprite.xbf">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PointSprite.xbf">
       <PackagePath>View\Sprites\PointSprite.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\Core\DodgeDots.exe">
+    <AppxPackagedFile Include="C:\Users\victo\source\repos\DodgeDotsTeamD\bin\x64\Debug\Core\DodgeDots.exe">
       <PackagePath>DodgeDots.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.27902.3</Version>
       <Architecture>x86</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.27902.3, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.27902.3</Version>
       <Architecture>x64</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.27902.3, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.27902.3</Version>
       <Architecture>arm</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.27902.3, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.28529.0</Version>
       <Architecture>x86</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.28529.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.28529.0</Version>
       <Architecture>x64</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.28529.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Users\sgk07\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\victo\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.28529.0</Version>
       <Architecture>arm</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.28529.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Users\sgk07\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\victo\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.10\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo></MoreInfo>
     </ResolvedSDKReference>
     <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
