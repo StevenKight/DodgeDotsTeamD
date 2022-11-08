@@ -16,10 +16,7 @@ namespace DodgeDots.Model
     {
         #region Data members
 
-        private const int NumberNormalWaves = 4;
-
         private readonly Canvas backgroundCanvas;
-        private readonly AudioPlayer audioPlayer;
         private readonly Player player;
 
         private readonly DispatcherTimer timer;
@@ -37,7 +34,6 @@ namespace DodgeDots.Model
         public WaveManager(Canvas background, Player player)
         {
             this.waves = new List<DotManager>();
-            this.audioPlayer = new AudioPlayer();
 
             this.backgroundCanvas = background;
             this.player = player;
@@ -62,6 +58,10 @@ namespace DodgeDots.Model
         {
             switch (waveStart)
             {
+                case Wave.North:
+                case Wave.West:
+                case Wave.South:
+                case Wave.East:
                 default:
                     var wave = new DotManager(this.backgroundCanvas, waveStart, color);
                     this.waves.Add(wave);
@@ -77,12 +77,10 @@ namespace DodgeDots.Model
 
         private void diagonalFinalBlitz(Color color)
         {
-            var waves = Enum.GetValues(typeof(Wave)).Cast<Wave>();
+            var waves = Enum.GetValues(typeof(Wave));
 
-            for (var i = 0; i < NumberNormalWaves; i++)
+            foreach (Wave wave in waves)
             {
-                // TODO Ask about this warning
-                var wave = waves.ElementAt(i);
                 var generatedWave = new DotManager(this.backgroundCanvas, wave, color)
                 {
                     FinalBlitzMultiplier = 2,
@@ -163,8 +161,8 @@ namespace DodgeDots.Model
                     {
                         wave.RemoveSingleDot(dot);
 
-                        var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("DotDestroyed.wav");
-                        this.audioPlayer.PlayAudio(file);
+                        var file = await AudioManager.AudioFolder.Result.GetFileAsync("DotDestroyed.wav");
+                        AudioManager.PlayAudio(file);
 
                         i--;
                         dotCount--;

@@ -50,8 +50,7 @@ namespace DodgeDots.Model
         private WaveManager waveManager;
         private Collection<PointManager> pointManagers;
         private PowerUpManager powerUpManager;
-        private readonly Canvas canvas;
-        private readonly AudioPlayer audioPlayer;
+        private Canvas canvas;
 
         private int survivalTime;
         private int currentWave;
@@ -79,13 +78,9 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Initializes a instance of <see cref="LevelManager" /> class.
         /// </summary>
-        /// <param name="background">The canvas to display on.</param>
-        /// <param name="player">The player to manipulate.</param>
-        public LevelManager(Canvas background, Player player)
+        public LevelManager(Player player)
         {
-            this.canvas = background;
             this.playerObject = player;
-            this.audioPlayer = new AudioPlayer();
         }
 
         #endregion
@@ -98,8 +93,10 @@ namespace DodgeDots.Model
         ///     Post-condition: Game is initialized and ready for play.
         /// </summary>
         /// <param name="level">The level data to run the level/game with</param>
-        public void InitializeGame(Level level)
+        /// <param name="background">The background to display on.</param>
+        public void InitializeGame(Level level, Canvas background)
         {
+            this.canvas = background;
             this.formatLevelInformation(level);
 
             this.waveManager = new WaveManager(this.canvas, this.playerObject);
@@ -123,7 +120,7 @@ namespace DodgeDots.Model
             this.survivalTime = level.GameSurvivalTime;
             this.pointManagers = new Collection<PointManager>();
 
-            if (level.LevelNumber == 2 || level.LevelNumber == 3 || level.LevelNumber == 1)
+            if (level.LevelNumber == 2 || level.LevelNumber == 3)
             {
                 this.powerUpManager = new PowerUpManager(this.canvas);
             }
@@ -157,7 +154,7 @@ namespace DodgeDots.Model
         {
             if (this.levelInformation.GetType() == typeof(LevelTwo))
             {
-                var randomDuration = GameSettings.rnd.Next(6, 10 + 1);
+                var randomDuration = GameSettings.Random.Next(6, 10 + 1);
                 await Task.Delay(randomDuration * Milliseconds);
                 this.canvas.Children.Remove(point.Sprite);
                 pointManager.Remove(point);
@@ -165,7 +162,7 @@ namespace DodgeDots.Model
 
             if (this.levelInformation.GetType() == typeof(LevelThree))
             {
-                var randomDuration = GameSettings.rnd.Next(3, 5 + 1);
+                var randomDuration = GameSettings.Random.Next(3, 5 + 1);
                 await Task.Delay(randomDuration * Milliseconds);
                 this.canvas.Children.Remove(point.Sprite);
                 pointManager.Remove(point);
@@ -270,15 +267,15 @@ namespace DodgeDots.Model
                     var color = this.getWaveColor(i);
 
                     this.waveManager.StartWave(wave, color);
-                    _ = this.playNewWaveSound();
+                    _ = playNewWaveSound();
                 }
             }
         }
 
-        private async Task playNewWaveSound()
+        private static async Task playNewWaveSound()
         {
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("NewWave.wav");
-            this.audioPlayer.PlayAudio(file);
+            var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("NewWave.wav");
+            GameSettings.AudioManager.PlayAudio(file);
         }
 
         private Color getWaveColor(int i)
@@ -333,8 +330,8 @@ namespace DodgeDots.Model
             {
                 this.powerUpActive = false;
 
-                var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PoweredDown.wav");
-                this.audioPlayer.PlayAudio(file);
+                var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("PoweredDown.wav");
+                GameSettings.AudioManager.PlayAudio(file);
             }
         }
 
@@ -346,8 +343,8 @@ namespace DodgeDots.Model
 
             this.playerObject.PowerUpAnimation();
 
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PoweredUp.wav");
-            this.audioPlayer.PlayAudio(file);
+            var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("PoweredUp.wav");
+            GameSettings.AudioManager.PlayAudio(file);
         }
 
         private bool hasPlayerHitAPowerUp()

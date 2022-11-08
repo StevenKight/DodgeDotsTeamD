@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using DodgeDots.Model;
 
@@ -12,13 +11,6 @@ namespace DodgeDots.View
     /// </summary>
     public sealed partial class GameOverView
     {
-        #region Data members
-
-        private GameManager gameManager;
-        private HighScoreManager scoreBoard;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -39,34 +31,34 @@ namespace DodgeDots.View
         /// <param name="e">Event arguments passed to the method.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-            {
-                var parameters = (Collection<object>)e.Parameter;
-
-                this.gameManager = (GameManager)parameters[0];
-                this.scoreBoard = (HighScoreManager)parameters[1];
-
-                this.scoreText.Text = $"Score: {this.gameManager.GameScore} Level: {this.gameManager.CurrentLevel}";
-            }
+            this.scoreText.Text =
+                $"Score: {GameSettings.GameManager.GameScore} Level: {GameSettings.GameManager.CurrentLevel}";
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.userName.Text != "")
             {
-                this.gameManager.SaveGameScore(this.userName.Text);
+                this.saveGameScore();
 
-                Frame.Navigate(typeof(HighScorePage), this.scoreBoard);
+                Frame.Navigate(typeof(HighScorePage));
             }
             else
             {
-                Frame.Navigate(typeof(MainPage), this.scoreBoard);
+                Frame.Navigate(typeof(MainPage));
             }
+        }
+
+        private void saveGameScore()
+        {
+            GameSettings.ScoreBoard.AddScore(GameSettings.GameManager.GameScore,
+                GameSettings.GameManager.CurrentLevel,
+                this.userName.Text);
         }
 
         private void playAgain_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GamePage), this.scoreBoard);
+            Frame.Navigate(typeof(GamePage));
         }
 
         #endregion

@@ -14,12 +14,6 @@ namespace DodgeDots
     /// </summary>
     public sealed partial class App
     {
-        #region Data members
-
-        private readonly HighScoreManager scoreBoard;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -30,8 +24,6 @@ namespace DodgeDots
         {
             this.InitializeComponent();
             Suspending += this.OnSuspending;
-
-            this.scoreBoard = new HighScoreManager();
         }
 
         #endregion
@@ -54,11 +46,6 @@ namespace DodgeDots
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    await this.scoreBoard.LoadHighScoresAsync();
-                }
-
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
@@ -67,12 +54,12 @@ namespace DodgeDots
             {
                 if (rootFrame.Content == null)
                 {
-                    await this.scoreBoard.LoadHighScoresAsync();
-
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), this.scoreBoard);
+                    await GameSettings.ScoreBoard.LoadHighScoresAsync();
+
+                    rootFrame.Navigate(typeof(MainPage));
                 }
 
                 // Ensure the current window is active
@@ -101,7 +88,7 @@ namespace DodgeDots
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            await this.scoreBoard.SaveHighScoresAsync();
+            await GameSettings.ScoreBoard.SaveHighScoresAsync();
 
             deferral.Complete();
         }

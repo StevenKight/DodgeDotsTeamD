@@ -19,7 +19,6 @@ namespace DodgeDots.Model
 
         private readonly IList<PointObject> points;
         private readonly Canvas backgroundCanvas;
-        private readonly AudioPlayer audioPlayer;
         private readonly GameSettings.PointType type;
         private Color color;
 
@@ -55,7 +54,6 @@ namespace DodgeDots.Model
         {
             this.points = new List<PointObject>();
             this.backgroundCanvas = background;
-            this.audioPlayer = new AudioPlayer();
             this.type = type;
 
             this.pointColor();
@@ -148,7 +146,7 @@ namespace DodgeDots.Model
 
         private void pointColor()
         {
-            var maxDifference = 0.0;
+            double maxDifference;
 
             switch (this.type)
             {
@@ -167,6 +165,8 @@ namespace DodgeDots.Model
 
                     maxDifference = MinRandomSpawnTick * GameSettings.MaxRarity;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             this.maxRandomSpawnTick = (int)(MinRandomSpawnTick + maxDifference);
@@ -196,7 +196,7 @@ namespace DodgeDots.Model
                 }
 
                 this.tickCount = 0;
-                var randomSpawnNext = GameSettings.rnd.Next(MinRandomSpawnTick, this.maxRandomSpawnTick);
+                var randomSpawnNext = GameSettings.Random.Next(MinRandomSpawnTick, this.maxRandomSpawnTick);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else
@@ -209,8 +209,8 @@ namespace DodgeDots.Model
         {
             var point = new PointObject((int)this.type, this.color);
 
-            var randomXPosition = GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Width - point.Width) + 1);
-            var randomYPosition = GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Height - point.Height) + 1);
+            var randomXPosition = GameSettings.Random.Next(0, (int)(this.backgroundCanvas.Width - point.Width) + 1);
+            var randomYPosition = GameSettings.Random.Next(0, (int)(this.backgroundCanvas.Height - point.Height) + 1);
 
             point.X = randomYPosition;
             point.Y = randomXPosition;
@@ -218,8 +218,8 @@ namespace DodgeDots.Model
             this.backgroundCanvas.Children.Add(point.Sprite);
             this.points.Add(point);
 
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PointAdded.wav");
-            this.audioPlayer.PlayAudio(file);
+            var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("PointAdded.wav");
+            GameSettings.AudioManager.PlayAudio(file);
         }
 
         private void stopPointSpawn()

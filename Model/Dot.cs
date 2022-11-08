@@ -56,7 +56,7 @@ namespace DodgeDots.Model
 
         private void setDotSpeed()
         {
-            var randomSpeed = GameSettings.rnd.Next(MinimumSpeed, MaximumSpeed + 1);
+            var randomSpeed = GameSettings.Random.Next(MinimumSpeed, MaximumSpeed + 1);
             SetSpeed(randomSpeed, randomSpeed);
         }
 

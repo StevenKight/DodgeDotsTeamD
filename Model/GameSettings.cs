@@ -74,7 +74,22 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Random object for the game to utilize.
         /// </summary>
-        public static Random rnd = new Random();
+        public static Random Random = new Random();
+
+        /// <summary>
+        ///     The games scoreboard.
+        /// </summary>
+        public static HighScoreManager ScoreBoard = new HighScoreManager();
+
+        /// <summary>
+        ///     The game manager for the game.
+        /// </summary>
+        public static GameManager GameManager = new GameManager();
+
+        /// <summary>
+        ///     The audio manager for the game.
+        /// </summary>
+        public static AudioPlayer AudioManager = new AudioPlayer();
 
         /// <summary>
         ///     The length in seconds of the dying animation.
@@ -99,7 +114,7 @@ namespace DodgeDots.Model
         /// <summary>
         ///     The duration of the power up in seconds.
         /// </summary>
-        public const int PowerUpDuration = 4;
+        public const int PowerUpDuration = 3;
 
         /// <summary>
         ///     The color of the basic point object.

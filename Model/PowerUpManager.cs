@@ -16,7 +16,6 @@ namespace DodgeDots.Model
         private const int MaxRandomSpawnTick = 400;
 
         private readonly Canvas backgroundCanvas;
-        private readonly AudioPlayer audioPlayer;
 
         private readonly DispatcherTimer timer;
         private int tickCount;
@@ -42,9 +41,8 @@ namespace DodgeDots.Model
         public PowerUpManager(Canvas background)
         {
             this.backgroundCanvas = background;
-            this.audioPlayer = new AudioPlayer();
 
-            var randomSpawnNext = GameSettings.rnd.Next(MinRandomSpawnTick, MaxRandomSpawnTick);
+            var randomSpawnNext = GameSettings.Random.Next(MinRandomSpawnTick, MaxRandomSpawnTick);
             this.randomSpawnTick = randomSpawnNext;
 
             this.timer = new DispatcherTimer();
@@ -116,9 +114,10 @@ namespace DodgeDots.Model
         {
             this.PowerUp = new PowerUpObject();
 
-            var randomXPosition = GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Width - this.PowerUp.Width) + 1);
+            var randomXPosition =
+                GameSettings.Random.Next(0, (int)(this.backgroundCanvas.Width - this.PowerUp.Width) + 1);
             var randomYPosition =
-                GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Height - this.PowerUp.Height) + 1);
+                GameSettings.Random.Next(0, (int)(this.backgroundCanvas.Height - this.PowerUp.Height) + 1);
 
             this.setupPowerUp(randomXPosition, randomYPosition);
 
@@ -126,13 +125,13 @@ namespace DodgeDots.Model
 
             this.backgroundCanvas.Children.Add(this.PowerUp.Sprite);
 
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PowerUpAppears.wav");
-            this.audioPlayer.PlayAudio(file);
+            var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("PowerUpAppears.wav");
+            GameSettings.AudioManager.PlayAudio(file);
         }
 
         private void setupPowerUp(int randomXPosition, int randomYPosition)
         {
-            var waveSide = GameSettings.rnd.Next(1, 5);
+            var waveSide = GameSettings.Random.Next(1, 5);
             this.placePowerUp(randomXPosition, randomYPosition, waveSide);
             this.setSpeedPowerUp(waveSide);
 
@@ -144,8 +143,8 @@ namespace DodgeDots.Model
 
         private void setSpeedPowerUp(int waveSide)
         {
-            var randXSpeed = GameSettings.rnd.Next(1, 5);
-            var randYSpeed = GameSettings.rnd.Next(1, 5);
+            var randXSpeed = GameSettings.Random.Next(1, 5);
+            var randYSpeed = GameSettings.Random.Next(1, 5);
 
             switch (waveSide)
             {

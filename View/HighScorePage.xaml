@@ -12,7 +12,26 @@
         <TextBlock TextWrapping="Wrap" Text="High Score Board" Canvas.Top="10" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
 
         <Border BorderBrush="{x:Null}" Width="400" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock x:Name="listDisplay" TextWrapping="Wrap" Text="" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontWeight="Bold" FontSize="16" Width="400" Canvas.ZIndex="2" Margin="0,201,0,0"/>
+            <ListView x:Name="highScores" Height="200" Width="200" Margin="100,115,100,83">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Username}" Grid.Column="0" Width="100" TextAlignment="Center" FontSize="16"/>
+                            <TextBlock Text="{Binding Score}" Grid.Column="1" Width="50" TextAlignment="Center" FontSize="16"/>
+                            <TextBlock Text="{Binding Level}" Grid.Column="2" Width="50" TextAlignment="Center" FontSize="16"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Border>
 
         <Grid Height="400" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using System;
+using Windows.UI;
 
 namespace DodgeDots.Model
 {
@@ -34,6 +35,10 @@ namespace DodgeDots.Model
             var dot = new DotFactory();
             switch (wave)
             {
+                case GameSettings.Wave.North:
+                case GameSettings.Wave.West:
+                case GameSettings.Wave.South:
+                case GameSettings.Wave.East:
                 default:
                     this.setDirectionalSpeeds(wave, dot);
                     dot.SetColor(color);
@@ -87,6 +92,10 @@ namespace DodgeDots.Model
                 case GameSettings.Wave.West:
                     dot.SetSpeed(dot.SpeedX, 0);
                     break;
+                case GameSettings.Wave.NsFinalBlitz:
+                case GameSettings.Wave.DiagonalFinalBlitz:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(wave), wave, null);
             }
         }
 
@@ -98,6 +107,12 @@ namespace DodgeDots.Model
                 case GameSettings.Wave.East:
                     dot.SetSpeed(-dot.SpeedX, -dot.SpeedY);
                     break;
+                case GameSettings.Wave.North:
+                case GameSettings.Wave.West:
+                case GameSettings.Wave.NsFinalBlitz:
+                case GameSettings.Wave.DiagonalFinalBlitz:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(wave), wave, null);
             }
         }
 

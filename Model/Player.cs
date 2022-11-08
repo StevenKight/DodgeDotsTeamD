@@ -91,20 +91,9 @@ namespace DodgeDots.Model
         /// </summary>
         public void SetColors()
         {
-            this.PlayerSprite.ChangeDotOuterColor(this.Colors[0]);
-            this.OuterColor = this.Colors[0];
+            this.currentColorIndex = 0;
 
-            Color innerColor;
-            if (this.Colors.Count > 1)
-            {
-                innerColor = this.Colors[1];
-            }
-            else
-            {
-                innerColor = this.Colors[0];
-            }
-
-            this.PlayerSprite.ChangeDotInnerColor(innerColor);
+            this.SwapNextOuterColor();
         }
 
         /// <summary>
@@ -112,7 +101,6 @@ namespace DodgeDots.Model
         /// </summary>
         public void SwapNextOuterColor()
         {
-            this.currentColorIndex++;
             if (this.currentColorIndex >= this.Colors.Count)
             {
                 this.currentColorIndex = 0;
@@ -130,6 +118,7 @@ namespace DodgeDots.Model
 
             var nextColor = this.Colors[nextIndex];
             this.PlayerSprite.ChangeDotInnerColor(nextColor);
+            this.currentColorIndex++;
         }
 
         /// <summary>

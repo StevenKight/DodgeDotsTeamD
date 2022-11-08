@@ -126,7 +126,7 @@ namespace DodgeDots.Model
                 this.createDot();
                 this.tickCount = 0;
 
-                var randomSpawnNext = GameSettings.rnd.Next(20, 40);
+                var randomSpawnNext = GameSettings.Random.Next(20, 40);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else
@@ -146,7 +146,7 @@ namespace DodgeDots.Model
             this.setDotInPosition(dot);
         }
 
-        private void setDotInPosition(Dot dot)
+        private void setDotInPosition(GameObject dot)
         {
             switch (this.wave)
             {
@@ -158,19 +158,21 @@ namespace DodgeDots.Model
                 case GameSettings.Wave.East:
                     this.randomlyPositionLeftAndRightDirectionalDots(dot);
                     break;
+                case GameSettings.Wave.NsFinalBlitz:
+                case GameSettings.Wave.DiagonalFinalBlitz:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void randomlyPositionLeftAndRightDirectionalDots(Dot dot)
+        private void randomlyPositionLeftAndRightDirectionalDots(GameObject dot)
         {
             var yPositionsInBoundary =
                 Enumerable.Range(0, (int)(GameSettings.ApplicationHeight - dot.Height)).ToArray();
             var positionsWithRespectToDotHeight =
                 yPositionsInBoundary.Where(x => x % (int)dot.Height == 0).ToArray();
 
-            var randomIndex = GameSettings.rnd.Next(0, positionsWithRespectToDotHeight.Length);
+            var randomIndex = GameSettings.Random.Next(0, positionsWithRespectToDotHeight.Length);
             dot.Y = positionsWithRespectToDotHeight[randomIndex];
 
             if (this.wave == GameSettings.Wave.West)
@@ -183,12 +185,12 @@ namespace DodgeDots.Model
             }
         }
 
-        private void randomlyPositionUpAndDownDirectionalDots(Dot dot)
+        private void randomlyPositionUpAndDownDirectionalDots(GameObject dot)
         {
             var xPositionsInBoundary = Enumerable.Range(0, (int)(GameSettings.ApplicationWidth - dot.Width)).ToArray();
             var positionsWithRespectToDotWidth = xPositionsInBoundary.Where(x => x % (int)dot.Width == 0).ToArray();
 
-            var randomIndex = GameSettings.rnd.Next(0, positionsWithRespectToDotWidth.Length);
+            var randomIndex = GameSettings.Random.Next(0, positionsWithRespectToDotWidth.Length);
             dot.X = positionsWithRespectToDotWidth[randomIndex];
 
             if (this.wave == GameSettings.Wave.North)

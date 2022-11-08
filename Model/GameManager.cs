@@ -51,16 +51,13 @@ namespace DodgeDots.Model
         #region Data members
 
         private const int Milliseconds = 1000;
-
-        private readonly PlayerDotManager playerManager;
-        private readonly LevelManager levelManager;
-        private readonly HighScoreManager highScoreManager;
+        private PlayerDotManager playerManager;
+        private LevelManager levelManager;
         private readonly Collection<Level> levelList;
 
         private bool isLevelComplete;
         private int playerDeathCount;
-
-        private readonly AudioPlayer audioPlayer;
+        private Canvas background;
 
         #endregion
 
@@ -86,14 +83,8 @@ namespace DodgeDots.Model
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameManager" /> class.
         /// </summary>
-        /// <param name="background">The canvas to display the game on.</param>
-        /// <param name="player">The player object within the game.</param>
-        /// <param name="scoreBoard">The scoreboard to save the users score to.</param>
-        public GameManager(Canvas background, PlayerDotManager player, HighScoreManager scoreBoard)
+        public GameManager()
         {
-            this.playerManager = player;
-            this.levelManager = new LevelManager(background, player.PlayerDot);
-
             this.levelList = new Collection<Level>
             {
                 new LevelOne(),
@@ -101,22 +92,23 @@ namespace DodgeDots.Model
                 new LevelThree()
             };
 
-            this.levelManager.GameLost += this.onGameLost;
-            this.levelManager.LifeUpdate += this.LevelManager_lifeLost;
-            this.levelManager.LevelWon += this.levelWon;
-            this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
-            this.levelManager.PointHit += this.WaveManager_PointHit;
-
-            this.highScoreManager = scoreBoard;
             this.CurrentLevel = 0;
             this.GameScore = 0;
-
-            this.audioPlayer = new AudioPlayer();
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///     Sets up the game to be ran.
+        /// </summary>
+        /// <param name="canvas">The canvas to display the game on.</param>
+        public void SetupGame(Canvas canvas)
+        {
+            this.background = canvas;
+            this.playerManager = new PlayerDotManager(canvas);
+        }
 
         private async void LevelManager_lifeLost()
         {
@@ -135,6 +127,8 @@ namespace DodgeDots.Model
         /// </summary>
         public async Task InitializeGameAsync()
         {
+            this.setupLevelManager();
+
             this.CurrentLevel++;
 
             if (this.CurrentLevel <= this.levelList.Count)
@@ -145,6 +139,17 @@ namespace DodgeDots.Model
             {
                 this.onGameWon();
             }
+        }
+
+        private void setupLevelManager()
+        {
+            this.levelManager = new LevelManager(this.playerManager.PlayerDot);
+
+            this.levelManager.GameLost += this.onGameLost;
+            this.levelManager.LifeUpdate += this.LevelManager_lifeLost;
+            this.levelManager.LevelWon += this.levelWon;
+            this.levelManager.GameTimeUpdated += this.onGameTimeUpdated;
+            this.levelManager.PointHit += this.WaveManager_PointHit;
         }
 
         private async Task loadLevel()
@@ -174,19 +179,10 @@ namespace DodgeDots.Model
             }
         }
 
-        /// <summary>
-        ///     Saves the users score for the game.
-        /// </summary>
-        /// <param name="username">The name for the user</param>
-        public void SaveGameScore(string username)
-        {
-            this.highScoreManager.AddScore(this.GameScore, this.CurrentLevel, username);
-        }
-
         private void runLevel(Level level)
         {
             this.playerManager.RestartPlayer();
-            this.levelManager.InitializeGame(level);
+            this.levelManager.InitializeGame(level, this.background);
         }
 
         private void preparePlayer(Level level)
@@ -244,8 +240,8 @@ namespace DodgeDots.Model
 
         private async Task gameOver(string filename)
         {
-            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync(filename);
-            this.audioPlayer.PlayAudio(file);
+            var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync(filename);
+            GameSettings.AudioManager.PlayAudio(file);
 
             this.playerManager.StopPlayer();
         }

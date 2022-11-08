@@ -227,24 +227,21 @@
                 Gets the current level of the game.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.GameManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.PlayerDotManager,DodgeDots.Model.HighScoreManager)">
+        <member name="M:DodgeDots.Model.GameManager.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.Model.GameManager" /> class.
             </summary>
-            <param name="background">The canvas to display the game on.</param>
-            <param name="player">The player object within the game.</param>
-            <param name="scoreBoard">The scoreboard to save the users score to.</param>
+        </member>
+        <member name="M:DodgeDots.Model.GameManager.SetupGame(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+                Sets up the game to be ran.
+            </summary>
+            <param name="canvas">The canvas to display the game on.</param>
         </member>
         <member name="M:DodgeDots.Model.GameManager.InitializeGameAsync">
             <summary>
                 Initialize and run the game.
             </summary>
-        </member>
-        <member name="M:DodgeDots.Model.GameManager.SaveGameScore(System.String)">
-            <summary>
-                Saves the users score for the game.
-            </summary>
-            <param name="username">The name for the user</param>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameTimeUpdated">
             <summary>
@@ -413,9 +410,24 @@
                 The wave coming diagonally.
             </summary>
         </member>
-        <member name="F:DodgeDots.Model.GameSettings.rnd">
+        <member name="F:DodgeDots.Model.GameSettings.Random">
             <summary>
                 Random object for the game to utilize.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.ScoreBoard">
+            <summary>
+                The games scoreboard.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.GameManager">
+            <summary>
+                The game manager for the game.
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.AudioManager">
+            <summary>
+                The audio manager for the game.
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.DyingAnimationLength">
@@ -546,7 +558,6 @@
         <member name="T:DodgeDots.Model.LevelOne">
             <summary>
                 Stores the game settings for level one.
-                TODO Is it ok to declare them like this?
             </summary>
         </member>
         <member name="M:DodgeDots.Model.LevelOne.#ctor">
@@ -651,20 +662,19 @@
                 The time left in the level.
             </summary>
         </member>
-        <member name="M:DodgeDots.Model.LevelManager.#ctor(Windows.UI.Xaml.Controls.Canvas,DodgeDots.Model.Player)">
+        <member name="M:DodgeDots.Model.LevelManager.#ctor(DodgeDots.Model.Player)">
             <summary>
                 Initializes a instance of <see cref="T:DodgeDots.Model.LevelManager" /> class.
             </summary>
-            <param name="background">The canvas to display on.</param>
-            <param name="player">The player to manipulate.</param>
         </member>
-        <member name="M:DodgeDots.Model.LevelManager.InitializeGame(DodgeDots.Model.Level)">
+        <member name="M:DodgeDots.Model.LevelManager.InitializeGame(DodgeDots.Model.Level,Windows.UI.Xaml.Controls.Canvas)">
             <summary>
                 Initializes the game placing player in the game
                 Precondition: background != null
                 Post-condition: Game is initialized and ready for play.
             </summary>
             <param name="level">The level data to run the level/game with</param>
+            <param name="background">The background to display on.</param>
         </member>
         <member name="E:DodgeDots.Model.LevelManager.GameTimeUpdated">
             <summary>

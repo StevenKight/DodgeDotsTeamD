@@ -7,7 +7,6 @@ using Windows.Storage;
 
 namespace DodgeDots.Model
 {
-    // TODO Is it ok to declare them like this?
     /// <summary>
     ///     Handles saving and loading of the score board.
     /// </summary>
