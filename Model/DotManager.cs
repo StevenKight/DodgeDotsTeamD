@@ -109,14 +109,24 @@ namespace DodgeDots.Model
             this.StopDotManager();
         }
 
+        /// <summary>
+        ///     Removes a single dot from the game.
+        /// </summary>
+        /// <param name="dot">The dot to remove</param>
+        public void RemoveSingleDot(Dot dot)
+        {
+            this.dots.Remove(dot);
+            this.canvas.Children.Remove(dot.Sprite);
+        }
+
         private void Timer_Tick(object sender, object e)
         {
             if (this.tickCount == this.randomSpawnTick)
             {
                 this.createDot();
                 this.tickCount = 0;
-                var rnd = new Random();
-                var randomSpawnNext = rnd.Next(20, 40);
+
+                var randomSpawnNext = GameSettings.rnd.Next(20, 40);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else
@@ -159,8 +169,8 @@ namespace DodgeDots.Model
                 Enumerable.Range(0, (int)(GameSettings.ApplicationHeight - dot.Height)).ToArray();
             var positionsWithRespectToDotHeight =
                 yPositionsInBoundary.Where(x => x % (int)dot.Height == 0).ToArray();
-            var rnd = new Random();
-            var randomIndex = rnd.Next(0, positionsWithRespectToDotHeight.Length);
+
+            var randomIndex = GameSettings.rnd.Next(0, positionsWithRespectToDotHeight.Length);
             dot.Y = positionsWithRespectToDotHeight[randomIndex];
 
             if (this.wave == GameSettings.Wave.West)
@@ -177,8 +187,8 @@ namespace DodgeDots.Model
         {
             var xPositionsInBoundary = Enumerable.Range(0, (int)(GameSettings.ApplicationWidth - dot.Width)).ToArray();
             var positionsWithRespectToDotWidth = xPositionsInBoundary.Where(x => x % (int)dot.Width == 0).ToArray();
-            var rnd = new Random();
-            var randomIndex = rnd.Next(0, positionsWithRespectToDotWidth.Length);
+
+            var randomIndex = GameSettings.rnd.Next(0, positionsWithRespectToDotWidth.Length);
             dot.X = positionsWithRespectToDotWidth[randomIndex];
 
             if (this.wave == GameSettings.Wave.North)

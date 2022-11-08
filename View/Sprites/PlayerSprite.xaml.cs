@@ -11,6 +11,17 @@ namespace DodgeDots.View.Sprites
     /// <seealso cref="Windows.UI.Xaml.Controls.UserControl" />
     public sealed partial class PlayerSprite
     {
+        #region Data members
+
+        private const double CircleModifier = 1.25;
+
+        private readonly double innerCircleWidth;
+        private readonly double innerCircleHeight;
+        private readonly double outerCircleWidth;
+        private readonly double outerCircleHeight;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -21,6 +32,11 @@ namespace DodgeDots.View.Sprites
         public PlayerSprite()
         {
             this.InitializeComponent();
+
+            this.innerCircleWidth = this.innerCircle.Width;
+            this.innerCircleHeight = this.innerCircle.Height;
+            this.outerCircleWidth = this.outerCircle.Width;
+            this.outerCircleHeight = this.outerCircle.Height;
         }
 
         #endregion
@@ -51,6 +67,30 @@ namespace DodgeDots.View.Sprites
         public void DyingAnimation()
         {
             (this.innerCircle.Fill, this.outerCircle.Fill) = (this.outerCircle.Fill, this.innerCircle.Fill);
+        }
+
+        /// <summary>
+        ///     Increases player sprite size by a factor of 1.25.
+        /// </summary>
+        public void IncreasePlayerSize()
+        {
+            this.innerCircle.Width *= CircleModifier;
+            this.innerCircle.Height *= CircleModifier;
+
+            this.outerCircle.Width *= CircleModifier;
+            this.outerCircle.Height *= CircleModifier;
+        }
+
+        /// <summary>
+        ///     Resets the player size back to default.
+        /// </summary>
+        public void ResetPlayerSize()
+        {
+            this.innerCircle.Width = this.innerCircleWidth;
+            this.innerCircle.Height = this.innerCircleHeight;
+
+            this.outerCircle.Width = this.outerCircleWidth;
+            this.outerCircle.Height = this.outerCircleHeight;
         }
 
         #endregion

@@ -395,3 +395,8 @@ C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x6
 C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637424959200000000.json
+C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\bin\x64\Debug\View\Sprites\PowerUpSprite.xbf
+C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\View\Sprites\PowerUpSprite.g.i.cs
+C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\View\Sprites\PowerUpSprite.g.cs
+C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\View\Sprites\PowerUpSprite.xaml
+C:\Users\sgk07\OneDrive\Documents\Class Work\Fall 2022\PC1\DodgeDotsTeamD\obj\x64\Debug\View\Sprites\PowerUpSprite.xbf

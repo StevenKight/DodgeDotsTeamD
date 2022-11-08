@@ -86,9 +86,9 @@ namespace DodgeDots.View
             _ = this.gameManager.InitializeGameAsync();
         }
 
-        private void GameManager_LifeUpdated(int lives)
+        private void GameManager_LifeUpdated(int playerLives)
         {
-            this.lives.Text = $"Lives: {lives}";
+            this.lives.Text = $"Lives: {playerLives}";
         }
 
         private void GameManager_GameScoreUpdated(int gameScore)
@@ -111,8 +111,6 @@ namespace DodgeDots.View
             this.setGameOverResultText("LEVEL COMPLETE");
 
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
-
-            this.gameOverTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private async void GameManager_LevelIncrementAsync(string title)
@@ -126,8 +124,8 @@ namespace DodgeDots.View
 
         private void setGameOverResultText(string message)
         {
-            this.gameOverTextBlock.Text = message;
             this.gameOverTextBlock.Visibility = Visibility.Visible;
+            this.gameOverTextBlock.Text = message;
         }
 
         private void GameManager_GameTimeUpdated(int countDownNumber)

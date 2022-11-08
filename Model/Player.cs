@@ -19,12 +19,15 @@ namespace DodgeDots.Model
         private const int SpeedYDirection = 3;
 
         private const double TickModifier = 7.5;
-        private const int TicksForAnimation = (int)(GameSettings.DyingAnimationLength * TickModifier);
+        private const int TicksForPowerUpAnimation = 10;
 
         private readonly DispatcherTimer timer;
         private int tickCount;
+        private int ticksForAnimation;
 
         private int currentColorIndex;
+        private bool playerDied;
+        private bool poweredUp;
 
         #endregion
 
@@ -53,7 +56,6 @@ namespace DodgeDots.Model
 
         /// <summary>
         ///     The amount of lives the player has in the game.
-        ///     TODO Potentially move out to PlayerManager
         /// </summary>
         public int PlayerLives { get; set; }
 
@@ -73,11 +75,11 @@ namespace DodgeDots.Model
             this.PlayerLives = GameSettings.PlayerLives;
 
             this.currentColorIndex = 0;
+            this.playerDied = false;
+            this.poweredUp = false;
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;
-            this.timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            this.tickCount = 0;
         }
 
         #endregion
@@ -208,6 +210,29 @@ namespace DodgeDots.Model
         /// </summary>
         public void DyingAnimation()
         {
+            this.ticksForAnimation = (int)(GameSettings.DyingAnimationLength * TickModifier);
+            this.playerDied = true;
+            this.poweredUp = false;
+
+            this.setupTimer(100);
+        }
+
+        /// <summary>
+        ///     Starts the dying animation timer.
+        /// </summary>
+        public void PowerUpAnimation()
+        {
+            this.ticksForAnimation = TicksForPowerUpAnimation;
+            this.poweredUp = true;
+            this.playerDied = false;
+
+            this.setupTimer(500);
+        }
+
+        private void setupTimer(int milliseconds)
+        {
+            this.timer.Interval = new TimeSpan(0, 0, 0, 0, milliseconds);
+            this.tickCount = 0;
             this.timer.Start();
         }
 
@@ -215,12 +240,28 @@ namespace DodgeDots.Model
         {
             this.tickCount++;
 
-            this.PlayerSprite.DyingAnimation();
+            if (this.playerDied)
+            {
+                this.PlayerSprite.DyingAnimation();
+            }
 
-            if (this.tickCount > TicksForAnimation)
+            if (this.poweredUp)
+            {
+                if (this.tickCount % 2 == 0)
+                {
+                    this.PlayerSprite.ResetPlayerSize();
+                }
+                else
+                {
+                    this.PlayerSprite.IncreasePlayerSize();
+                }
+            }
+
+            if (this.tickCount > this.ticksForAnimation)
             {
                 this.timer.Stop();
                 this.tickCount = 0;
+                this.PlayerSprite.ResetPlayerSize();
             }
         }
 

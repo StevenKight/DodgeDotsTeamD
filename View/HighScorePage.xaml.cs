@@ -46,6 +46,7 @@ namespace DodgeDots.View
             this.getScoreBoard();
         }
 
+        // TODO Other sort functions and display in columns
         private void getScoreBoard()
         {
             this.scoreBoard.SortTopTen();

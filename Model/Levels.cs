@@ -18,6 +18,7 @@ namespace DodgeDots.Model
         public LevelOne()
         {
             Title = "Level 1";
+            LevelNumber = 1;
             GameSurvivalTime = 25; // 25
             WaveInterval = 5;
 
@@ -57,6 +58,7 @@ namespace DodgeDots.Model
         public LevelTwo()
         {
             Title = "Level 2";
+            LevelNumber = 2;
             GameSurvivalTime = 30; // 30
             WaveInterval = 5;
 
@@ -102,6 +104,7 @@ namespace DodgeDots.Model
         public LevelThree()
         {
             Title = "Level 3";
+            LevelNumber = 3;
             GameSurvivalTime = 35; // 35
             WaveInterval = 5;
 
@@ -146,6 +149,11 @@ namespace DodgeDots.Model
         ///     The title of the level.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        ///     The number associated with the level.
+        /// </summary>
+        public int LevelNumber { get; set; }
 
         /// <summary>
         ///     The length of the level in seconds.

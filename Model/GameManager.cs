@@ -159,6 +159,7 @@ namespace DodgeDots.Model
 
             this.preparePlayer(level);
 
+            this.playerManager.PlacePlayerCenteredInGameArena();
             await this.delayForNextLevel();
 
             this.runLevel(level);
@@ -184,7 +185,6 @@ namespace DodgeDots.Model
 
         private void runLevel(Level level)
         {
-            this.playerManager.PlacePlayerCenteredInGameArena();
             this.playerManager.RestartPlayer();
             this.levelManager.InitializeGame(level);
         }

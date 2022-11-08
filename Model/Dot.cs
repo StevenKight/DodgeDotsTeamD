@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.UI;
+﻿using Windows.UI;
 using DodgeDots.View.Sprites;
 
 namespace DodgeDots.Model
@@ -12,7 +11,6 @@ namespace DodgeDots.Model
     {
         #region Data members
 
-        // TODO Use level class to store these
         private const int MinimumSpeed = 1;
         private const int MaximumSpeed = 5;
 
@@ -58,8 +56,7 @@ namespace DodgeDots.Model
 
         private void setDotSpeed()
         {
-            var rnd = new Random();
-            var randomSpeed = rnd.Next(MinimumSpeed, MaximumSpeed + 1);
+            var randomSpeed = GameSettings.rnd.Next(MinimumSpeed, MaximumSpeed + 1);
             SetSpeed(randomSpeed, randomSpeed);
         }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\victo\\source\\repos\\DodgeDotsTeamD\\DodgeDots.csproj": {}
+    "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj": {}
   },
   "projects": {
-    "C:\\Users\\victo\\source\\repos\\DodgeDotsTeamD\\DodgeDots.csproj": {
+    "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\victo\\source\\repos\\DodgeDotsTeamD\\DodgeDots.csproj",
+        "projectUniqueName": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj",
         "projectName": "DodgeDots",
-        "projectPath": "C:\\Users\\victo\\source\\repos\\DodgeDotsTeamD\\DodgeDots.csproj",
-        "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\victo\\source\\repos\\DodgeDotsTeamD\\obj\\",
+        "projectPath": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\DodgeDots.csproj",
+        "packagesPath": "C:\\Users\\sgk07\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sgk07\\OneDrive\\Documents\\Class Work\\Fall 2022\\PC1\\DodgeDotsTeamD\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,7 +19,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\victo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sgk07\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

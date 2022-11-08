@@ -95,11 +95,14 @@
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
       <RootProperty Name="Fill" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Stroke" />
       <RootProperty Name="Opacity" />
     </RootType>
     <RootType FullName="DodgeDots.View.Sprites.DotSprite" />
     <RootType FullName="DodgeDots.View.Sprites.PlayerSprite" />
+    <RootType FullName="DodgeDots.View.Sprites.PowerUpSprite" />
     <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform">
       <RootProperty Name="CenterY" />
       <RootProperty Name="CenterX" />

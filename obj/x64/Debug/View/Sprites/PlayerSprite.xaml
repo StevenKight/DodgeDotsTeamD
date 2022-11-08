@@ -12,8 +12,10 @@
     Width="30">
 
     <Canvas>
-        <Ellipse x:ConnectionId='2' x:Name="outerCircle" Width="30" Height="30" Fill="Purple"/>
-        <Ellipse x:ConnectionId='3' x:Name="innerCircle" Width="15" Height="15" Fill="MediumPurple" Canvas.Left="8" Canvas.Top="8"></Ellipse>
+        <Grid>
+            <Ellipse x:ConnectionId='2' x:Name="outerCircle" Width="30" Height="30" Fill="Purple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Ellipse x:ConnectionId='3' x:Name="innerCircle" Width="15" Height="15" Fill="MediumPurple" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
     </Canvas>
 </local:BaseSprite>
 

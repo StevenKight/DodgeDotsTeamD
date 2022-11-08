@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using static DodgeDots.Model.GameSettings;
 
 namespace DodgeDots.Model
 {
@@ -17,6 +19,7 @@ namespace DodgeDots.Model
         private const int NumberNormalWaves = 4;
 
         private readonly Canvas backgroundCanvas;
+        private readonly AudioPlayer audioPlayer;
         private readonly Player player;
 
         private readonly DispatcherTimer timer;
@@ -34,6 +37,7 @@ namespace DodgeDots.Model
         public WaveManager(Canvas background, Player player)
         {
             this.waves = new List<DotManager>();
+            this.audioPlayer = new AudioPlayer();
 
             this.backgroundCanvas = background;
             this.player = player;
@@ -54,7 +58,7 @@ namespace DodgeDots.Model
         /// </summary>
         /// <param name="waveStart">The wave to create</param>
         /// <param name="color">The color of the dots within the wave</param>
-        public void StartWave(GameSettings.Wave waveStart, Color color)
+        public void StartWave(Wave waveStart, Color color)
         {
             switch (waveStart)
             {
@@ -62,10 +66,10 @@ namespace DodgeDots.Model
                     var wave = new DotManager(this.backgroundCanvas, waveStart, color);
                     this.waves.Add(wave);
                     break;
-                case GameSettings.Wave.NsFinalBlitz:
+                case Wave.NsFinalBlitz:
                     this.northSouthFinalBlitz(color);
                     break;
-                case GameSettings.Wave.DiagonalFinalBlitz:
+                case Wave.DiagonalFinalBlitz:
                     this.diagonalFinalBlitz(color);
                     break;
             }
@@ -73,10 +77,11 @@ namespace DodgeDots.Model
 
         private void diagonalFinalBlitz(Color color)
         {
-            var waves = Enum.GetValues(typeof(GameSettings.Wave)).Cast<GameSettings.Wave>();
+            var waves = Enum.GetValues(typeof(Wave)).Cast<Wave>();
 
             for (var i = 0; i < NumberNormalWaves; i++)
             {
+                // TODO Ask about this warning
                 var wave = waves.ElementAt(i);
                 var generatedWave = new DotManager(this.backgroundCanvas, wave, color)
                 {
@@ -90,10 +95,9 @@ namespace DodgeDots.Model
 
         private void northSouthFinalBlitz(Color color)
         {
-            var waveMoveDown = new DotManager(this.backgroundCanvas, GameSettings.Wave.North, color);
-            var waveMoveUp = new DotManager(this.backgroundCanvas, GameSettings.Wave.South, color);
+            var waveMoveDown = new DotManager(this.backgroundCanvas, Wave.North, color);
+            var waveMoveUp = new DotManager(this.backgroundCanvas, Wave.South, color);
 
-            // TODO Use level class to store these
             waveMoveDown.FinalBlitzMultiplier = 2;
             waveMoveUp.FinalBlitzMultiplier = 2;
 
@@ -140,6 +144,32 @@ namespace DodgeDots.Model
             {
                 wave.RemoveAllDots();
                 this.StopAllActiveWaveObjects();
+            }
+        }
+
+        /// <summary>
+        ///     Removes dots that the player has hit.
+        /// </summary>
+        /// <returns>An asynchronous operation.</returns>
+        public async Task RemoveHitDotsAsync()
+        {
+            foreach (var wave in this.waves)
+            {
+                var dotCount = wave.Count();
+                for (var i = 0; i < dotCount; i++)
+                {
+                    var dot = wave.ElementAt(i);
+                    if (this.player.IsCircleOverlapPlayer(dot))
+                    {
+                        wave.RemoveSingleDot(dot);
+
+                        var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("DotDestroyed.wav");
+                        this.audioPlayer.PlayAudio(file);
+
+                        i--;
+                        dotCount--;
+                    }
+                }
             }
         }
 

@@ -78,6 +78,10 @@ namespace DodgeDots.Model
             outStream.Dispose();
         }
 
+        /// <summary>
+        ///     Resets the scoreboard to have no scores.
+        /// </summary>
+        /// <returns>An asynchronous operation</returns>
         public async Task ResetHighScoresAsync()
         {
             this.allScores = new Collection<UserScore>();

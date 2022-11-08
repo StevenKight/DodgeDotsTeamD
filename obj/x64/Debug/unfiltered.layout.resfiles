@@ -1,10 +1,14 @@
 WinMetadata\Windows.winmd
+Assets\DotDestroyed.wav
 Assets\GameOver.wav
 Assets\LevelWon.wav
 Assets\LifeLost.wav
 Assets\LockScreenLogo.scale-200.png
 Assets\NewWave.wav
 Assets\PointAdded.wav
+Assets\PoweredDown.wav
+Assets\PoweredUp.wav
+Assets\PowerUpAppears.wav
 Assets\SplashScreen.scale-200.png
 Assets\Square150x150Logo.scale-200.png
 Assets\Square44x44Logo.scale-200.png
@@ -22,5 +26,6 @@ View\Sprites\BaseSprite.xbf
 View\Sprites\DotSprite.xbf
 View\Sprites\PlayerSprite.xbf
 View\Sprites\PointSprite.xbf
+View\Sprites\PowerUpSprite.xbf
 notes.txt
 Properties\Default.rd.xml

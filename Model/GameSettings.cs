@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using System;
+using Windows.UI;
 
 namespace DodgeDots.Model
 {
@@ -71,6 +72,11 @@ namespace DodgeDots.Model
         #region Data members
 
         /// <summary>
+        ///     Random object for the game to utilize.
+        /// </summary>
+        public static Random rnd = new Random();
+
+        /// <summary>
         ///     The length in seconds of the dying animation.
         /// </summary>
         public const int DyingAnimationLength = 2;
@@ -89,6 +95,11 @@ namespace DodgeDots.Model
         ///     The application width
         /// </summary>
         public const double ApplicationWidth = 450;
+
+        /// <summary>
+        ///     The duration of the power up in seconds.
+        /// </summary>
+        public const int PowerUpDuration = 4;
 
         /// <summary>
         ///     The color of the basic point object.

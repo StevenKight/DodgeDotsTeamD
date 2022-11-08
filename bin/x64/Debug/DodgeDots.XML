@@ -169,6 +169,12 @@
                 Removes all dots from tracking and from the display.
             </summary>
         </member>
+        <member name="M:DodgeDots.Model.DotManager.RemoveSingleDot(DodgeDots.Model.Dot)">
+            <summary>
+                Removes a single dot from the game.
+            </summary>
+            <param name="dot">The dot to remove</param>
+        </member>
         <member name="T:DodgeDots.Model.GameManager">
             <summary>
                 Manages the entire game.
@@ -407,6 +413,11 @@
                 The wave coming diagonally.
             </summary>
         </member>
+        <member name="F:DodgeDots.Model.GameSettings.rnd">
+            <summary>
+                Random object for the game to utilize.
+            </summary>
+        </member>
         <member name="F:DodgeDots.Model.GameSettings.DyingAnimationLength">
             <summary>
                 The length in seconds of the dying animation.
@@ -425,6 +436,11 @@
         <member name="F:DodgeDots.Model.GameSettings.ApplicationWidth">
             <summary>
                 The application width
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.PowerUpDuration">
+            <summary>
+                The duration of the power up in seconds.
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.BasicPointColor">
@@ -478,6 +494,12 @@
                 Saves the score board out to the file.
             </summary>
             <returns>An asynchronous operation.</returns>
+        </member>
+        <member name="M:DodgeDots.Model.HighScoreManager.ResetHighScoresAsync">
+            <summary>
+                Resets the scoreboard to have no scores.
+            </summary>
+            <returns>An asynchronous operation</returns>
         </member>
         <member name="M:DodgeDots.Model.HighScoreManager.AddScore(System.Int32,System.Int32,System.String)">
             <summary>
@@ -565,6 +587,11 @@
         <member name="P:DodgeDots.Model.Level.Title">
             <summary>
                 The title of the level.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.Level.LevelNumber">
+            <summary>
+                The number associated with the level.
             </summary>
         </member>
         <member name="P:DodgeDots.Model.Level.GameSurvivalTime">
@@ -699,7 +726,6 @@
         <member name="P:DodgeDots.Model.Player.PlayerLives">
             <summary>
                 The amount of lives the player has in the game.
-                TODO Potentially move out to PlayerManager
             </summary>
         </member>
         <member name="M:DodgeDots.Model.Player.#ctor">
@@ -762,6 +788,11 @@
             </returns>
         </member>
         <member name="M:DodgeDots.Model.Player.DyingAnimation">
+            <summary>
+                Starts the dying animation timer.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.Player.PowerUpAnimation">
             <summary>
                 Starts the dying animation timer.
             </summary>
@@ -897,6 +928,45 @@
                 post-condition: PointAmount == pointAmount
             </summary>
         </member>
+        <member name="T:DodgeDots.Model.PowerUpObject">
+            <summary>
+                Creates the Power Up
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PowerUpObject.#ctor">
+            <summary>
+                Initializes a new <see cref="T:DodgeDots.Model.PowerUpObject" />
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PowerUpObject.SetPowerUpSpeed(System.Int32,System.Int32)">
+            <summary>
+                Sets the speed of the power-up
+            </summary>
+            <param name="speedX">Speed in the x direction.</param>
+            <param name="speedY">Speed in the y direction.</param>
+        </member>
+        <member name="T:DodgeDots.Model.PowerUpManager">
+            <summary>
+                Defines how the power up will display and act.
+            </summary>
+        </member>
+        <member name="P:DodgeDots.Model.PowerUpManager.PowerUp">
+            <summary>
+                The power up object.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.Model.PowerUpManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
+            <summary>
+                Initializes a new <see cref="T:DodgeDots.Model.PowerUpManager" />
+                TODO Add movement
+            </summary>
+            <param name="background">The canvas to display the power-up on.</param>
+        </member>
+        <member name="M:DodgeDots.Model.PowerUpManager.StopPowerUpManager">
+            <summary>
+                Removes all point objects from tacking and canvas.
+            </summary>
+        </member>
         <member name="T:DodgeDots.Model.WaveManager">
             <summary>
                 Manages all the waves of dots in the game
@@ -932,6 +1002,12 @@
             <summary>
                 Removes all waves from tracking and display.
             </summary>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.RemoveHitDotsAsync">
+            <summary>
+                Removes dots that the player has hit.
+            </summary>
+            <returns>An asynchronous operation.</returns>
         </member>
         <member name="T:DodgeDots.View.GamePage">
             <summary>
@@ -1169,6 +1245,16 @@
                 Runs the dying animation of the player dot.
             </summary>
         </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.IncreasePlayerSize">
+            <summary>
+                Increases player sprite size by a factor of 1.25.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PlayerSprite.ResetPlayerSize">
+            <summary>
+                Resets the player size back to default.
+            </summary>
+        </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.InitializeComponent">
             <summary>
             InitializeComponent()
@@ -1180,6 +1266,34 @@
             </summary>
         </member>
         <member name="M:DodgeDots.View.Sprites.PlayerSprite.GetBindingConnector(System.Int32,System.Object)">
+            <summary>
+            GetBindingConnector(int connectionId, object target)
+            </summary>
+        </member>
+        <member name="T:DodgeDots.View.Sprites.PowerUpSprite">
+            <summary>
+                The PointSprite CodeBehind
+            </summary>
+            <seealso cref="T:DodgeDots.View.Sprites.BaseSprite" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
+            <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PowerUpSprite.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.PointSprite" /> class.
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PowerUpSprite.InitializeComponent">
+            <summary>
+            InitializeComponent()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PowerUpSprite.Connect(System.Int32,System.Object)">
+            <summary>
+            Connect()
+            </summary>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.PowerUpSprite.GetBindingConnector(System.Int32,System.Object)">
             <summary>
             GetBindingConnector(int connectionId, object target)
             </summary>

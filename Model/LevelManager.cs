@@ -40,8 +40,8 @@ namespace DodgeDots.Model
 
         #region Data members
 
-        private int survivalTime;
         private const int Milliseconds = 1000;
+        private const int MillisecondsPerTick = 20;
 
         private readonly Player playerObject;
         private PointObject lastHitPoint;
@@ -49,10 +49,14 @@ namespace DodgeDots.Model
 
         private WaveManager waveManager;
         private Collection<PointManager> pointManagers;
+        private PowerUpManager powerUpManager;
         private readonly Canvas canvas;
         private readonly AudioPlayer audioPlayer;
 
+        private int survivalTime;
         private int currentWave;
+        private bool powerUpActive;
+        private int powerUpTicks;
 
         private DispatcherTimer timer;
 
@@ -99,10 +103,11 @@ namespace DodgeDots.Model
             this.formatLevelInformation(level);
 
             this.waveManager = new WaveManager(this.canvas, this.playerObject);
+            this.powerUpActive = false;
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += this.Timer_Tick;
-            this.timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
+            this.timer.Interval = new TimeSpan(0, 0, 0, 0, MillisecondsPerTick);
 
             this.waveTimer = new DispatcherTimer();
             this.waveTimer.Tick += this.WaveTimer_Tick;
@@ -118,6 +123,11 @@ namespace DodgeDots.Model
             this.survivalTime = level.GameSurvivalTime;
             this.pointManagers = new Collection<PointManager>();
 
+            if (level.LevelNumber == 2 || level.LevelNumber == 3 || level.LevelNumber == 1)
+            {
+                this.powerUpManager = new PowerUpManager(this.canvas);
+            }
+
             foreach (var pointType in level.PointTypes)
             {
                 this.pointManagers.Add(new PointManager(this.canvas, pointType));
@@ -130,7 +140,7 @@ namespace DodgeDots.Model
         private void randomlyRemovePoints()
         {
             foreach (var pointManager in this.pointManagers)
-            { 
+            {
                 this.iterateThroughPointManagers(pointManager);
             }
         }
@@ -139,17 +149,15 @@ namespace DodgeDots.Model
         {
             foreach (var point in pointManager)
             {
-                this.removePointsBasedOnLevel(pointManager,point);
+                this.removePointsBasedOnLevel(pointManager, point);
             }
         }
 
         private async void removePointsBasedOnLevel(PointManager pointManager, PointObject point)
         {
-            var rnd = new Random();
-
             if (this.levelInformation.GetType() == typeof(LevelTwo))
             {
-                var randomDuration = rnd.Next(6, (10 + 1));
+                var randomDuration = GameSettings.rnd.Next(6, 10 + 1);
                 await Task.Delay(randomDuration * Milliseconds);
                 this.canvas.Children.Remove(point.Sprite);
                 pointManager.Remove(point);
@@ -157,7 +165,7 @@ namespace DodgeDots.Model
 
             if (this.levelInformation.GetType() == typeof(LevelThree))
             {
-                var randomDuration = rnd.Next(3, (5 + 1));
+                var randomDuration = GameSettings.rnd.Next(3, 5 + 1);
                 await Task.Delay(randomDuration * Milliseconds);
                 this.canvas.Children.Remove(point.Sprite);
                 pointManager.Remove(point);
@@ -289,21 +297,63 @@ namespace DodgeDots.Model
 
         private void Timer_Tick(object sender, object e)
         {
-            if (this.waveManager.HasPlayerHitADot())
+            if (this.powerUpActive)
+            {
+                _ = this.powerUp();
+            }
+            else if (this.waveManager.HasPlayerHitADot())
             {
                 this.stopGame();
                 this.lifeLost();
             }
-            else if (this.hasPlayerHitAPoint())
+
+            if (this.hasPlayerHitAPoint())
             {
                 this.removePointObject(this.lastHitPoint);
+            }
+            else if (this.hasPlayerHitAPowerUp() && !this.powerUpActive)
+            {
+                _ = this.collectedPowerUp();
             }
             else if (this.waveTimerCount == this.survivalTime)
             {
                 this.stopGame();
                 this.onLevelWon();
             }
+
             this.randomlyRemovePoints();
+        }
+
+        private async Task powerUp()
+        {
+            _ = this.waveManager.RemoveHitDotsAsync();
+            this.powerUpTicks++;
+
+            if (this.powerUpTicks >= GameSettings.PowerUpDuration * Milliseconds / MillisecondsPerTick)
+            {
+                this.powerUpActive = false;
+
+                var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PoweredDown.wav");
+                this.audioPlayer.PlayAudio(file);
+            }
+        }
+
+        private async Task collectedPowerUp()
+        {
+            this.powerUpManager.StopPowerUpManager();
+            this.powerUpActive = true;
+            this.powerUpTicks = 0;
+
+            this.playerObject.PowerUpAnimation();
+
+            var file = await this.audioPlayer.AudioFolder.Result.GetFileAsync("PoweredUp.wav");
+            this.audioPlayer.PlayAudio(file);
+        }
+
+        private bool hasPlayerHitAPowerUp()
+        {
+            return this.powerUpManager?.PowerUp != null &&
+                   this.playerObject.IsCircleOverlapPlayer(this.powerUpManager.PowerUp);
         }
 
         private void lifeLost()
@@ -332,6 +382,8 @@ namespace DodgeDots.Model
             {
                 points.StopPointManager();
             }
+
+            this.powerUpManager?.StopPowerUpManager();
         }
 
         private void removePointObject(PointObject point)

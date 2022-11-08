@@ -196,8 +196,7 @@ namespace DodgeDots.Model
                 }
 
                 this.tickCount = 0;
-                var rnd = new Random();
-                var randomSpawnNext = rnd.Next(MinRandomSpawnTick, this.maxRandomSpawnTick);
+                var randomSpawnNext = GameSettings.rnd.Next(MinRandomSpawnTick, this.maxRandomSpawnTick);
                 this.randomSpawnTick = randomSpawnNext;
             }
             else
@@ -210,9 +209,8 @@ namespace DodgeDots.Model
         {
             var point = new PointObject((int)this.type, this.color);
 
-            var rnd = new Random();
-            var randomXPosition = rnd.Next(0, (int)(this.backgroundCanvas.Width - point.Width) + 1);
-            var randomYPosition = rnd.Next(0, (int)(this.backgroundCanvas.Height - point.Height) + 1);
+            var randomXPosition = GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Width - point.Width) + 1);
+            var randomYPosition = GameSettings.rnd.Next(0, (int)(this.backgroundCanvas.Height - point.Height) + 1);
 
             point.X = randomYPosition;
             point.Y = randomXPosition;
