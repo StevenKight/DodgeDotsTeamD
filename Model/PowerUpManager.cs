@@ -37,7 +37,6 @@ namespace DodgeDots.Model
 
         /// <summary>
         ///     Initializes a new <see cref="PowerUpManager" />
-        ///     TODO Add movement
         /// </summary>
         /// <param name="background">The canvas to display the power-up on.</param>
         public PowerUpManager(Canvas background)
@@ -133,7 +132,7 @@ namespace DodgeDots.Model
 
         private void setupPowerUp(int randomXPosition, int randomYPosition)
         {
-            var waveSide = GameSettings.rnd.Next(0, 5);
+            var waveSide = GameSettings.rnd.Next(1, 5);
             this.placePowerUp(randomXPosition, randomYPosition, waveSide);
             this.setSpeedPowerUp(waveSide);
 

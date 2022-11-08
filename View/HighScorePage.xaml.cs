@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using DodgeDots.Model;
 
@@ -15,6 +18,8 @@ namespace DodgeDots.View
         #region Data members
 
         private HighScoreManager scoreBoard;
+
+        private ComboBoxItem selectedItem;
 
         #endregion
 
@@ -43,21 +48,34 @@ namespace DodgeDots.View
                 this.scoreBoard = (HighScoreManager)e.Parameter;
             }
 
+            this.selectedItem = this.sortOne;
             this.getScoreBoard();
         }
 
         // TODO Other sort functions and display in columns
         private void getScoreBoard()
         {
-            this.scoreBoard.SortTopTen();
+            var ordered = this.sort_Score_Name_Level();
+
+            if (this.selectedItem == this.sortTwo)
+            {
+                ordered = this.sort_Name_Score_Level();
+            }
+            else if (this.selectedItem == this.sortThree)
+            {
+                ordered = this.sort_Level_Score_Name();
+            }
+
+            var topTen = new Collection<UserScore>(ordered.Take(10).ToArray());
+
             this.listDisplay.Text = "";
 
-            foreach (var score in this.scoreBoard.TopTen)
+            foreach (var score in topTen)
             {
                 this.listDisplay.Text += score + Environment.NewLine;
             }
 
-            if (this.scoreBoard.TopTen.Count == 0)
+            if (topTen.Count == 0)
             {
                 this.listDisplay.Text = "No scores to display";
             }
@@ -72,6 +90,40 @@ namespace DodgeDots.View
         {
             await this.scoreBoard.ResetHighScoresAsync();
             this.getScoreBoard();
+        }
+
+        private void sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.selectedItem = (ComboBoxItem)this.sort.SelectedItem;
+
+            this.getScoreBoard();
+        }
+
+        private IOrderedEnumerable<UserScore> sort_Score_Name_Level()
+        {
+            var firstOrdered = this.scoreBoard.AllScores.OrderByDescending(i => i.Score);
+            var secondOrdered = firstOrdered.ThenBy(i => i.Username);
+            var ordered = secondOrdered.ThenByDescending(i => i.Level);
+
+            return ordered;
+        }
+
+        private IOrderedEnumerable<UserScore> sort_Name_Score_Level()
+        {
+            var firstOrdered = this.scoreBoard.AllScores.OrderBy(i => i.Username);
+            var secondOrdered = firstOrdered.ThenByDescending(i => i.Score);
+            var ordered = secondOrdered.ThenByDescending(i => i.Level);
+
+            return ordered;
+        }
+
+        private IOrderedEnumerable<UserScore> sort_Level_Score_Name()
+        {
+            var firstOrdered = this.scoreBoard.AllScores.OrderByDescending(i => i.Level);
+            var secondOrdered = firstOrdered.ThenByDescending(i => i.Score);
+            var ordered = secondOrdered.ThenBy(i => i.Username);
+
+            return ordered;
         }
 
         #endregion

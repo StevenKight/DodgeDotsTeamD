@@ -478,7 +478,7 @@
                 Handles saving and loading of the score board.
             </summary>
         </member>
-        <member name="P:DodgeDots.Model.HighScoreManager.TopTen">
+        <member name="P:DodgeDots.Model.HighScoreManager.AllScores">
             <summary>
                 The top ten scores sorted.
             </summary>
@@ -508,11 +508,6 @@
             <param name="score">The score achieved.</param>
             <param name="level">The level achieved.</param>
             <param name="name">The users name.</param>
-        </member>
-        <member name="M:DodgeDots.Model.HighScoreManager.SortTopTen">
-            <summary>
-                Sorts the top ten elements on the scoreboard.
-            </summary>
         </member>
         <member name="T:DodgeDots.Model.UserScore">
             <summary>
@@ -958,7 +953,6 @@
         <member name="M:DodgeDots.Model.PowerUpManager.#ctor(Windows.UI.Xaml.Controls.Canvas)">
             <summary>
                 Initializes a new <see cref="T:DodgeDots.Model.PowerUpManager" />
-                TODO Add movement
             </summary>
             <param name="background">The canvas to display the power-up on.</param>
         </member>

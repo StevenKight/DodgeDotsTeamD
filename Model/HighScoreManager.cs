@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -18,8 +17,6 @@ namespace DodgeDots.Model
 
         private const string FilenameDataContractSerialization = "highscoresDataContract.xml";
 
-        private Collection<UserScore> allScores;
-
         #endregion
 
         #region Properties
@@ -27,7 +24,7 @@ namespace DodgeDots.Model
         /// <summary>
         ///     The top ten scores sorted.
         /// </summary>
-        public Collection<UserScore> TopTen { get; private set; }
+        public Collection<UserScore> AllScores { get; private set; }
 
         #endregion
 
@@ -47,13 +44,13 @@ namespace DodgeDots.Model
                 var inStream = await theFile.OpenStreamForReadAsync();
 
                 var deserializer = new DataContractSerializer(typeof(Collection<UserScore>));
-                this.allScores = (Collection<UserScore>)deserializer.ReadObject(inStream);
+                this.AllScores = (Collection<UserScore>)deserializer.ReadObject(inStream);
 
                 inStream.Dispose();
             }
             catch (FileNotFoundException)
             {
-                this.allScores = new Collection<UserScore>();
+                this.AllScores = new Collection<UserScore>();
             }
         }
 
@@ -72,7 +69,7 @@ namespace DodgeDots.Model
 
             using (outStream)
             {
-                serializer.WriteObject(outStream, this.allScores);
+                serializer.WriteObject(outStream, this.AllScores);
             }
 
             outStream.Dispose();
@@ -84,7 +81,7 @@ namespace DodgeDots.Model
         /// <returns>An asynchronous operation</returns>
         public async Task ResetHighScoresAsync()
         {
-            this.allScores = new Collection<UserScore>();
+            this.AllScores = new Collection<UserScore>();
 
             await this.SaveHighScoresAsync();
         }
@@ -97,16 +94,7 @@ namespace DodgeDots.Model
         /// <param name="name">The users name.</param>
         public void AddScore(int score, int level, string name)
         {
-            this.allScores.Add(new UserScore(score, level, name));
-        }
-
-        /// <summary>
-        ///     Sorts the top ten elements on the scoreboard.
-        /// </summary>
-        public void SortTopTen()
-        {
-            var order = this.allScores.OrderByDescending(x => x.Score).Take(10).ToArray();
-            this.TopTen = new Collection<UserScore>(order);
+            this.AllScores.Add(new UserScore(score, level, name));
         }
 
         #endregion
