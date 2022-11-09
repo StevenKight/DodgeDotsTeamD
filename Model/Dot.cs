@@ -60,6 +60,25 @@ namespace DodgeDots.Model
             SetSpeed(randomSpeed, randomSpeed);
         }
 
+        /// <summary>
+        ///     Sets the weak mode.
+        /// </summary>
+        /// <param name="isSet">if set to <c>true</c> [is set].</param>
+        public void SetWeakMode(bool isSet)
+        {
+            var dotSprite = (DotSprite)Sprite;
+            dotSprite.SetWeakMode(isSet, GameSettings.DotWeakColorPrimary);
+        }
+
+        /// <summary>
+        ///     Swaps the color of the weak.
+        /// </summary>
+        public void SwapWeakColor()
+        {
+            var dotSprite = (DotSprite)Sprite;
+            dotSprite.SwapWeakColor(GameSettings.DotWeakColorPrimary, GameSettings.DotWeakColorSecondary);
+        }
+
         #endregion
     }
 }

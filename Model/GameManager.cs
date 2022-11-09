@@ -118,26 +118,37 @@ namespace DodgeDots.Model
 
             if (this.playerDeathCount < GameSettings.PlayerLives)
             {
-                await this.loadLevel();
+                await this.loadLevel(GameSettings.GameLoadMode.Continue);
             }
         }
 
         /// <summary>
-        ///     Initialize and run the game.
+        ///     Initializes the game asynchronous.
         /// </summary>
-        public async Task InitializeGameAsync()
+        /// <param name="mode">The mode to load the game to</param>
+        public async Task InitializeGameAsync(GameSettings.GameLoadMode mode)
         {
+            this.handleResetEntireGame(mode);
             this.setupLevelManager();
-
             this.CurrentLevel++;
 
             if (this.CurrentLevel <= this.levelList.Count)
             {
-                await this.loadLevel();
+                await this.loadLevel(mode);
             }
             else
             {
                 this.onGameWon();
+            }
+        }
+
+        private void handleResetEntireGame(GameSettings.GameLoadMode mode)
+        {
+            if (mode == GameSettings.GameLoadMode.Reset)
+            {
+                this.CurrentLevel = 0;
+                this.playerDeathCount = 0;
+                this.GameScore = 0;
             }
         }
 
@@ -152,7 +163,7 @@ namespace DodgeDots.Model
             this.levelManager.PointHit += this.WaveManager_PointHit;
         }
 
-        private async Task loadLevel()
+        private async Task loadLevel(GameSettings.GameLoadMode mode)
         {
             var level = this.levelList[this.CurrentLevel - 1];
 
@@ -165,14 +176,15 @@ namespace DodgeDots.Model
             this.preparePlayer(level);
 
             this.playerManager.PlacePlayerCenteredInGameArena();
-            await this.delayForNextLevel();
+            await this.delayForNextLevel(mode);
 
             this.runLevel(level);
         }
 
-        private async Task delayForNextLevel()
+        private async Task delayForNextLevel(GameSettings.GameLoadMode mode)
         {
-            if (this.isLevelComplete || this.playerDeathCount != GameSettings.PlayerLives)
+            if (this.isLevelComplete || this.playerDeathCount != GameSettings.PlayerLives ||
+                mode == GameSettings.GameLoadMode.Reset)
             {
                 await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
                 this.isLevelComplete = false;
@@ -270,7 +282,7 @@ namespace DodgeDots.Model
 
             await Task.Delay(GameSettings.DyingAnimationLength * Milliseconds);
 
-            _ = this.InitializeGameAsync();
+            _ = this.InitializeGameAsync(GameSettings.GameLoadMode.Continue);
         }
 
         private void WaveManager_PointHit(int pointAmount)

@@ -326,9 +326,25 @@ namespace DodgeDots.Model
             _ = this.waveManager.RemoveHitDotsAsync();
             this.powerUpTicks++;
 
+            await this.handlePowerUpEffects();
+        }
+
+        private async Task handlePowerUpEffects()
+        {
+            if (this.powerUpTicks < (GameSettings.PowerUpDuration - 0.5) * Milliseconds / MillisecondsPerTick)
+            {
+                this.waveManager.SetWeakModeForAllDots(true);
+            }
+
+            if (this.powerUpTicks >= (GameSettings.PowerUpDuration - 0.5) * Milliseconds / MillisecondsPerTick)
+            {
+                this.waveManager.SwapAllDotWeakModeColor();
+            }
+
             if (this.powerUpTicks >= GameSettings.PowerUpDuration * Milliseconds / MillisecondsPerTick)
             {
                 this.powerUpActive = false;
+                this.waveManager.SetWeakModeForAllDots(false);
 
                 var file = await GameSettings.AudioManager.AudioFolder.Result.GetFileAsync("PoweredDown.wav");
                 GameSettings.AudioManager.PlayAudio(file);

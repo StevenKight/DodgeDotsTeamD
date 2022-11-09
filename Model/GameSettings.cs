@@ -66,6 +66,21 @@ namespace DodgeDots.Model
             /// </summary>
             DiagonalFinalBlitz
         }
+        /// <summary>
+        /// The types of game initialize modes
+        /// </summary>
+        public enum GameLoadMode
+        {
+            /// <summary>
+            /// Enum for continuing the current game
+            /// </summary>
+            Continue,
+            
+            /// <summary>
+            /// Enum for resetting all values of the game to 0.
+            /// </summary>
+            Reset
+        }
 
         #endregion
 
@@ -140,6 +155,16 @@ namespace DodgeDots.Model
         ///     The color of the Max point object.
         /// </summary>
         public static Color MaxPointColor = Colors.Gold;
+
+        /// <summary>
+        /// The primary dot weak-effect color
+        /// </summary>
+        public static Color DotWeakColorPrimary = Colors.Blue;
+
+        /// <summary>
+        /// The secondary dot weak-effect color
+        /// </summary>
+        public static Color DotWeakColorSecondary = Colors.White;
 
         /// <summary>
         ///     The rarity of the max point object. (1 - 10)

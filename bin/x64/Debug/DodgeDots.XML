@@ -78,7 +78,10 @@
         </member>
         <member name="M:DodgeDots.Model.AudioPlayer.PlayAudio(Windows.Storage.StorageFile)">
             <summary>
-                Plays the audio from the specified file.
+                Plays the audio from the specified file, under a newly created instance of the class.
+                Prevents old audio playing from being terminated when new audio plays.
+            Precondition: none
+            Post-condition: new instance of class is created and then removed after 2 seconds
             </summary>
             <param name="file">The audio file that will be played.</param>
         </member>
@@ -238,10 +241,11 @@
             </summary>
             <param name="canvas">The canvas to display the game on.</param>
         </member>
-        <member name="M:DodgeDots.Model.GameManager.InitializeGameAsync">
+        <member name="M:DodgeDots.Model.GameManager.InitializeGameAsync(DodgeDots.Model.GameSettings.GameLoadMode)">
             <summary>
-                Initialize and run the game.
+            Initializes the game asynchronous.
             </summary>
+            <param name="mode">The mode to load the game to</param>
         </member>
         <member name="E:DodgeDots.Model.GameManager.GameTimeUpdated">
             <summary>
@@ -408,6 +412,21 @@
         <member name="F:DodgeDots.Model.GameSettings.Wave.DiagonalFinalBlitz">
             <summary>
                 The wave coming diagonally.
+            </summary>
+        </member>
+        <member name="T:DodgeDots.Model.GameSettings.GameLoadMode">
+            <summary>
+            The types of game initialize modes
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.GameLoadMode.Continue">
+            <summary>
+            Enum for continuing the current game
+            </summary>
+        </member>
+        <member name="F:DodgeDots.Model.GameSettings.GameLoadMode.Reset">
+            <summary>
+            Enum for resetting all values of the game to 0.
             </summary>
         </member>
         <member name="F:DodgeDots.Model.GameSettings.Random">
@@ -991,6 +1010,17 @@
             <param name="waveStart">The wave to create</param>
             <param name="color">The color of the dots within the wave</param>
         </member>
+        <member name="M:DodgeDots.Model.WaveManager.SetWeakModeForAllDots(System.Boolean)">
+            <summary>
+            Sets the weak mode for all dots.
+            </summary>
+            <param name="isWeak">if set to <c>true</c> [is weak].</param>
+        </member>
+        <member name="M:DodgeDots.Model.WaveManager.SwapAllDotWeakModeColor">
+            <summary>
+            Swaps the weak mode colors.
+            </summary>
+        </member>
         <member name="M:DodgeDots.Model.WaveManager.HasPlayerHitADot">
             <summary>
                 Checks if the player hits any dot in the game.
@@ -1179,6 +1209,14 @@
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector" />
             <seealso cref="T:Windows.UI.Xaml.Markup.IComponentConnector2" />
         </member>
+        <member name="P:DodgeDots.View.Sprites.DotSprite.FilterColor">
+            <summary>
+                Gets the color of the filter.
+            </summary>
+            <value>
+                The color of the filter.
+            </value>
+        </member>
         <member name="M:DodgeDots.View.Sprites.DotSprite.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:DodgeDots.View.Sprites.DotSprite" /> class.
@@ -1189,6 +1227,20 @@
                 Changes the color of the dot to the specified color.
             </summary>
             <param name="color">The color.</param>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.SetWeakMode(System.Boolean,Windows.UI.Color)">
+            <summary>
+                Sets the weak mode.
+            </summary>
+            <param name="isSet">if set to <c>true</c> [is set].</param>
+            <param name="weakModePrimaryColor">Primary weak mode color.</param>
+        </member>
+        <member name="M:DodgeDots.View.Sprites.DotSprite.SwapWeakColor(Windows.UI.Color,Windows.UI.Color)">
+            <summary>
+                Swaps the the weak mode color.
+            </summary>
+            <param name="weakModePrimaryColor">Primary weak mode color.</param>
+            <param name="weakModeSecondaryColor">Secondary weak mode color.</param>
         </member>
         <member name="M:DodgeDots.View.Sprites.DotSprite.InitializeComponent">
             <summary>

@@ -9,9 +9,9 @@
 
     <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black">
         <TextBlock x:Name="gameOverTextBlock" TextWrapping="Wrap" Text="GAME OVER" Canvas.Top="160" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
-        <TextBlock x:Name="countdown" TextWrapping="Wrap" Text="25" Canvas.Top="15" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Right" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Left"/>
-        <TextBlock x:Name="lives" TextWrapping="Wrap" Text="Lives: " Canvas.Top="15" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Left" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Right"/>
-        <TextBlock x:Name="score" TextWrapping="Wrap" Text="Score: 0" Canvas.Top="15" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Center" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Right">
+        <TextBlock x:Name="countdown" TextWrapping="Wrap" Text="25" Canvas.Top="25" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Right" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Left"/>
+        <TextBlock x:Name="lives" TextWrapping="Wrap" Text="Lives: " Canvas.Top="25" Foreground="Red" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Left" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="score" TextWrapping="Wrap" Text="Score: 0" Canvas.Top="25" FontWeight="Bold" FontFamily="Rockwell Extra Bold" FontSize="22" Height="24" Width="400" FontStyle="Normal" TextAlignment="Center" VerticalAlignment="Center" Canvas.ZIndex="3" HorizontalAlignment="Right">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFFFCB00" Offset="0.527"/>

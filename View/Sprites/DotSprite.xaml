@@ -13,5 +13,6 @@
 
     <Canvas>
         <Ellipse x:Name="dotShape" Width="30" Height="30" Fill="LawnGreen"/>
+        <Ellipse x:Name="filter" Width="30" Height="30" Opacity="0"/>
     </Canvas>
 </local:BaseSprite>

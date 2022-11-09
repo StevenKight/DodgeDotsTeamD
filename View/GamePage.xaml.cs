@@ -28,6 +28,8 @@ namespace DodgeDots.View
         public GamePage()
         {
             this.InitializeComponent();
+            this.canvas.Width = GameSettings.ApplicationWidth;
+            this.canvas.Height = GameSettings.ApplicationHeight;
         }
 
         #endregion
@@ -46,6 +48,7 @@ namespace DodgeDots.View
         private void buildView()
         {
             this.adjustColors();
+            this.adjustText();
 
             this.gameOverTextBlock.Visibility = Visibility.Collapsed;
 
@@ -60,6 +63,14 @@ namespace DodgeDots.View
             this.lives.Foreground = new SolidColorBrush(Colors.LawnGreen);
         }
 
+        private void adjustText()
+        {
+            this.gameOverTextBlock.Width = this.canvas.Width;
+            this.countdown.Width = this.canvas.Width;
+            this.score.Width = this.canvas.Width;
+            this.lives.Width = this.canvas.Width;
+        }
+
         private void runGame()
         {
             GameSettings.GameManager.GameTimeUpdated += this.GameManager_GameTimeUpdated;
@@ -70,7 +81,7 @@ namespace DodgeDots.View
             GameSettings.GameManager.LifeUpdated += this.GameManager_LifeUpdated;
 
             GameSettings.GameManager.SetupGame(this.canvas);
-            _ = GameSettings.GameManager.InitializeGameAsync();
+            _ = GameSettings.GameManager.InitializeGameAsync(GameSettings.GameLoadMode.Reset);
         }
 
         private void GameManager_LifeUpdated(int playerLives)

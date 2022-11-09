@@ -91,6 +91,42 @@ namespace DodgeDots.Model
             }
         }
 
+        /// <summary>
+        ///     Sets the weak mode for all dots.
+        /// </summary>
+        /// <param name="isWeak">if set to <c>true</c> [is weak].</param>
+        public void SetWeakModeForAllDots(bool isWeak)
+        {
+            foreach (var dotManager in this.waves)
+            {
+                foreach (var dot in dotManager)
+                {
+                    if (isWeak)
+                    {
+                        dot.SetWeakMode(true);
+                    }
+                    else
+                    {
+                        dot.SetWeakMode(false);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Swaps the weak mode colors.
+        /// </summary>
+        public void SwapAllDotWeakModeColor()
+        {
+            foreach (var manager in this.waves)
+            {
+                foreach (var dot in manager)
+                {
+                    dot.SwapWeakColor();
+                }
+            }
+        }
+
         private void northSouthFinalBlitz(Color color)
         {
             var waveMoveDown = new DotManager(this.backgroundCanvas, Wave.North, color);

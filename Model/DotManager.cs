@@ -161,7 +161,7 @@ namespace DodgeDots.Model
                 case GameSettings.Wave.NsFinalBlitz:
                 case GameSettings.Wave.DiagonalFinalBlitz:
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
         }
 

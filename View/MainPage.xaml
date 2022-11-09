@@ -5,15 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
 
-    <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black">
+    <Canvas x:Name="canvas" Width="400" Height="400" Background ="Black" RequestedTheme="Dark">
 
         <TextBlock x:Name="startText" TextWrapping="Wrap" Text="Welcome To DodgeDots" Canvas.Top="75" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="32" Width="400" Canvas.ZIndex="2"/>
         <Grid x:Name="buttonGrid" Height="400" Width="400">
-            <Button Content="Start" FontWeight="Bold" FontSize="16" Width="100" Canvas.ZIndex="2" Click="Start_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button Content="High Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="High_Score_Click" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center"/>
-            <Button Content="Reset Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="Reset_Score_Click" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center"/>
+            <Button Content="Start" FontWeight="Bold" FontSize="16" Width="100" Canvas.ZIndex="2" Click="Start_Click" HorizontalAlignment="Center" VerticalAlignment="Center" RequestedTheme="Dark"/>
+            <Button Content="High Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="High_Score_Click" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" RequestedTheme="Dark"/>
+            <Button Content="Reset Scoreboard" FontWeight="Bold" FontSize="16" Width="150" Canvas.ZIndex="2" Click="Reset_Score_Click" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center" RequestedTheme="Dark"/>
         </Grid>
 
     </Canvas>
